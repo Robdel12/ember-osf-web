@@ -47,6 +47,10 @@ module('Acceptance | preprints | new version', hooks => {
         assert.dom('[data-test-preprint-submission-step="Author Assertions"]')
             .doesNotExist('Author Assertions step not present');
         assert.dom('[data-test-preprint-submission-step="Review"]').exists('Review step present');
-        await vizzlyScreenshot('new-version-1');
+        await vizzlyScreenshot('preprints-new-version-left-nav', {
+            feature: 'preprints',
+            page: 'new-version',
+            scenario: 'submission-steps-file-and-review-only',
+        });
     });
 });

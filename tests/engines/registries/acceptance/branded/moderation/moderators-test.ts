@@ -37,7 +37,11 @@ module('Registries | Acceptance | branded.moderation | moderators', hooks => {
         server.create('moderator', { id: currentUser.id, user: currentUser, provider: regProvider });
         regProvider.update({ permissions: ['view_submissions'] });
         await visit('/registries/mdr8n/moderation/moderators');
-        await vizzlyScreenshot('moderation-moderators-page:-moderator-view');
+        await vizzlyScreenshot('registries-moderation-moderators-list', {
+            feature: 'registries',
+            page: 'moderation-moderators',
+            scenario: 'moderator-view-limited-permissions',
+        });
         assert.equal(currentRouteName(), 'registries.branded.moderation.moderators',
             'On the moderators page of registries reviews');
         assert.dom('[data-test-moderator-row]').exists({ count: 4 }, 'There are 4 moderators shown');
@@ -56,7 +60,11 @@ module('Registries | Acceptance | branded.moderation | moderators', hooks => {
         server.create('moderator', { id: currentUser.id, user: currentUser, provider: regProvider }, 'asAdmin');
         regProvider.update({ permissions: ['view_submissions'] });
         await visit('/registries/mdr8n/moderation/moderators');
-        await vizzlyScreenshot('moderation-moderators-page:-admin-view');
+        await vizzlyScreenshot('registries-moderation-moderators-admin', {
+            feature: 'registries',
+            page: 'moderation-moderators',
+            scenario: 'admin-view-full-permissions',
+        });
         assert.equal(currentRouteName(), 'registries.branded.moderation.moderators',
             'On the moderators page of registries reviews');
 

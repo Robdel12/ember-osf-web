@@ -39,6 +39,10 @@ module('Integration | routes | settings | account | -components | opt-out', hook
         assert.dom('[data-test-update-indexing-preference-button]').containsText(
             'Update', 'update button is correct',
         );
-        await vizzlyScreenshot('opt-out-1');
+        await vizzlyScreenshot('share-opt-out-default-state', {
+            feature: 'settings',
+            page: 'component',
+            scenario: 'SHARE indexing panel with no selection made',
+        });
     });
 });

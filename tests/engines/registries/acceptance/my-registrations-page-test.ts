@@ -33,7 +33,11 @@ module('Registries | Acceptance | my-registrations page', hooks => {
         assert.dom('[data-test-my-registrations-pane="submitted"]').isVisible('Submitted pane is shown');
         assert.dom('[data-test-my-registrations-pane="drafts"]').isNotVisible('Drafts pane is not shown');
         assert.dom('[data-test-node-card]').exists({ count: 3 }, 'All submitted registrations shown');
-        await vizzlyScreenshot('my-registrations-page-1');
+        await vizzlyScreenshot('registries-my-registrations-submitted-tab', {
+            feature: 'registries',
+            page: 'my-registrations',
+            scenario: 'submitted-registrations-list',
+        });
 
         await click('[data-test-my-registrations-nav="drafts"]');
         assert.ok(currentURL().includes('tab=drafts'), 'Tab query param visible on drafts');
@@ -44,6 +48,10 @@ module('Registries | Acceptance | my-registrations page', hooks => {
         assert.dom('[data-test-my-registrations-pane="drafts"]').isVisible('Drafts pane is shown');
         assert.dom('[data-test-my-registrations-pane="submitted"]').isNotVisible('Submitted pane is not shown');
         assert.dom('[data-test-draft-registration-card]').exists({ count: 2 }, 'All drafts shown');
-        await vizzlyScreenshot('registries-my-registrations-page-drafts-and-registrations');
+        await vizzlyScreenshot('registries-my-registrations-drafts-tab', {
+            feature: 'registries',
+            page: 'my-registrations',
+            scenario: 'drafts-list-view',
+        });
     });
 });

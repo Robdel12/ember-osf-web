@@ -57,7 +57,11 @@ module('Acceptance | settings | addons', hooks => {
         await visit('/settings/addons');
 
         assert.equal(currentURL(), '/settings/addons', 'Went to the addons settings route.');
-        await vizzlyScreenshot('addons-1');
+        await vizzlyScreenshot('settings-addons-page-initial', {
+            feature: 'settings',
+            page: 'addons',
+            scenario: 'addons-list-with-connected-account',
+        });
     });
 
     test('Filter addons works',  async function(assert) {

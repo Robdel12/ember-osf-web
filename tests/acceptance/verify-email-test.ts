@@ -32,7 +32,11 @@ module('Acceptance | verify email', hooks => {
 
         await visit('/dashboard');
         assert.dom('[data-test-verify-email-prompt]').exists();
-        await vizzlyScreenshot('verify-email-1');
+        await vizzlyScreenshot('auth-verify-email-prompt-shown', {
+            feature: 'auth',
+            page: 'verify-email',
+            scenario: 'prompt-visible',
+        });
 
         await click('[data-test-verify-email]');
         user.reload();

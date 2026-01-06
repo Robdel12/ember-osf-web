@@ -35,8 +35,11 @@ module('Acceptance | guid-node/addons', hooks => {
 
         await visit(url);
         assert.equal(currentURL(), url, `We are on ${url}`);
-        // eslint-disable-next-line max-len
-        await vizzlyScreenshot('acceptance-guid-node-addons-filtering-all-providers;-no-configured-addons-all-addons-tab');
+        await vizzlyScreenshot('addons-all-providers-tab-no-connections', {
+            feature: 'projects',
+            page: 'addons',
+            scenario: 'all-addons-empty',
+        });
 
         // Check all addons tab
         assert.dom('[data-test-addons-tab-all-addons]').exists('All addons tab is present');
@@ -73,8 +76,11 @@ module('Acceptance | guid-node/addons', hooks => {
 
         // check connected accounts tab
         await click('[data-test-addons-tab-connected-accounts]');
-        // eslint-disable-next-line max-len
-        await vizzlyScreenshot('acceptance-guid-node-addons-filtering-all-providers;-no-configured-addons-connected-accounts-tab');
+        await vizzlyScreenshot('addons-connected-accounts-tab-empty', {
+            feature: 'projects',
+            page: 'addons',
+            scenario: 'connected-accounts-empty',
+        });
         assert.dom('[data-test-addons-tab-connected-accounts]')
             .hasAttribute('aria-selected', 'true', 'Connected accounts tab is selected');
         assert.dom('[data-test-configured-provider-list]')
@@ -155,7 +161,11 @@ module('Acceptance | guid-node/addons', hooks => {
         const url = `/${node.id}/addons`;
         await visit(url);
         assert.equal(currentURL(), url, `We are on ${url}`);
-        await vizzlyScreenshot('acceptance-guid-node-addons-editing-configured-addons-all-addons-tab');
+        await vizzlyScreenshot('addons-all-providers-with-configured', {
+            feature: 'projects',
+            page: 'addons',
+            scenario: 'all-addons-with-config',
+        });
 
         // check additonal storage providers
         assert.dom('[data-test-addon-card-configure]')
@@ -165,13 +175,20 @@ module('Acceptance | guid-node/addons', hooks => {
 
         // check connected accounts tab
         await click('[data-test-addons-tab-connected-accounts]');
-        await vizzlyScreenshot('acceptance-guid-node-addons-editing-configured-addons-connected-accounts-tab');
+        await vizzlyScreenshot('addons-connected-accounts-with-providers', {
+            feature: 'projects',
+            page: 'addons',
+            scenario: 'connected-accounts-list',
+        });
         assert.dom('[data-test-addon-card]').exists({ count: 2 }, '2 providers with accounts are present');
 
         // Select S3 and edit associated accounts
         await click('[data-test-addon-card="Amazon S3"] [data-test-addon-card-configure]');
-        // eslint-disable-next-line max-len
-        await vizzlyScreenshot('acceptance-guid-node-addons-editing-configured-addons-list-configured-accounts-for-a-provider');
+        await vizzlyScreenshot('addons-s3-configured-accounts-list', {
+            feature: 'projects',
+            page: 'addons',
+            scenario: 'provider-accounts-list',
+        });
         assert.dom('[data-test-addon-card]')
             .doesNotExist('Addon cards are not present after selecting a provider to edit');
         assert.dom('[data-test-addons-tab-all-addons]')
@@ -189,7 +206,11 @@ module('Acceptance | guid-node/addons', hooks => {
 
         // Edit first account
         await click('[data-test-edit-connected-location]:first-child');
-        await vizzlyScreenshot('acceptance-guid-node-addons-editing-configured-addons-edit-configured-account');
+        await vizzlyScreenshot('addons-edit-configured-account-form', {
+            feature: 'projects',
+            page: 'addons',
+            scenario: 'edit-account',
+        });
         assert.dom('[data-test-edit-connected-location]')
             .doesNotExist('Edit buttons are not present after selecting an account to edit');
         assert.dom('[data-test-display-name-input]').exists('Name input is present');
@@ -284,13 +305,21 @@ module('Acceptance | guid-node/addons', hooks => {
         // Select S3 and add a new account
         await click('[data-test-addon-card="Amazon S3"] [data-test-addon-card-connect]');
         assert.dom('[data-test-addon-accept-terms-button]').exists('Terms shown first for new account');
-        await vizzlyScreenshot('acceptance-guid-node-addons-adding-new-configured-addons-terms-page');
+        await vizzlyScreenshot('addons-new-connection-terms-page', {
+            feature: 'projects',
+            page: 'addons',
+            scenario: 'accept-terms',
+        });
         await click('[data-test-addon-accept-terms-button]');
         // New account setup page
         assert.dom('[data-test-input="access_key"]').exists('Access key input is present');
         assert.dom('[data-test-input="secret_key"]').exists('Secret key input is present');
         assert.dom('[data-test-display-name-input]').exists('Display name input is present');
-        await vizzlyScreenshot('acceptance-guid-node-addons-adding-new-configured-addons-new-account-setup-page');
+        await vizzlyScreenshot('addons-new-s3-account-credentials-form', {
+            feature: 'projects',
+            page: 'addons',
+            scenario: 'new-account-setup',
+        });
         await fillIn('[data-test-input="access_key"]', 'access');
         await fillIn('[data-test-input="secret_key"]', 'secret');
         await fillIn('[data-test-display-name-input]', 'New S3 Account Display Name');
@@ -299,7 +328,11 @@ module('Acceptance | guid-node/addons', hooks => {
         assert.dom('[data-test-display-name-input]').exists('Name input is present');
         assert.dom('[data-test-display-name-input]').hasNoText('Name input is empty');
         assert.dom('[data-test-root-folder-save]').isDisabled('Save button disabled when no display name is present');
-        await vizzlyScreenshot('acceptance-guid-node-addons-adding-new-configured-addons-configure-page');
+        await vizzlyScreenshot('addons-configure-root-folder-selection', {
+            feature: 'projects',
+            page: 'addons',
+            scenario: 'configure-root-folder',
+        });
         await fillIn('[data-test-display-name-input]', 'New S3 Account Display Name');
         await click('[data-test-root-folder-option]:first-child');
         await click('[data-test-root-folder-save]');

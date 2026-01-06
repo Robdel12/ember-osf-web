@@ -17,7 +17,11 @@ module('Acceptance | register (sign up page)', hooks => {
         assert.dom('[data-analytics-name="ORCID"]').exists();
         assert.dom('[data-analytics-name="Institution"]').exists();
         assert.dom('[data-test-sign-up-full-name]').exists();
-        await vizzlyScreenshot('register-1');
+        await vizzlyScreenshot('auth-register-page-default', {
+            feature: 'auth',
+            page: 'register',
+            scenario: 'initial-view',
+        });
     });
 
     test('visiting /register?next=foo', async function(assert) {
@@ -44,7 +48,11 @@ module('Acceptance | register (sign up page)', hooks => {
             assert.dom('[data-test-register-osf-registries-logo]').exists();
             assert.dom('[data-test-register-provider-logo]').doesNotExist();
             assert.dom('[data-test-register-provider-name]').doesNotExist();
-            await vizzlyScreenshot('register-2');
+            await vizzlyScreenshot('auth-register-osf-registries-campaign', {
+                feature: 'auth',
+                page: 'register',
+                scenario: 'osf-registries-campaign',
+            });
         });
 
         test('visiting /register?campaign=osf-preprints', async function(assert) {
@@ -59,7 +67,11 @@ module('Acceptance | register (sign up page)', hooks => {
             assert.dom('[data-test-register-osf-preprints-logo]').exists();
             assert.dom('[data-test-register-provider-logo]').doesNotExist();
             assert.dom('[data-test-register-provider-name]').doesNotExist();
-            await vizzlyScreenshot('register-3');
+            await vizzlyScreenshot('auth-register-osf-preprints-campaign', {
+                feature: 'auth',
+                page: 'register',
+                scenario: 'osf-preprints-campaign',
+            });
         });
 
         test('visiting /register?campaign=thesiscommons-preprints', async function(assert) {
@@ -73,7 +85,11 @@ module('Acceptance | register (sign up page)', hooks => {
 
             assert.dom('[data-test-register-provider-logo=thesiscommons]').exists();
             assert.dom('[data-test-register-provider-name]').hasText('Thesis Commons');
-            await vizzlyScreenshot('register-4');
+            await vizzlyScreenshot('auth-register-thesiscommons-campaign', {
+                feature: 'auth',
+                page: 'register',
+                scenario: 'thesiscommons-campaign',
+            });
         });
 
         test('visiting /register?campaign=preprintrxiv-preprints', async function(assert) {
@@ -87,7 +103,11 @@ module('Acceptance | register (sign up page)', hooks => {
 
             assert.dom('[data-test-register-provider-logo=preprintrxiv]').exists();
             assert.dom('[data-test-register-provider-name]').hasText('PreprintrXiv Preprints');
-            await vizzlyScreenshot('register-5');
+            await vizzlyScreenshot('auth-register-preprintrxiv-campaign', {
+                feature: 'auth',
+                page: 'register',
+                scenario: 'preprintrxiv-campaign',
+            });
         });
 
         test('visiting /register?campaign=paperxiv-preprints', async function(assert) {
@@ -101,7 +121,11 @@ module('Acceptance | register (sign up page)', hooks => {
 
             assert.dom('[data-test-register-provider-logo=paperxiv]').exists();
             assert.dom('[data-test-register-provider-name]').hasText('PaperXiv Papers');
-            await vizzlyScreenshot('register-6');
+            await vizzlyScreenshot('auth-register-paperxiv-campaign', {
+                feature: 'auth',
+                page: 'register',
+                scenario: 'paperxiv-campaign',
+            });
         });
 
         test('visiting /register?campaign=thesisrxiv-preprints', async function(assert) {
@@ -115,7 +139,11 @@ module('Acceptance | register (sign up page)', hooks => {
 
             assert.dom('[data-test-register-provider-logo=thesisrxiv]').exists();
             assert.dom('[data-test-register-provider-name]').hasText('ThesisrXiv Theses');
-            await vizzlyScreenshot('register-7');
+            await vizzlyScreenshot('auth-register-thesisrxiv-campaign', {
+                feature: 'auth',
+                page: 'register',
+                scenario: 'thesisrxiv-campaign',
+            });
         });
 
         test('visiting /register?campaign=workrxiv-preprints', async function(assert) {
@@ -129,7 +157,11 @@ module('Acceptance | register (sign up page)', hooks => {
 
             assert.dom('[data-test-register-provider-logo=workrxiv]').exists();
             assert.dom('[data-test-register-provider-name]').hasText('WorkrXiv Works');
-            await vizzlyScreenshot('register-8');
+            await vizzlyScreenshot('auth-register-workrxiv-campaign', {
+                feature: 'auth',
+                page: 'register',
+                scenario: 'workrxiv-campaign',
+            });
         });
 
         test('visiting /register?campaign=docrxiv-preprints', async function(assert) {
@@ -143,7 +175,11 @@ module('Acceptance | register (sign up page)', hooks => {
 
             assert.dom('[data-test-register-provider-logo=docrxiv]').exists();
             assert.dom('[data-test-register-provider-name]').hasText('DocrXiv Documents');
-            await vizzlyScreenshot('register-9');
+            await vizzlyScreenshot('auth-register-docrxiv-campaign', {
+                feature: 'auth',
+                page: 'register',
+                scenario: 'docrxiv-campaign',
+            });
         });
     });
 });

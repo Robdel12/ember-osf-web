@@ -18,7 +18,11 @@ module('Registries | Acceptance | registries index (landing page)', hooks => {
         server.createList('registration', 2, 'withContributors');
 
         await visit('/registries');
-        await vizzlyScreenshot('index-1');
+        await vizzlyScreenshot('registries-index-recent-registrations', {
+            feature: 'registries',
+            page: 'index',
+            scenario: 'recent-registrations-list',
+        });
 
         for (const reg of recentRegs) {
             assert.dom(`[data-test-recent-registration-id=${reg.id}]`)

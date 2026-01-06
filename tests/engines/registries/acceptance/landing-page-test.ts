@@ -26,6 +26,10 @@ module('Registries | Acceptance | landing page', hooks => {
     test('visiting /registries/', async function(assert) {
         await visit('/registries/');
         assert.dom('[data-test-search-box]').exists();
-        await vizzlyScreenshot('landing-page-1');
+        await vizzlyScreenshot('registries-landing-search-box', {
+            feature: 'registries',
+            page: 'landing',
+            scenario: 'default-search-view',
+        });
     });
 });

@@ -37,7 +37,11 @@ module('Acceptance | settings/account | deactivation', hooks => {
         assertDeactivationNotRequested(assert, 'Initial state');
         await click('[data-analytics-name="Deactivation request"]');
         assert.dom('[data-test-confirm-deactivation-submit]').exists('First attempt');
-        await vizzlyScreenshot('settings-account-deactivation-dialog');
+        await vizzlyScreenshot('settings-deactivation-request-dialog', {
+            feature: 'settings',
+            page: 'deactivation',
+            scenario: 'confirm-deactivation-prompt',
+        });
         assert.dom('[data-test-deactivation-cancel]')
             .exists('Cancelling deactivation confirmation');
         await click('[data-test-deactivation-cancel]');
@@ -48,7 +52,11 @@ module('Acceptance | settings/account | deactivation', hooks => {
         assertDeactivationRequested(assert, 'Deactivation confirmed');
         await click('[data-analytics-name="Undo deactivation request"]');
         assert.dom('[data-test-undo-warning-cancel]').exists('Undo deactivation cancellation');
-        await vizzlyScreenshot('settings-account-undo-deactivation-dialog');
+        await vizzlyScreenshot('settings-deactivation-undo-dialog', {
+            feature: 'settings',
+            page: 'deactivation',
+            scenario: 'undo-deactivation-prompt',
+        });
         await click('[data-test-undo-warning-cancel]');
         assertDeactivationRequested(assert, 'Undo deactivation cancelled');
         assert.dom('[data-analytics-name="Undo deactivation request"]').exists();

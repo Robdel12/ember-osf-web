@@ -18,6 +18,10 @@ module('Analytics Page | Acceptance | node-analytics-page', hooks => {
         assert.dom('[data-test-analytics-chart="time_of_day"]').exists();
         assert.dom('[data-test-analytics-chart="referer_domain"]').exists();
         assert.dom('[data-test-analytics-chart="popular_pages"]').exists();
-        await vizzlyScreenshot('node-analytics-page-1');
+        await vizzlyScreenshot('node-analytics-page-all-charts', {
+            feature: 'analytics',
+            page: 'component',
+            scenario: 'displays unique visits, time, referer, and pages',
+        });
     });
 });

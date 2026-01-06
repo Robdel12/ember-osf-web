@@ -66,7 +66,11 @@ module('Collections | Acceptance | moderation | all', hooks => {
         assert.dom('[data-test-submissions-type="removed"][data-test-is-selected="true"]')
             .exists('removed is selected');
         assert.dom('[data-test-moderation-submissions-empty]').exists('no removed submssions are shown');
-        await vizzlyScreenshot('all-submissions-1');
+        await vizzlyScreenshot('collections-moderation-submissions-removed-empty', {
+            feature: 'collections',
+            page: 'moderation-submissions',
+            scenario: 'removed-tab-empty-state',
+        });
     });
 
     test('it moderates pending submissions', async function(assert) {

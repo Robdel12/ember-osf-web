@@ -58,7 +58,11 @@ module('Integration | Component | osf-navbar', hooks => {
         assert.dom('[data-test-service-dropdown]').exists();
 
         await click('[data-test-service-dropdown]');
-        await vizzlyScreenshot('component-1');
+        await vizzlyScreenshot('osf-navbar-service-dropdown-authenticated', {
+            feature: 'ui',
+            page: 'component',
+            scenario: 'service dropdown expanded when logged in',
+        });
     });
 
     test('auth-dropdown: logged in', async function(assert) {
@@ -68,7 +72,11 @@ module('Integration | Component | osf-navbar', hooks => {
 
         assert.dom('[data-test-auth-dropdown-toggle]').exists();
         await click('[data-test-auth-dropdown-toggle]');
-        await vizzlyScreenshot('component-2');
+        await vizzlyScreenshot('osf-navbar-auth-dropdown-authenticated', {
+            feature: 'ui',
+            page: 'component',
+            scenario: 'user auth dropdown expanded when logged in',
+        });
     });
 
     test('osf-navbar: logged out', async function(assert) {
@@ -82,7 +90,11 @@ module('Integration | Component | osf-navbar', hooks => {
         assert.dom('[data-test-sign-in-button]').exists();
 
         await click('[data-test-service-dropdown]');
-        await vizzlyScreenshot('component-3');
+        await vizzlyScreenshot('osf-navbar-logged-out-state', {
+            feature: 'ui',
+            page: 'component',
+            scenario: 'navbar with sign up and sign in buttons visible',
+        });
     });
 
     test('osf-navbar: preprints, no moderation, allow submissions', async function(assert) {
@@ -137,6 +149,10 @@ module('Integration | Component | osf-navbar', hooks => {
         assert.dom('[data-test-nav-reviews-link]').exists();
 
         assert.dom('[data-test-nav-my-projects-link]').doesNotExist();
-        await vizzlyScreenshot('component-4');
+        await vizzlyScreenshot('osf-navbar-preprints-with-moderation', {
+            feature: 'ui',
+            page: 'component',
+            scenario: 'preprints navbar with reviews link visible',
+        });
     });
 });

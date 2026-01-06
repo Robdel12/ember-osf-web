@@ -65,6 +65,10 @@ module('Integration | Component | file-version', hooks => {
             .containsText(t('general.download'));
         assert.dom('[data-test-file-version-section="download"]')
             .containsText('22', 'shows download count');
-        await vizzlyScreenshot('component-1');
+        await vizzlyScreenshot('file-version-expanded-with-metadata', {
+            feature: 'files',
+            page: 'component',
+            scenario: 'shows expanded version with MD5, SHA2, and download count',
+        });
     });
 });

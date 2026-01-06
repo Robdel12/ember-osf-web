@@ -43,7 +43,9 @@ module('Registries | Acceptance | overview.index', hooks => {
 
     test('it renders', async function(this: OverviewTestContext, assert: Assert) {
         await visit(`/${this.registration.id}/`);
-        await vizzlyScreenshot('index-1');
+        await vizzlyScreenshot('registries-overview-initial-render', {
+            properties: { feature: 'registries', page: 'overview', scenario: 'initial-render' },
+        });
 
         assert.equal(currentURL(), `/${this.registration.id}/`, 'At the guid URL');
         assert.equal(currentRouteName(), 'registries.overview.index', 'At the expected route');
@@ -84,7 +86,12 @@ module('Registries | Acceptance | overview.index', hooks => {
             await visit(`/${this.registration.id}/`);
 
             await click(`[data-analytics-name="${testCase.name}"]`);
-            await vizzlyScreenshot(`registries-sidenav-${testCase.name.toLowerCase().replace(/\s+/g, '-')}`);
+            const scenario = testCase.name.toLowerCase().replace(/\s+/g, '-');
+            await vizzlyScreenshot(`registries-sidenav-${scenario}`, {
+                feature: 'registries',
+                page: 'sidenav',
+                scenario,
+            });
 
             assert.equal(currentRouteName(), testCase.route, 'At the correct route');
         }
@@ -133,7 +140,9 @@ module('Registries | Acceptance | overview.index', hooks => {
         }, 'withContributors', 'currentUserAdmin', 'isWithdrawn'));
         const url = `/${this.registration.id}`;
         await visit(url);
-        await vizzlyScreenshot('index-2');
+        await vizzlyScreenshot('registries-overview-withdrawn-tombstone', {
+            properties: { feature: 'registries', page: 'overview', scenario: 'withdrawn-tombstone' },
+        });
 
         assert.equal(currentURL(), url, 'At the correct URL');
         assert.dom('[data-test-registration-title]').hasText(this.registration.title, 'Correct title');
@@ -149,7 +158,9 @@ module('Registries | Acceptance | overview.index', hooks => {
         }, 'withContributors', 'currentUserAdmin', 'isArchiving'));
         const url = `/${this.registration.id}`;
         await visit(url);
-        await vizzlyScreenshot('index-3');
+        await vizzlyScreenshot('registries-overview-archiving-tombstone', {
+            properties: { feature: 'registries', page: 'overview', scenario: 'archiving-tombstone' },
+        });
 
         assert.equal(currentURL(), url, 'At the correct URL');
         assert.dom('[data-test-registration-title]').hasText(this.registration.title, 'Correct title');

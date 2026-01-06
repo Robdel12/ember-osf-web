@@ -29,13 +29,21 @@ module(moduleName, hooks => {
         assert.dom('[data-test-page-tab="preprints"]').exists('Preprints tab exists');
 
         // Summary tab
-        await vizzlyScreenshot('institutions-dashboard-summary');
+        await vizzlyScreenshot('institutions-dashboard-summary-tab', {
+            feature: 'institutions',
+            page: 'dashboard',
+            scenario: 'summary-tab-default-view',
+        });
         assert.dom('[data-test-page-tab="summary"]').hasClass('active', 'Summary tab is active by default');
         assert.dom('[data-test-summary-report-year-month]').exists('Report year month exists');
 
         // Users tab
         await click('[data-test-page-tab="users"]');
-        await vizzlyScreenshot('institutions-dashboard-users');
+        await vizzlyScreenshot('institutions-dashboard-users-tab', {
+            feature: 'institutions',
+            page: 'dashboard',
+            scenario: 'users-tab-with-reports',
+        });
         assert.dom('[data-test-page-tab="users"]').hasClass('active', 'Users tab is active');
         assert.dom('[data-test-link-to-reports-archive]').exists('Link to download prior reports exists');
         assert.dom('[data-test-download-dropdown]').exists('Link to download file formats');
@@ -43,21 +51,33 @@ module(moduleName, hooks => {
 
         // Projects tab
         await click('[data-test-page-tab="projects"]');
-        await vizzlyScreenshot('institutions-dashboard-projects');
+        await vizzlyScreenshot('institutions-dashboard-projects-tab', {
+            feature: 'institutions',
+            page: 'dashboard',
+            scenario: 'projects-tab-with-reports',
+        });
         assert.dom('[data-test-page-tab="projects"]').hasClass('active', 'Projects tab is active');
         assert.dom('[data-test-link-to-reports-archive]').exists('Link to download prior reports exists');
         assert.dom('[data-test-download-dropdown]').exists('Link to download file formats');
 
         // Registrations tab
         await click('[data-test-page-tab="registrations"]');
-        await vizzlyScreenshot('institutions-dashboard-registrations');
+        await vizzlyScreenshot('institutions-dashboard-registrations-tab', {
+            feature: 'institutions',
+            page: 'dashboard',
+            scenario: 'registrations-tab-with-reports',
+        });
         assert.dom('[data-test-page-tab="registrations"]').hasClass('active', 'Registrations tab is active');
         assert.dom('[data-test-link-to-reports-archive]').exists('Link to download prior reports exists');
         assert.dom('[data-test-download-dropdown]').exists('Link to download file formats');
 
         // Preprints tab
         await click('[data-test-page-tab="preprints"]');
-        await vizzlyScreenshot('institutions-dashboard-preprints');
+        await vizzlyScreenshot('institutions-dashboard-preprints-tab', {
+            feature: 'institutions',
+            page: 'dashboard',
+            scenario: 'preprints-tab-with-reports',
+        });
         assert.dom('[data-test-page-tab="preprints"]').hasClass('active', 'Preprints tab is active');
         assert.dom('[data-test-link-to-reports-archive]').exists('Link to download prior reports exists');
         assert.dom('[data-test-download-dropdown]').exists('Link to download file formats');

@@ -22,7 +22,9 @@ module('Registries | Acceptance | overview form schemas', hooks => {
 
             const msg = `Registration form renders for schema ${registrationSchema.id}`;
 
-            await vizzlyScreenshot(msg);
+            await vizzlyScreenshot(`registries-schema-${registrationSchema.id}`, {
+                properties: { feature: 'registries', page: 'form-schemas', scenario: registrationSchema.id },
+            });
             assert.dom('[data-test-page-heading]').exists({
                 count: registrationSchema.schemaBlocks!.filter(item => item.blockType === 'page-heading').length,
             }, msg);

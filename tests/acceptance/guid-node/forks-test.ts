@@ -24,7 +24,11 @@ module('Acceptance | guid-node/forks', hooks => {
         await visit(url);
         assert.equal(currentURL(), url, `We are on ${url}`);
         assert.equal(currentRouteName(), 'guid-node.forks', 'We are at guid-node.forks');
-        await vizzlyScreenshot('forks-1');
+        await vizzlyScreenshot('forks-logged-out-no-forks', {
+            feature: 'projects',
+            page: 'forks',
+            scenario: 'empty-state-logged-out',
+        });
         assert.dom('[data-test-new-fork-button]').doesNotExist();
         assert.dom('[data-test-forks-info]')
             .hasText('Forks you have permission to view are shown here.');
@@ -113,7 +117,11 @@ module('Acceptance | guid-node/forks', hooks => {
         assert.dom('[data-test-new-fork-button]').exists({ count: 1 });
         assert.dom('[data-test-node-card]').exists({ count: 10 });
         assert.dom('[data-test-node-card]').includesText(node.title);
-        await vizzlyScreenshot('forks-2');
+        await vizzlyScreenshot('forks-admin-paginated-list', {
+            feature: 'projects',
+            page: 'forks',
+            scenario: 'paginated-forks-list',
+        });
 
         await click('[data-analytics-name="Pagination next"]');
         assert.dom('[data-test-node-card]').exists({ count: 2 });
@@ -143,7 +151,11 @@ module('Acceptance | guid-node/forks', hooks => {
         assert.equal(currentURL(), url, `We are on ${url}`);
 
         await click('[data-test-new-fork-button]');
-        await vizzlyScreenshot('forks-3');
+        await vizzlyScreenshot('forks-create-fork-confirmation-modal', {
+            feature: 'projects',
+            page: 'forks',
+            scenario: 'create-fork-modal',
+        });
         assert.dom('[data-test-close-create-forks-modal]').exists();
         assert.dom('[data-test-new-fork-modal-body] h3').includesText('Are you sure');
 

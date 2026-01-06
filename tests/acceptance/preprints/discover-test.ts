@@ -38,7 +38,11 @@ module('Acceptance | preprints | discover', hooks => {
         assert.dom('[data-test-search-header]').doesNotExist('Desktop: Non-branded search header is not shown');
         assert.dom('[data-test-topbar-object-type-nav]').doesNotExist('Desktop: Object type nav is not shown');
         assert.dom('[data-test-middle-search-count]').exists('Desktop: Result count is shown in middle panel');
-        await vizzlyScreenshot('discover-1');
+        await vizzlyScreenshot('preprints-discover-branded-desktop', {
+            feature: 'preprints',
+            page: 'discover',
+            scenario: 'branded-provider-desktop-layout',
+        });
     });
 
     skip('mobile', async function(this: PreprintDiscoverTestContext, assert) {
@@ -55,6 +59,10 @@ module('Acceptance | preprints | discover', hooks => {
         assert.dom('[data-test-left-search-count]').exists('Mobile: Result count is shown in side panel');
         assert.dom('[data-test-left-panel-object-type-dropdown]')
             .doesNotExist('Mobile: Object type dropdown is not shown');
-        await vizzlyScreenshot('discover-2');
+        await vizzlyScreenshot('preprints-discover-branded-mobile', {
+            feature: 'preprints',
+            page: 'discover',
+            scenario: 'branded-provider-mobile-side-panel-open',
+        });
     });
 });

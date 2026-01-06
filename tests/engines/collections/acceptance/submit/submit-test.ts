@@ -44,7 +44,11 @@ module('Collections | Acceptance | submit', hooks => {
 
         /* Select a project */
 
-        await vizzlyScreenshot('collections-acceptance-submit-select-project');
+        await vizzlyScreenshot('collections-submit-select-project-initial', {
+            feature: 'collections',
+            page: 'submit',
+            scenario: 'project-selection-step-initial',
+        });
 
         // open item picker
         await untrackedClick('[data-test-collections-item-picker] .ember-power-select-trigger');
@@ -58,7 +62,11 @@ module('Collections | Acceptance | submit', hooks => {
 
         /* Project metadata */
 
-        await vizzlyScreenshot('collections-acceptance-submit-project-metadata');
+        await vizzlyScreenshot('collections-submit-project-metadata-form', {
+            feature: 'collections',
+            page: 'submit',
+            scenario: 'project-metadata-step-form-displayed',
+        });
 
         await untrackedClick('[data-test-project-metadata-save-button]');
 
@@ -93,7 +101,11 @@ module('Collections | Acceptance | submit', hooks => {
 
         /* Project contributors */
 
-        await vizzlyScreenshot('collections-acceptance-submit-project-contributors');
+        await vizzlyScreenshot('collections-submit-project-contributors-step', {
+            feature: 'collections',
+            page: 'submit',
+            scenario: 'contributors-step-displayed',
+        });
 
         // add contributor
         const userToAdd = server.create('user');
@@ -123,7 +135,11 @@ module('Collections | Acceptance | submit', hooks => {
 
         /* Collection metadata */
 
-        await vizzlyScreenshot('collections-acceptance-submit-collection-metadata');
+        await vizzlyScreenshot('collections-submit-collection-metadata-form', {
+            feature: 'collections',
+            page: 'submit',
+            scenario: 'collection-metadata-step-form-displayed',
+        });
 
         assert.dom('[data-test-collection-metadata] [data-test-submit-section-continue]')
             .isDisabled('metadata continue is disabled');
@@ -234,7 +250,11 @@ module('Collections | Acceptance | submit', hooks => {
         assert.dom('[data-test-collection-submission-confirmation-modal-body]').exists();
         assert.dom('[data-test-collection-submission-confirmation-modal-moderated-body]')
             .doesNotExist('No moderation message is displayed for non-moderated collections');
-        await vizzlyScreenshot('collections-acceptance-submit-confirm-public-modal');
+        await vizzlyScreenshot('collections-submit-confirmation-modal-public', {
+            feature: 'collections',
+            page: 'submit',
+            scenario: 'confirmation-modal-non-moderated',
+        });
 
         await click('[data-test-collection-submission-confirmation-modal-cancel-button]');
         assert.dom('[data-test-collection-submission-confirmation-modal-header]')

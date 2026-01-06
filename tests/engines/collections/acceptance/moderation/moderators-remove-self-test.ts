@@ -60,6 +60,10 @@ module('Collections | Acceptance | moderation | moderators | remove self', hooks
         // Then I verify I am on the page not found since I do not have access
         assert.equal(currentRouteName(), 'collections.page-not-found', 'The route should be page-not-found.');
 
-        await vizzlyScreenshot('moderators-remove-self-1');
+        await vizzlyScreenshot('collections-moderation-remove-self-page-not-found', {
+            feature: 'collections',
+            page: 'moderation-moderators',
+            scenario: 'removed-moderator-sees-page-not-found',
+        });
     });
 });

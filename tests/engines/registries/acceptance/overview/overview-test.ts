@@ -90,7 +90,9 @@ module('Registries | Acceptance | overview.overview', hooks => {
         const pageTitle = document.getElementsByTagName('title')[0].textContent;
         assert.equal(pageTitle, `${brandedProvider.name} | ${reg.title}`);
 
-        await vizzlyScreenshot('overview-1');
+        await vizzlyScreenshot('registries-overview-branded', {
+            properties: { feature: 'registries', page: 'overview', scenario: 'branded-provider' },
+        });
     });
 
     test('admin can view embargoed registration',
@@ -684,13 +686,17 @@ module('Registries | Acceptance | overview.overview', hooks => {
 
         assert.dom('[data-test-unregistered-contributor-name]').exists('unregistered contributor exists');
         await click('[data-test-unregistered-contributor-name]');
-        await vizzlyScreenshot('claim-unregistered-contributor-for-logged-out-users,-no-validation-errors');
+        await vizzlyScreenshot('registries-claim-contributor-modal-initial', {
+            properties: { feature: 'registries', page: 'overview', scenario: 'logged-out' },
+        });
         assert.dom('[data-test-modal-heading]').containsText(unregContributor.unregisteredContributor!,
             'claim unregistered user modal header contains unregistered contributor name');
         await fillIn('[data-test-email-input]', 'lmnop');
         assert.dom('[data-test-validation-errors="userEmail"]')
             .exists('validation error shows after invalid email is entered');
-        await vizzlyScreenshot('claim-unregistered-contributor-for-logged-out-users,-with-validation-errors');
+        await vizzlyScreenshot('registries-claim-contributor-modal-validation-error', {
+            properties: { feature: 'registries', page: 'overview', scenario: 'validation-error' },
+        });
         await fillIn('[data-test-email-input]', 'lmnop@abd.xyz');
         assert.dom('[data-test-modal-claim-button]')
             .isEnabled('claim unregistered user modal claim button is enabled after user enters valid email');
@@ -713,7 +719,9 @@ module('Registries | Acceptance | overview.overview', hooks => {
         await visit(`/${reg.id}`);
         assert.dom('[data-test-unregistered-contributor-name]').exists('unregistered contributor exists');
         await click('[data-test-unregistered-contributor-name]');
-        await vizzlyScreenshot('overview-2');
+        await vizzlyScreenshot('registries-claim-contributor-modal-logged-in', {
+            properties: { feature: 'registries', page: 'overview', scenario: 'logged-in' },
+        });
         assert.dom('[data-test-modal-heading]').containsText(currentUser.emails.models[0].emailAddress,
             'claim unregistered user modal header contains current users email');
         assert.dom('[data-test-modal-claim-button]')

@@ -42,7 +42,11 @@ module('Acceptance | settings | personal access tokens', hooks => {
         await visit('/settings/tokens');
 
         assert.dom('[data-test-token-card]').exists({ count: 10 });
-        await vizzlyScreenshot('tokens-page-1');
+        await vizzlyScreenshot('settings-tokens-list-paginated', {
+            feature: 'settings',
+            page: 'tokens',
+            scenario: 'long-tokens-list-with-pagination',
+        });
     });
 
     test('create token', async function(assert) {
@@ -58,7 +62,11 @@ module('Acceptance | settings | personal access tokens', hooks => {
 
         await fillIn('[data-test-token-name] input', tokenName);
         await untrackedClick('[data-test-scope] input[type=checkbox]');
-        await vizzlyScreenshot('tokens-page-2');
+        await vizzlyScreenshot('settings-tokens-create-form-filled', {
+            feature: 'settings',
+            page: 'tokens',
+            scenario: 'create-token-form-with-scope-selected',
+        });
         await click('[data-analytics-name="Submit button"]');
         await timeout(50);
         assert.dom('[data-test-new-token-value]').exists();
@@ -91,7 +99,11 @@ module('Acceptance | settings | personal access tokens', hooks => {
 
         assert.dom(input).hasValue(oldName);
         await fillIn(input, newName);
-        await vizzlyScreenshot('tokens-page-3');
+        await vizzlyScreenshot('settings-tokens-edit-form', {
+            feature: 'settings',
+            page: 'tokens',
+            scenario: 'edit-token-name-changed',
+        });
         await click('[data-analytics-name="Save"]');
         await timeout(50);
         assert.equal(currentRouteName(), 'settings.tokens.index', 'current route is settings.tokens.index');
@@ -113,7 +125,11 @@ module('Acceptance | settings | personal access tokens', hooks => {
         assert.dom(card).exists({ count: 1 });
 
         await click(`${card} [data-test-delete-button]`);
-        await vizzlyScreenshot('tokens-page-4');
+        await vizzlyScreenshot('settings-tokens-delete-confirm', {
+            feature: 'settings',
+            page: 'tokens',
+            scenario: 'delete-token-confirmation-dialog',
+        });
         await click('[data-test-confirm-delete]');
 
         assert.dom('[data-test-token-card]').exists({ count: 1 });

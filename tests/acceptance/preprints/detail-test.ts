@@ -70,7 +70,11 @@ module('Acceptance | preprints | detail', hooks => {
         // Check preprint status banner
         assert.dom('[data-test-status]').exists('Status banner is displayed');
         assert.dom('[data-test-status]').containsText('accepted', 'Status is correct');
-        await vizzlyScreenshot('detail-1');
+        await vizzlyScreenshot('preprints-detail-accepted-status', {
+            feature: 'preprints',
+            page: 'detail',
+            scenario: 'accepted-preprint-with-edit-buttons',
+        });
     });
 
     test('Accepted preprint, prior version detail page', async function(this: PreprintDetailTestContext, assert) {
@@ -89,7 +93,11 @@ module('Acceptance | preprints | detail', hooks => {
         // Check preprint status banner
         assert.dom('[data-test-status]').exists('Status banner is displayed');
         assert.dom('[data-test-status]').containsText('accepted', 'Status is correct');
-        await vizzlyScreenshot('detail-2');
+        await vizzlyScreenshot('preprints-detail-prior-version', {
+            feature: 'preprints',
+            page: 'detail',
+            scenario: 'accepted-prior-version-no-edit-buttons',
+        });
     });
 
     test('Pre-mod: Rejected preprint detail page', async function(this: PreprintDetailTestContext, assert) {
@@ -124,7 +132,11 @@ module('Acceptance | preprints | detail', hooks => {
         // Check preprint status banner
         assert.dom('[data-test-status]').exists('Status banner is displayed');
         assert.dom('[data-test-status]').containsText('rejected', 'Status is correct');
-        await vizzlyScreenshot('detail-3');
+        await vizzlyScreenshot('preprints-detail-premod-rejected', {
+            feature: 'preprints',
+            page: 'detail',
+            scenario: 'pre-moderation-rejected-with-resubmit',
+        });
     });
 
 
@@ -147,7 +159,11 @@ module('Acceptance | preprints | detail', hooks => {
         await click('[data-test-previous-versions-button]');
         assert.dom('[data-test-no-other-versions]').exists({ count: 1 }, 'No other versions message is displayed');
         assert.dom('[data-test-version-link]').doesNotExist('No links to previous versions are displayed');
-        await vizzlyScreenshot('detail-4');
+        await vizzlyScreenshot('preprints-detail-withdrawn-only-version', {
+            feature: 'preprints',
+            page: 'detail',
+            scenario: 'withdrawn-single-version-no-history',
+        });
     });
 
     test('Withdrawn preprint, prior version detail page', async function(this: PreprintDetailTestContext, assert) {
@@ -175,7 +191,11 @@ module('Acceptance | preprints | detail', hooks => {
         await click('[data-test-previous-versions-button]');
         assert.dom('[data-test-version-link]').exists({ count: 3 }, 'Link to previous version is displayed');
         assert.dom('[data-test-no-other-versions]').doesNotExist('No other versions message is not displayed');
-        await vizzlyScreenshot('detail-5');
+        await vizzlyScreenshot('preprints-detail-withdrawn-prior-version', {
+            feature: 'preprints',
+            page: 'detail',
+            scenario: 'withdrawn-with-version-history-links',
+        });
     });
 
     test('Edit button visibility', async function(this: PreprintDetailTestContext, assert) {

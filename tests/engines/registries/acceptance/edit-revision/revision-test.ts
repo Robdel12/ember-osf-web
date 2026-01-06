@@ -132,7 +132,11 @@ module('Registries | Acceptance | registries revision', hooks => {
         assert.dom('[data-test-delete-button]').doesNotExist('RightNav: Delete button not shown');
 
         // check form renderer
-        await vizzlyScreenshot('read-only-revision-review-page:-desktop');
+        await vizzlyScreenshot('registries-revision-read-only-review-desktop', {
+            feature: 'registries',
+            page: 'edit-revision',
+            scenario: 'read-only-user-review-page-desktop',
+        });
 
         // check mobile view
         setBreakpoint('mobile');
@@ -145,7 +149,11 @@ module('Registries | Acceptance | registries revision', hooks => {
         assert.dom('[data-test-nonadmin-warning-text]').exists('Mobile view: Warning non-admins cannot register shown');
         assert.dom('[data-test-submit-revision]').doesNotExist('Mobile view: Register button does not exist');
 
-        await vizzlyScreenshot('read-only-revision-review-page:-mobile');
+        await vizzlyScreenshot('registries-revision-read-only-review-mobile', {
+            feature: 'registries',
+            page: 'edit-revision',
+            scenario: 'read-only-user-review-page-mobile',
+        });
     });
 
     test('it redirects to the justification page of revision form', async function(this: RevisionTestContext, assert) {
@@ -190,7 +198,11 @@ module('Registries | Acceptance | registries revision', hooks => {
         );
 
         await visit(`/registries/revisions/${revision.id}/`);
-        await vizzlyScreenshot('registries-acceptance-registries-revision-left-nav-controls-justification-page');
+        await vizzlyScreenshot('registries-revision-nav-justification-page', {
+            feature: 'registries',
+            page: 'edit-revision',
+            scenario: 'left-nav-controls-justification',
+        });
 
         // justification page
         assert.equal(currentRouteName(), 'registries.edit-revision.justification', 'Starts at justification page');
@@ -208,7 +220,11 @@ module('Registries | Acceptance | registries revision', hooks => {
 
         // first page
         await click('[data-test-link="1-first-page-of-test-schema"]');
-        await vizzlyScreenshot('registries-acceptance-registries-revision-left-nav-controls-first-page');
+        await vizzlyScreenshot('registries-revision-nav-first-page', {
+            feature: 'registries',
+            page: 'edit-revision',
+            scenario: 'left-nav-controls-first-page',
+        });
         assert.equal(currentRouteName(), 'registries.edit-revision.page', 'Starts at first page');
         assert.dom('[data-test-link="justification"] > [data-test-icon]')
             .hasClass('fa-exclamation-circle', 'justification page is marked visited, invalid');
@@ -224,7 +240,11 @@ module('Registries | Acceptance | registries revision', hooks => {
         assert.dom('[data-test-submit-revision]').doesNotExist();
 
         await click('[data-test-link="2-this-is-the-second-page"]');
-        await vizzlyScreenshot('registries-acceptance-registries-revision-left-nav-controls-second-page');
+        await vizzlyScreenshot('registries-revision-nav-second-page', {
+            feature: 'registries',
+            page: 'edit-revision',
+            scenario: 'left-nav-controls-second-page',
+        });
         assert.equal(currentRouteName(), 'registries.edit-revision.page', 'Goes to second page');
         assert.dom('[data-test-link="justification"] > [data-test-icon]')
             .hasClass('fa-exclamation-circle', 'justification page is marked visited, invalid');
@@ -254,7 +274,11 @@ module('Registries | Acceptance | registries revision', hooks => {
 
         // Navigate to review
         await click('[data-test-link="review"]');
-        await vizzlyScreenshot('registries-acceptance-registries-revision-left-nav-controls-review-page');
+        await vizzlyScreenshot('registries-revision-nav-review-page', {
+            feature: 'registries',
+            page: 'edit-revision',
+            scenario: 'left-nav-controls-review',
+        });
         assert.equal(currentRouteName(), 'registries.edit-revision.review', 'Goes to review route');
         assert.dom('[data-test-link="justification"] > [data-test-icon]')
             .hasClass('fa-exclamation-circle', 'justification page is marked visited, invalid');
@@ -360,7 +384,11 @@ module('Registries | Acceptance | registries revision', hooks => {
 
         // Justification page
         assert.equal(currentRouteName(), 'registries.edit-revision.justification', 'At justification page');
-        await vizzlyScreenshot('registries-acceptance-registries-revision-mobile-nav-controls-justification-page');
+        await vizzlyScreenshot('registries-revision-mobile-justification', {
+            feature: 'registries',
+            page: 'edit-revision',
+            scenario: 'mobile-nav-justification-page',
+        });
         assert.dom('[data-test-page-label]').containsText('Justification');
         assert.dom('[data-test-goto-previous-page]').isNotVisible();
         assert.dom('[data-test-goto-next-page]').isVisible();
@@ -370,7 +398,11 @@ module('Registries | Acceptance | registries revision', hooks => {
 
         // First page
         assert.ok(currentURL().includes(`/registries/revisions/${revision.id}/1-`), 'At first page');
-        await vizzlyScreenshot('registries-acceptance-registries-revisions-mobile-navigation-first-page');
+        await vizzlyScreenshot('registries-revision-mobile-first-page', {
+            feature: 'registries',
+            page: 'edit-revision',
+            scenario: 'mobile-nav-first-page',
+        });
         assert.dom('[data-test-page-label]').containsText('First page');
         assert.dom('[data-test-goto-previous-page]').isNotVisible();
         assert.dom('[data-test-goto-next-page]').isVisible();
@@ -379,7 +411,11 @@ module('Registries | Acceptance | registries revision', hooks => {
         await click('[data-test-goto-next-page]');
 
         // Second page
-        await vizzlyScreenshot('registries-acceptance-registries-revisions-mobile-navigation-second-page');
+        await vizzlyScreenshot('registries-revision-mobile-second-page', {
+            feature: 'registries',
+            page: 'edit-revision',
+            scenario: 'mobile-nav-second-page',
+        });
         assert.dom('[data-test-page-label]').containsText('This is the second page');
         assert.dom('[data-test-goto-previous-page]').isVisible();
         assert.dom('[data-test-goto-next-page]').isNotVisible();
@@ -390,7 +426,11 @@ module('Registries | Acceptance | registries revision', hooks => {
         // Review page
         await click('[data-test-goto-review]');
 
-        await vizzlyScreenshot('registries-acceptance-registries-revisions-mobile-navigation-review-page');
+        await vizzlyScreenshot('registries-revision-mobile-review-page', {
+            feature: 'registries',
+            page: 'edit-revision',
+            scenario: 'mobile-nav-review-page',
+        });
         assert.dom('[data-test-page-label]').containsText('Review');
         assert.dom('[data-test-goto-next-page]').isNotVisible();
         assert.dom('[data-test-nonadmin-warning-text]').doesNotExist('Warning for non-admins not shown to admins');

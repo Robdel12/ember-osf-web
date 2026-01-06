@@ -37,7 +37,11 @@ module('Integration | routes | settings | account | -components | connected-iden
                 t('settings.account.connected_identities.no_identities').toString(),
                 'list displays text for no identities',
             );
-        await vizzlyScreenshot('connected-identities-1');
+        await vizzlyScreenshot('connected-identities-empty-state', {
+            feature: 'settings',
+            page: 'component',
+            scenario: 'panel with no identities connected message',
+        });
     });
 
     test('identity statuses', async function(assert) {
@@ -78,7 +82,11 @@ module('Integration | routes | settings | account | -components | connected-iden
                 'list displays expected text for identity with status: LINK',
             );
 
-        await vizzlyScreenshot('connected-identities-2');
+        await vizzlyScreenshot('connected-identities-various-statuses', {
+            feature: 'settings',
+            page: 'component',
+            scenario: 'displays verified and pending identity statuses',
+        });
     });
 
     test('pagination', async function(assert) {
@@ -90,14 +98,22 @@ module('Integration | routes | settings | account | -components | connected-iden
             { count: 10 },
             'ten identities on the first page',
         );
-        await vizzlyScreenshot('connected-identities-pagination-first-page');
+        await vizzlyScreenshot('connected-identities-pagination-page-one', {
+            feature: 'settings',
+            page: 'component',
+            scenario: 'first page with ten identities listed',
+        });
 
         await click('[data-test-next-page-button]');
         assert.dom('[data-test-connected-identities-item]').exists(
             { count: 2 },
             'two identites on the second page',
         );
-        await vizzlyScreenshot('connected-identities-pagination-second-page');
+        await vizzlyScreenshot('connected-identities-pagination-page-two', {
+            feature: 'settings',
+            page: 'component',
+            scenario: 'second page with remaining two identities',
+        });
     });
 
     test('remove identity', async function(assert) {
@@ -111,7 +127,11 @@ module('Integration | routes | settings | account | -components | connected-iden
             'expected identity is in the list',
         );
         await click(`[data-test-connected-identities-item=${identity.id}] [data-test-delete-button]`);
-        await vizzlyScreenshot('connected-identities-3');
+        await vizzlyScreenshot('connected-identities-delete-confirmation', {
+            feature: 'settings',
+            page: 'component',
+            scenario: 'delete confirmation dialog before removing identity',
+        });
         await click('[data-test-cancel-delete]');
         assert.dom(`[data-test-connected-identities-item=${identity.id}]`).exists(
             { count: 1 },

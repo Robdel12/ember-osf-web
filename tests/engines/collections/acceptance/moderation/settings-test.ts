@@ -59,6 +59,10 @@ module('Collections | Acceptance | moderation | settings', hooks => {
         assert.dom('[data-test-subscription-option="instant"]').hasText('Instant');
 
         // And take a percy snapshot
-        await vizzlyScreenshot('settings-1');
+        await vizzlyScreenshot('collections-moderation-settings-notification-prefs', {
+            feature: 'collections',
+            page: 'moderation-settings',
+            scenario: 'notification-preferences-configured',
+        });
     });
 });

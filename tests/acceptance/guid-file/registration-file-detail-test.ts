@@ -50,7 +50,11 @@ module('Acceptance | guid file | registration files', hooks => {
         assert.dom('[data-test-file-renderer-button]').doesNotExist('File renderer button does not exist for desktop');
         assert.dom('[data-test-versions-button]').exists('Versions button exists');
         assert.dom('[data-test-tags-button]').exists('Tags button exists');
-        await vizzlyScreenshot('registration-file-detail-1');
+        await vizzlyScreenshot('file-detail-desktop-view-initial', {
+            feature: 'files',
+            page: 'file-detail',
+            scenario: 'desktop-initial',
+        });
     });
 
     test('Mobile view', async function(this: ThisTestContext, assert) {
@@ -66,7 +70,11 @@ module('Acceptance | guid file | registration files', hooks => {
         assert.dom('[data-test-file-renderer-button]').exists('File renderer button exists for mobile');
         assert.dom('[data-test-versions-button]').exists('Versions button exists');
         assert.dom('[data-test-tags-button]').exists('Tags button exists');
-        await vizzlyScreenshot('acceptance-guid-file-registration-files-mobile-view-file-renderer');
+        await vizzlyScreenshot('file-detail-mobile-view-renderer-visible', {
+            feature: 'files',
+            page: 'file-detail',
+            scenario: 'mobile-renderer',
+        });
 
         assert.dom('[data-test-file-renderer]').exists();
         assert.dom('[data-test-metadata-tab]').doesNotExist();
@@ -77,7 +85,11 @@ module('Acceptance | guid file | registration files', hooks => {
         await click('[data-test-versions-button]');
         assert.dom('[data-test-revisions-tab]').exists('Revisions shown');
         assert.dom('[data-test-file-renderer]').doesNotExist('File renderer is hidden');
-        await vizzlyScreenshot('acceptance-guid-file-registration-files-mobile-view-revisions');
+        await vizzlyScreenshot('file-detail-mobile-view-revisions-panel', {
+            feature: 'files',
+            page: 'file-detail',
+            scenario: 'mobile-revisions',
+        });
 
         await click('[data-test-file-renderer-button]');
         assert.dom('[data-test-file-renderer]').exists('File renderer is shown again');
@@ -110,7 +122,11 @@ module('Acceptance | guid file | registration files', hooks => {
         await click('[data-test-file-version-date]');
         assert.dom('[data-test-filename]')
             .containsText(t('general.version'), 'Viewed version specified after selecting version');
-        await vizzlyScreenshot('registration-file-detail-2');
+        await vizzlyScreenshot('file-detail-version-selected-in-revisions', {
+            feature: 'files',
+            page: 'file-detail',
+            scenario: 'version-selected',
+        });
 
         await click('[data-test-versions-button]');
         assert.dom('[data-test-revisions-tab]').doesNotExist('Revisions tab closes when clicking button again');
@@ -256,7 +272,11 @@ module('Acceptance | guid file | registration files', hooks => {
         await click('[data-test-cancel-editing-metadata-button]');
         assert.dom('[data-test-edit-metadata-form]').doesNotExist();
         // Screenshot before changes
-        await vizzlyScreenshot('registration-file-detail-3');
+        await vizzlyScreenshot('file-detail-metadata-view-only-mode', {
+            feature: 'files',
+            page: 'file-detail',
+            scenario: 'metadata-view-mode',
+        });
         await click('[data-test-edit-metadata-button]');
         // Update title
         await fillIn('[data-test-title-field] > div > textarea', 'A New Title');
@@ -267,7 +287,11 @@ module('Acceptance | guid file | registration files', hooks => {
         // Update resource language
         await selectChoose('[data-test-select-resource-language]', 'English');
         // Screenshot after changes
-        await vizzlyScreenshot('registration-file-detail-4');
+        await vizzlyScreenshot('file-detail-metadata-edit-form-filled', {
+            feature: 'files',
+            page: 'file-detail',
+            scenario: 'metadata-edit-mode',
+        });
         // Save changes
         await click('[data-test-save-metadata-button]');
         // Verify form closes

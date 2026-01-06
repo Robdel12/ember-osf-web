@@ -38,7 +38,11 @@ module('Acceptance | settings | developer apps', hooks => {
         await visit('/settings/applications');
 
         assert.dom('[data-test-developer-app-card]').exists({ count: 10 });
-        await vizzlyScreenshot('developer-apps-page-1');
+        await vizzlyScreenshot('settings-developer-apps-list-paginated', {
+            feature: 'settings',
+            page: 'developer-apps',
+            scenario: 'long-apps-list-with-pagination',
+        });
     });
 
     test('create app', async function(assert) {
@@ -54,9 +58,17 @@ module('Acceptance | settings | developer apps', hooks => {
         await fillIn('[data-test-developer-app-name] input', appName);
         await fillIn('[data-test-developer-app-homepage] input', 'http://osf.io/');
         await fillIn('[data-test-developer-app-callback-url] input', 'https://osf.io/');
-        await vizzlyScreenshot('developer-apps-page-2');
+        await vizzlyScreenshot('settings-developer-apps-create-form-filled', {
+            feature: 'settings',
+            page: 'developer-apps',
+            scenario: 'create-app-form-with-data',
+        });
         await click('[data-test-create-developer-app-button]');
-        await vizzlyScreenshot('acceptance-settings-developer-apps-create-app-create');
+        await vizzlyScreenshot('settings-developer-apps-created-with-secret', {
+            feature: 'settings',
+            page: 'developer-apps',
+            scenario: 'new-app-showing-client-secret',
+        });
 
         assert.dom('[data-test-client-secret]').exists();
 
@@ -89,7 +101,11 @@ module('Acceptance | settings | developer apps', hooks => {
 
         assert.dom(input).hasValue(oldName);
         await fillIn(input, newName);
-        await vizzlyScreenshot('developer-apps-page-3');
+        await vizzlyScreenshot('settings-developer-apps-edit-form', {
+            feature: 'settings',
+            page: 'developer-apps',
+            scenario: 'edit-app-name-changed',
+        });
         await click('[data-test-save-developer-app-button]');
 
         assert.equal(currentRouteName(), 'settings.developer-apps.index',
@@ -110,7 +126,11 @@ module('Acceptance | settings | developer apps', hooks => {
         assert.dom(card).exists({ count: 1 });
 
         await click(`${card} [data-test-delete-button]`);
-        await vizzlyScreenshot('developer-apps-page-4');
+        await vizzlyScreenshot('settings-developer-apps-delete-confirm', {
+            feature: 'settings',
+            page: 'developer-apps',
+            scenario: 'delete-app-confirmation-dialog',
+        });
         await click('[data-test-confirm-delete]');
 
         assert.dom('[data-test-developer-app-card]').exists({ count: 1 });

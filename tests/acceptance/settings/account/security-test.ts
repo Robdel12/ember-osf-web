@@ -106,7 +106,11 @@ module('Acceptance | settings/account | security', hooks => {
         );
         await visit('/settings/account');
         assertionsNotEnabledNotConfirmed(assert, 'InitialState');
-        await vizzlyScreenshot('security-1');
+        await vizzlyScreenshot('settings-security-2fa-disabled', {
+            feature: 'settings',
+            page: 'security',
+            scenario: 'two-factor-not-enabled',
+        });
     });
 
     test('two factor enabled unconfirmed shows and disables properly', async function(assert) {
@@ -122,7 +126,11 @@ module('Acceptance | settings/account | security', hooks => {
         );
         await visit('/settings/account');
         assertionsEnabledNotConfirmed(assert, 'Initital state');
-        await vizzlyScreenshot('security-2');
+        await vizzlyScreenshot('settings-security-2fa-pending-verification', {
+            feature: 'settings',
+            page: 'security',
+            scenario: 'two-factor-enabled-unconfirmed',
+        });
         await click('[data-test-two-factor-verify-cancel-button]');
         assertionsNotEnabledNotConfirmed(assert, 'After disabling two-factor');
     });
@@ -166,7 +174,11 @@ module('Acceptance | settings/account | security', hooks => {
         await fillIn('[data-test-verification-code-field] input', '123456');
         await click('[data-test-verify-button]');
         assertionsEnabledConfirmed(assert, 'After successful verification');
-        await vizzlyScreenshot('security-3');
+        await vizzlyScreenshot('settings-security-2fa-verified', {
+            feature: 'settings',
+            page: 'security',
+            scenario: 'two-factor-successfully-verified',
+        });
     });
 
     test('two factor disabled->confirmed round trip works', async function(assert) {
@@ -185,14 +197,22 @@ module('Acceptance | settings/account | security', hooks => {
         assert.equal(currentURL(), '/settings/account');
         assertionsNotEnabledNotConfirmed(assert, 'Initial state');
         await click('[data-test-two-factor-enable-button]');
-        await vizzlyScreenshot('acceptance-settings-account-security-enable-warning-dialog');
+        await vizzlyScreenshot('settings-security-2fa-enable-warning', {
+            feature: 'settings',
+            page: 'security',
+            scenario: 'enable-two-factor-warning-dialog',
+        });
         await click('[data-test-enable-warning-confirm]');
         assertionsEnabledNotConfirmed(assert, 'After enabling before verifying');
         await fillIn('[data-test-verification-code-field] input', '123456');
         await click('[data-test-verify-button]');
         assertionsEnabledConfirmed(assert, 'After successfully verifying');
         await click('[data-test-two-factor-disable-button]');
-        await vizzlyScreenshot('acceptance-settings-account-security-disable-warning-dialog');
+        await vizzlyScreenshot('settings-security-2fa-disable-warning', {
+            feature: 'settings',
+            page: 'security',
+            scenario: 'disable-two-factor-warning-dialog',
+        });
         await click('[data-test-disable-warning-confirm]');
         assertionsNotEnabledNotConfirmed(assert, 'After disabling');
     });

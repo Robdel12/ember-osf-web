@@ -45,11 +45,19 @@ module('Acceptance | logged-out home page test', hooks => {
         // check for 3 carousel slides
         assert.dom('[data-test-testimonials-slide-1]').exists();
 
-        await vizzlyScreenshot('acceptance-logged-out-home-page-test-carousel-exists');
+        await vizzlyScreenshot('homepage-hero-and-testimonials-carousel', {
+            feature: 'homepage',
+            page: 'landing',
+            scenario: 'initial-view',
+        });
 
         await click('[data-test-carousel-button-next]');
 
-        await vizzlyScreenshot('acceptance-logged-out-home-page-test-next-carousel');
+        await vizzlyScreenshot('homepage-carousel-slide-two', {
+            feature: 'homepage',
+            page: 'landing',
+            scenario: 'carousel-navigation',
+        });
 
         assert.dom('[data-test-testimonials-slide-2]').exists();
         await click('[data-test-carousel-button-next]');
@@ -72,7 +80,11 @@ module('Acceptance | logged-out home page test', hooks => {
         // Check footer
         assert.dom('footer').exists();
         await a11yAudit();
-        await vizzlyScreenshot('acceptance-logged-out-home-page-test-footer-exists');
+        await vizzlyScreenshot('homepage-integrations-and-footer', {
+            feature: 'homepage',
+            page: 'landing',
+            scenario: 'footer-section',
+        });
     });
 
     test('visiting home version B', async function(assert) {
@@ -87,7 +99,11 @@ module('Acceptance | logged-out home page test', hooks => {
         assert.dom('[data-test-get-started-button]').exists({ count: 1 });
 
         await a11yAudit();
-        await vizzlyScreenshot('logged-out-homepage-1');
+        await vizzlyScreenshot('homepage-hero-version-b-alternate', {
+            feature: 'homepage',
+            page: 'landing',
+            scenario: 'ab-test-version-b',
+        });
     });
 
     test('Get Started button works', async function(assert) {

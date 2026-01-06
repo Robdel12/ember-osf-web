@@ -61,6 +61,8 @@ const { OSF: { addonServiceUrl, apiUrl, shareBaseUrl, url: osfUrl } } = config;
 export default function(this: Server) {
     this.passthrough(); // pass through all requests on currrent domain
     this.passthrough('https://api.crossref.org/*');
+    // Vizzly visual testing - passthrough screenshot requests on any localhost port
+    this.passthrough(request => request.url.includes('127.0.0.1') && request.url.includes('/screenshot'));
 
     // SHARE search
     this.urlPrefix = shareBaseUrl;

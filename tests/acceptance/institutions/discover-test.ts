@@ -23,7 +23,11 @@ module('Acceptance | institutions | discover', hooks => {
         // verify topbar and sort dropdown
         assert.dom('[data-test-topbar-wrapper]').exists('Topbar not shown on mobile');
         assert.dom('[data-test-topbar-sort-dropdown]').exists('Sort dropdown shown on desktop');
-        await vizzlyScreenshot('discover-1');
+        await vizzlyScreenshot('institutions-discover-desktop-default', {
+            feature: 'institutions',
+            page: 'discover',
+            scenario: 'desktop-layout-with-topbar',
+        });
     });
 
     skip('Mobile: Default colors', async assert => {
@@ -44,6 +48,10 @@ module('Acceptance | institutions | discover', hooks => {
         // verify resource type and sort by dropdown
         assert.dom('[data-test-left-panel-object-type-dropdown]').exists('Mobile resource type dropdown is shown');
         assert.dom('[data-test-left-panel-sort-dropdown]').exists('Mobile sort by dropdown is shown');
-        await vizzlyScreenshot('discover-2');
+        await vizzlyScreenshot('institutions-discover-mobile-sidepanel', {
+            feature: 'institutions',
+            page: 'discover',
+            scenario: 'mobile-layout-with-sidepanel-open',
+        });
     });
 });

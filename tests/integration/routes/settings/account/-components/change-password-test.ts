@@ -16,7 +16,11 @@ module('Integration | routes | settings | account | -components | change-passwor
 
         assert.dom('[data-test-change-password-panel]').exists('Password section renders');
         assert.dom('[data-test-password-form]').exists('Password form renders');
-        await vizzlyScreenshot('change-password-1');
+        await vizzlyScreenshot('change-password-form-initial-state', {
+            feature: 'settings',
+            page: 'component',
+            scenario: 'password form rendered with empty fields',
+        });
     });
 
     // Validation works
@@ -31,7 +35,11 @@ module('Integration | routes | settings | account | -components | change-passwor
         assert.dom('[data-test-password-form]').exists('Password form renders');
 
         await click('[data-test-update-password-button]');
-        await vizzlyScreenshot('change-password-2');
+        await vizzlyScreenshot('change-password-form-validation-errors', {
+            feature: 'settings',
+            page: 'component',
+            scenario: 'shows validation errors for empty required fields',
+        });
 
         // Check that validations are for empty fields
         assert.dom('[data-test-current-password] div[class*="help-block"]')

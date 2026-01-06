@@ -15,7 +15,11 @@ module('Acceptance | settings | account information page', hooks => {
         server.create('user', 'loggedIn', 'withSettings');
 
         await visit('/settings/account');
-        await vizzlyScreenshot('connected-emails-1');
+        await vizzlyScreenshot('settings-account-primary-email-exists', {
+            feature: 'settings',
+            page: 'connected-emails',
+            scenario: 'primary-email-displayed',
+        });
 
         assert.dom('[data-test-primary-email]').exists();
     });
@@ -25,7 +29,11 @@ module('Acceptance | settings | account information page', hooks => {
         server.create('user', 'loggedIn', 'withSettings');
 
         await visit('/settings/account');
-        await vizzlyScreenshot('connected-emails-2');
+        await vizzlyScreenshot('settings-account-empty-email-lists', {
+            feature: 'settings',
+            page: 'connected-emails',
+            scenario: 'empty-alternate-unconfirmed-lists',
+        });
 
         assert.dom('[data-test-alternate-email-item]').doesNotExist();
         assert.dom('[data-test-unconfirmed-email-item]').doesNotExist();
@@ -35,7 +43,11 @@ module('Acceptance | settings | account information page', hooks => {
         server.create('user', 'loggedIn', 'withSettings', 'withAlternateEmail', 'withUnconfirmedEmail');
 
         await visit('/settings/account');
-        await vizzlyScreenshot('connected-emails-3');
+        await vizzlyScreenshot('settings-account-email-lists-populated', {
+            feature: 'settings',
+            page: 'connected-emails',
+            scenario: 'alternate-and-unconfirmed-emails',
+        });
 
         assert.dom('[data-test-alternate-email-item]').exists({ count: 1 });
         assert.dom('[data-test-unconfirmed-email-item]').exists({ count: 1 });
@@ -52,7 +64,11 @@ module('Acceptance | settings | account information page', hooks => {
 
         await fillIn('[data-test-add-email] input', emailAddress);
         await click('[data-test-add-email-button]');
-        await vizzlyScreenshot('connected-emails-4');
+        await vizzlyScreenshot('settings-account-add-new-email', {
+            feature: 'settings',
+            page: 'connected-emails',
+            scenario: 'new-email-added-unconfirmed',
+        });
 
         assert.dom(`[data-test-unconfirmed-email-item='${emailAddress}']`).exists();
     });
@@ -70,7 +86,11 @@ module('Acceptance | settings | account information page', hooks => {
         await click(`[data-test-alternate-email-item='${emailAddress}']
             [data-test-alternate-delete] [data-test-delete-button]`);
 
-        await vizzlyScreenshot('connected-emails-5');
+        await vizzlyScreenshot('settings-account-delete-email-confirm', {
+            feature: 'settings',
+            page: 'connected-emails',
+            scenario: 'delete-alternate-email-dialog',
+        });
         await click('[data-test-confirm-delete]');
 
         assert.dom(`[data-test-alternate-email-item='${emailAddress}']`).doesNotExist();
@@ -86,7 +106,11 @@ module('Acceptance | settings | account information page', hooks => {
         assert.dom(`[data-test-alternate-email-item='${emailAddress}']`).exists();
 
         await click('[data-test-make-primary]');
-        await vizzlyScreenshot('connected-emails-6');
+        await vizzlyScreenshot('settings-account-make-email-primary', {
+            feature: 'settings',
+            page: 'connected-emails',
+            scenario: 'alternate-promoted-to-primary',
+        });
         assert.dom('[data-test-primary-email]').hasText(emailAddress);
     });
 
@@ -111,7 +135,11 @@ module('Acceptance | settings | account information page', hooks => {
         await click(`[data-test-unconfirmed-email-item='${emailAddress}']
         [data-test-resend-confirmation-button]`);
 
-        await vizzlyScreenshot('connected-emails-7');
+        await vizzlyScreenshot('settings-account-resend-confirmation-dialog', {
+            feature: 'settings',
+            page: 'connected-emails',
+            scenario: 'resend-email-confirmation',
+        });
         await click('[data-test-resend-confirmation]');
     });
 });

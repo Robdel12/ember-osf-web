@@ -56,6 +56,8 @@ module('Registries | Acceptance | overview/metadata', hooks => {
         assert.dom('[data-test-edit-resource-metadata-button]').doesNotExist();
         assert.dom('[data-test-edit-funding-metadata-button]').doesNotExist();
         assert.dom('[data-test-edit-node-contributors-button]').doesNotExist();
-        await vizzlyScreenshot('metadata-1');
+        await vizzlyScreenshot('registries-metadata-logged-out-view', {
+            properties: { feature: 'registries', page: 'metadata', scenario: 'logged-out-readonly' },
+        });
     });
 });

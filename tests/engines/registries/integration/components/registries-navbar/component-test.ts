@@ -102,7 +102,11 @@ module('Registries | Integration | Component | registries-navbar', hooks => {
         setBreakpoint('desktop');
 
         await render(hbs`<RegistriesNavbar />`, { owner: this.engine });
-        await vizzlyScreenshot('component-1');
+        await vizzlyScreenshot('registries-navbar-desktop-layout', {
+            feature: 'registries',
+            page: 'navbar',
+            scenario: 'desktop-default',
+        });
 
         // Don't show provider name unless provider is branded
         assert.dom('[data-test-brand-link]').doesNotExist('Branded provider name does not exists');
@@ -122,7 +126,11 @@ module('Registries | Integration | Component | registries-navbar', hooks => {
         this.engine.lookup('service:session').set('isAuthenticated', false);
 
         await render(hbs`<RegistriesNavbar @campaign='osf-registries' />`, { owner: this.engine });
-        await vizzlyScreenshot('component-2');
+        await vizzlyScreenshot('registries-navbar-desktop-logged-out', {
+            feature: 'registries',
+            page: 'navbar',
+            scenario: 'desktop-unauthenticated',
+        });
 
         assert.dom('a[data-test-join]').hasText(`${t('navbar.join')}`);
         assert.dom('a[data-test-join]').hasAttribute(
@@ -142,7 +150,11 @@ module('Registries | Integration | Component | registries-navbar', hooks => {
         this.engine.lookup('service:session').set('isAuthenticated', true);
 
         await render(hbs`<RegistriesNavbar />`, { owner: this.engine });
-        await vizzlyScreenshot('component-3');
+        await vizzlyScreenshot('registries-navbar-desktop-logged-in', {
+            feature: 'registries',
+            page: 'navbar',
+            scenario: 'desktop-authenticated',
+        });
 
         // Not visible due to not having a test image
         assert.dom('img[data-test-gravatar]').exists('User Gravatar is rendered');
@@ -157,7 +169,11 @@ module('Registries | Integration | Component | registries-navbar', hooks => {
         setBreakpoint('tablet');
 
         await render(hbs`<RegistriesNavbar />`, { owner: this.engine });
-        await vizzlyScreenshot('component-4');
+        await vizzlyScreenshot('registries-navbar-tablet-layout', {
+            feature: 'registries',
+            page: 'navbar',
+            scenario: 'tablet-default',
+        });
 
         assert.dom('[data-test-service]').doesNotContainText(
             `${t('general.OSF')}${t('general.services.registries')}`, 'Navbar text hidden on tablet view',
@@ -176,7 +192,11 @@ module('Registries | Integration | Component | registries-navbar', hooks => {
         this.engine.lookup('service:session').set('isAuthenticated', false);
 
         await render(hbs`<RegistriesNavbar />`, { owner: this.engine });
-        await vizzlyScreenshot('component-5');
+        await vizzlyScreenshot('registries-navbar-tablet-logged-out', {
+            feature: 'registries',
+            page: 'navbar',
+            scenario: 'tablet-unauthenticated',
+        });
 
         assert.dom('a[data-test-join]').hasText(`${t('navbar.join')}`);
         assert.dom('a[data-test-join]').isVisible('Join button is visible');
@@ -192,7 +212,11 @@ module('Registries | Integration | Component | registries-navbar', hooks => {
         this.engine.lookup('service:session').set('isAuthenticated', true);
 
         await render(hbs`<RegistriesNavbar />`, { owner: this.engine });
-        await vizzlyScreenshot('component-6');
+        await vizzlyScreenshot('registries-navbar-tablet-logged-in', {
+            feature: 'registries',
+            page: 'navbar',
+            scenario: 'tablet-authenticated',
+        });
 
         // Not visible due to not having a test image
         assert.dom('img[data-test-gravatar]').exists('User Gravatar is rendered');
@@ -208,7 +232,11 @@ module('Registries | Integration | Component | registries-navbar', hooks => {
         await render(hbs`<RegistriesNavbar />`, { owner: this.engine });
 
         await click('[data-test-gravatar]');
-        await vizzlyScreenshot('component-7');
+        await vizzlyScreenshot('registries-navbar-mobile-dropdown-open', {
+            feature: 'registries',
+            page: 'navbar',
+            scenario: 'mobile-user-dropdown-open',
+        });
 
         assert.dom('a[data-test-help-mobile]').isVisible();
         assert.dom('a[data-test-donate-mobile]').isVisible();
@@ -221,7 +249,11 @@ module('Registries | Integration | Component | registries-navbar', hooks => {
         await render(hbs`<RegistriesNavbar />`, { owner: this.engine });
 
         await click('[data-test-toggle-navbar]');
-        await vizzlyScreenshot('component-8');
+        await vizzlyScreenshot('registries-navbar-mobile-logged-out', {
+            feature: 'registries',
+            page: 'navbar',
+            scenario: 'mobile-nav-menu-unauthenticated',
+        });
 
         assert.dom('a[data-test-join-mobile]').hasText(`${t('navbar.join')}`);
         assert.dom('a[data-test-join-mobile]').isVisible('Join button is visible');
@@ -238,7 +270,11 @@ module('Registries | Integration | Component | registries-navbar', hooks => {
         this.engine.lookup('service:session').set('isAuthenticated', true);
 
         await render(hbs`<RegistriesNavbar />`, { owner: this.engine });
-        await vizzlyScreenshot('component-9');
+        await vizzlyScreenshot('registries-navbar-mobile-logged-in', {
+            feature: 'registries',
+            page: 'navbar',
+            scenario: 'mobile-authenticated',
+        });
 
         // Not visible due to not having a test image
         assert.dom('img[data-test-gravatar]').exists('User Gravatar is rendered');
@@ -253,7 +289,11 @@ module('Registries | Integration | Component | registries-navbar', hooks => {
         assert.dom('[data-test-service-list] ul').isNotVisible();
 
         await click('[data-test-service]');
-        await vizzlyScreenshot('component-10');
+        await vizzlyScreenshot('registries-navbar-service-list-open', {
+            feature: 'registries',
+            page: 'navbar',
+            scenario: 'service-dropdown-open',
+        });
 
         assert.dom('[data-test-service-list] ul').isVisible();
     });
@@ -266,7 +306,11 @@ module('Registries | Integration | Component | registries-navbar', hooks => {
         assert.dom('[data-test-auth-dropdown] ul').isNotVisible();
 
         await click('[data-test-gravatar]');
-        await vizzlyScreenshot('component-11');
+        await vizzlyScreenshot('registries-navbar-auth-dropdown-open', {
+            feature: 'registries',
+            page: 'navbar',
+            scenario: 'auth-dropdown-open',
+        });
 
         assert.dom('[data-test-auth-dropdown] ul').isVisible();
     });
@@ -279,7 +323,11 @@ module('Registries | Integration | Component | registries-navbar', hooks => {
         setBreakpoint('desktop');
 
         await render(hbs`<RegistriesNavbar @provider={{this.provider}} />`, { owner: this.engine });
-        await vizzlyScreenshot('component-12');
+        await vizzlyScreenshot('registries-navbar-branded-desktop', {
+            feature: 'registries',
+            page: 'navbar',
+            scenario: 'branded-provider-desktop',
+        });
 
         assert.dom('[data-test-brand-link]').exists('Branded provider name exists');
         assert.dom('[data-test-brand-link]').hasText(brandedProvider.name, 'Branded provider name is correct');
@@ -293,7 +341,11 @@ module('Registries | Integration | Component | registries-navbar', hooks => {
         setBreakpoint('mobile');
 
         await render(hbs`<RegistriesNavbar @provider={{this.provider}} />`, { owner: this.engine });
-        await vizzlyScreenshot('component-13');
+        await vizzlyScreenshot('registries-navbar-branded-mobile', {
+            feature: 'registries',
+            page: 'navbar',
+            scenario: 'branded-provider-mobile',
+        });
 
         assert.dom('[data-test-brand-link]').doesNotExist('Branded provider name does not exists');
     });

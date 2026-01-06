@@ -19,7 +19,9 @@ module('Registries | Acceptance | overview.comments', hooks => {
         );
 
         await visit(`/${registration.id}/comments`);
-        await vizzlyScreenshot('comments-1');
+        await vizzlyScreenshot('registries-comments-list-view', {
+            properties: { feature: 'registries', page: 'comments', scenario: 'list-with-comments' },
+        });
 
         assert.equal(currentURL(), `/${registration.id}/comments`, 'At the guid URL');
         assert.equal(currentRouteName(), 'registries.overview.comments', 'At the expected route');

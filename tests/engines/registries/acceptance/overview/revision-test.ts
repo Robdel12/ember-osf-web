@@ -41,7 +41,9 @@ module('Registries | Acceptance | overview.revision', hooks => {
         await visit(`/${registration.id}?revisionId=${revision.id}`);
         assert.dom('[data-test-version-metadata-title]')
             .exists('version metadata is shown when viewing a specific revision');
-        await vizzlyScreenshot('revision-1');
+        await vizzlyScreenshot('registries-revision-specific-view', {
+            properties: { feature: 'registries', page: 'revision', scenario: 'viewing-specific-revision' },
+        });
     });
 
     // TODO: Add tests to create a new revision

@@ -17,10 +17,18 @@ module(moduleName, hooks => {
         server.create('meeting', { name: faker.lorem.paragraph() });
         await visit('/meetings');
         assert.equal(currentURL(), '/meetings', "Still at '/meetings'.");
-        await vizzlyScreenshot('meetings-index-default');
+        await vizzlyScreenshot('meetings-index-initial-view', {
+            feature: 'meetings',
+            page: 'index',
+            scenario: 'initial-load',
+        });
         await untrackedClick('[data-test-register-button]');
         await untrackedClick('[data-test-upload-button]');
         await click('[data-test-next-page-button]');
-        await vizzlyScreenshot('meetings-index-panels-open-next-page');
+        await vizzlyScreenshot('meetings-index-panels-expanded-page-2', {
+            feature: 'meetings',
+            page: 'index',
+            scenario: 'panels-open-paginated',
+        });
     });
 });

@@ -39,7 +39,9 @@ module('Registries | Acceptance | overview.files', hooks => {
         );
 
         await visit(`/${registration.id}/files`);
-        await vizzlyScreenshot('files-1');
+        await vizzlyScreenshot('registries-files-list-with-files', {
+            properties: { feature: 'registries', page: 'files', scenario: 'list-view-with-files' },
+        });
         assert.equal(currentURL(), `/${registration.id}/files`, 'At registration files list URL');
         assert.equal(currentRouteName(), 'registries.overview.files.provider', 'At the expected route');
 
@@ -80,7 +82,9 @@ module('Registries | Acceptance | overview.files', hooks => {
         const registration = server.create('registration');
 
         await visit(`/${registration.id}/files`);
-        await vizzlyScreenshot('files-2');
+        await vizzlyScreenshot('registries-files-empty-state', {
+            properties: { feature: 'registries', page: 'files', scenario: 'empty-folder' },
+        });
         assert.equal(currentURL(), `/${registration.id}/files`, 'At registration files list URL');
 
         assert.dom('[data-test-file-list-item]').doesNotExist('No files displayed');

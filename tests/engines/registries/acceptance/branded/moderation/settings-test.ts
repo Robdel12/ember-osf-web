@@ -52,7 +52,11 @@ module('Registries | Acceptance | branded.moderation | settings', hooks => {
         server.create('moderator', { id: currentUser.id, user: currentUser, provider: regProvider });
         regProvider.update({ permissions: ['view_submissions'] });
         await visit('/registries/mdr8n/moderation/settings');
-        await vizzlyScreenshot('moderation-settings-page-for-moderators');
+        await vizzlyScreenshot('registries-moderation-settings-moderator', {
+            feature: 'registries',
+            page: 'moderation-settings',
+            scenario: 'moderator-view-notifications-only',
+        });
         assert.equal(currentRouteName(), 'registries.branded.moderation.settings',
             'On the settings page of registries reviews');
         assert.dom('[data-test-subscription-list]').exists('Subscription list shown');
@@ -74,7 +78,11 @@ module('Registries | Acceptance | branded.moderation | settings', hooks => {
             server.create('moderator', { id: currentUser.id, user: currentUser, provider: regProvider });
             regProvider.update({ permissions: ['view_submissions', 'add_moderator'] });
             await visit('/registries/mdr8n/moderation/settings');
-            await vizzlyScreenshot('moderation-settings-page-for-admins');
+            await vizzlyScreenshot('registries-moderation-settings-admin', {
+                feature: 'registries',
+                page: 'moderation-settings',
+                scenario: 'admin-view-with-bulk-upload',
+            });
             assert.equal(currentRouteName(), 'registries.branded.moderation.settings',
                 'On the settings page of registries reviews');
             assert.dom('[data-test-subscription-list]').exists('Subscription list shown');

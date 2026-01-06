@@ -23,9 +23,17 @@ module(moduleName, hooks => {
         });
         await visit('/meetings/testmeeting');
         assert.equal(currentURL(), '/meetings/testmeeting', "Still at '/meetings/testmeeting'.");
-        await vizzlyScreenshot('meetings-detail-default');
+        await vizzlyScreenshot('meetings-detail-initial-view', {
+            feature: 'meetings',
+            page: 'detail',
+            scenario: 'initial-load',
+        });
         await click('[data-test-meeting-toggle-panel-button]');
         await click('[data-test-next-page-button]');
-        await vizzlyScreenshot('meetings-detail-panel-open-next-page');
+        await vizzlyScreenshot('meetings-detail-panel-expanded-page-2', {
+            feature: 'meetings',
+            page: 'detail',
+            scenario: 'panel-open-paginated',
+        });
     });
 });

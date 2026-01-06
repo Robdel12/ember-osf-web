@@ -34,7 +34,11 @@ module('Acceptance | guid-node/registrations', hooks => {
 
         assert.equal(currentURL(), url, `We are on ${url}`);
         assert.equal(currentRouteName(), 'guid-node.registrations', 'We are at guid-node.registrations');
-        await vizzlyScreenshot('registrations-1');
+        await vizzlyScreenshot('registrations-logged-out-empty-state', {
+            feature: 'projects',
+            page: 'registrations',
+            scenario: 'empty-state-logged-out',
+        });
 
         assert.dom('[data-test-new-registration-button]').doesNotExist();
 
@@ -264,7 +268,11 @@ module('Acceptance | guid-node/registrations', hooks => {
         assert.dom('[data-test-node-card]').exists({ count: 10 });
 
         assert.dom('[data-test-node-card]').includesText(node.title);
-        await vizzlyScreenshot('registrations-2');
+        await vizzlyScreenshot('registrations-admin-paginated-list', {
+            feature: 'projects',
+            page: 'registrations',
+            scenario: 'paginated-list',
+        });
 
         await click('[data-analytics-name="Pagination next"]');
 
@@ -368,7 +376,11 @@ module('Acceptance | guid-node/registrations', hooks => {
         await click('[data-analytics-name="Pagination next"]');
 
         assert.dom('[data-test-draft-registration-card]').exists({ count: 2 });
-        await vizzlyScreenshot('registrations-3');
+        await vizzlyScreenshot('registrations-drafts-paginated-page-2', {
+            feature: 'projects',
+            page: 'registrations',
+            scenario: 'draft-registrations-list',
+        });
     });
 
     test('logged in admin, new registration', async function(assert) {
@@ -391,7 +403,11 @@ module('Acceptance | guid-node/registrations', hooks => {
         assert.equal(currentURL(), url, `We are on ${url}`);
 
         await click('[data-test-new-registration-button]');
-        await vizzlyScreenshot('registrations-4');
+        await vizzlyScreenshot('registrations-new-registration-modal', {
+            feature: 'projects',
+            page: 'registrations',
+            scenario: 'new-registration-modal',
+        });
 
         assert.dom('[data-test-new-registration-modal-body]').isVisible();
 

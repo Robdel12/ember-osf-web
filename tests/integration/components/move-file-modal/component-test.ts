@@ -98,7 +98,11 @@ module('Integration | Component | move-file-modal', hooks => {
         assert.dom('[data-test-moving-file-item]').doesNotExist('No moving file items');
         assert.dom('[data-test-move-done-button]').doesNotExist('done button does not exists');
 
-        await vizzlyScreenshot('integration-component-move-file-modal-move-start');
+        await vizzlyScreenshot('move-file-modal-initial-state', {
+            feature: 'files',
+            page: 'component',
+            scenario: 'move modal with no destination selected',
+        });
         await click('[data-test-ancestor-button="1"]'); // click parent node (releases)
         assert.dom('[data-test-ancestor-button]').exists({count: 1}, 'one ancestors');
         assert.dom('[data-test-breadcrumb').doesNotExist('no breadcrumbs');
@@ -127,7 +131,11 @@ module('Integration | Component | move-file-modal', hooks => {
         assert.dom('[data-test-move-files-button]').doesNotExist('move files button is no longer visible');
         assert.dom('[data-test-move-done-button]').exists('done button now exists');
 
-        await vizzlyScreenshot('integration-component-move-file-modal-move-finished');
+        await vizzlyScreenshot('move-file-modal-success-state', {
+            feature: 'files',
+            page: 'component',
+            scenario: 'move completed with success message',
+        });
     });
 
     test('copy file modal', async function(this: MoveTestContext, assert) {
@@ -176,7 +184,11 @@ module('Integration | Component | move-file-modal', hooks => {
         );
         assert.dom('[data-test-move-files-button]').hasText(t('general.copy'), 'copy button text');
 
-        await vizzlyScreenshot('component-1');
+        await vizzlyScreenshot('copy-file-modal-initial-state', {
+            feature: 'files',
+            page: 'component',
+            scenario: 'copy modal with copy header and button text',
+        });
     });
 
     test('failed or queued move messages', async function(this: MoveTestContext, assert) {
@@ -259,6 +271,10 @@ module('Integration | Component | move-file-modal', hooks => {
             t('osf-components.move_file_modal.move_done_header', { itemCount: 1}), 'modal header updated',
         );
 
-        await vizzlyScreenshot('component-2');
+        await vizzlyScreenshot('move-file-modal-error-states', {
+            feature: 'files',
+            page: 'component',
+            scenario: 'displays queued, storage, and name conflict errors',
+        });
     });
 });

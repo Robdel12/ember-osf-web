@@ -21,7 +21,11 @@ module('Registries | Acceptance | branded.new', hooks => {
             },
         }, 'withBrand');
         await visit(`/registries/${brandedProvider.id}/new`);
-        await vizzlyScreenshot('new-1');
+        await vizzlyScreenshot('registries-new-submissions-allowed', {
+            feature: 'registries',
+            page: 'new',
+            scenario: 'provider-allows-submissions',
+        });
         assert.ok(document.querySelector('link[rel="icon"][href="fakelink"]'));
         assert.equal(currentRouteName(), 'registries.branded.new', 'At the correct route: branded.new');
     });
@@ -34,7 +38,11 @@ module('Registries | Acceptance | branded.new', hooks => {
                 },
             }, 'withBrand', 'submissionsNotAllowed', 'currentUserIsModerator');
             await visit(`/registries/${brandedProvider.id}/new`);
-            await vizzlyScreenshot('new-2');
+            await vizzlyScreenshot('registries-new-moderator-bypass', {
+                feature: 'registries',
+                page: 'new',
+                scenario: 'moderator-bypasses-submission-restriction',
+            });
             assert.ok(document.querySelector('link[rel="icon"][href="fakelink"]'));
             assert.equal(currentRouteName(), 'registries.branded.new', 'At the correct route: branded.new');
         });

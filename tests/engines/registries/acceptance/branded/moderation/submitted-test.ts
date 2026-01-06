@@ -42,7 +42,11 @@ module('Registries | Acceptance | branded.moderation | submitted', hooks => {
             provider: this.registrationProvider,
         });
         await visit('/registries/sbmit/moderation/submitted');
-        await vizzlyScreenshot('moderation-submitted-page:-no-registrations');
+        await vizzlyScreenshot('registries-moderation-submitted-empty', {
+            feature: 'registries',
+            page: 'moderation-submitted',
+            scenario: 'no-registrations',
+        });
         assert.equal(currentRouteName(), 'registries.branded.moderation.submitted',
             'On the submitted page of registries reviews');
 
@@ -117,7 +121,11 @@ module('Registries | Acceptance | branded.moderation | submitted', hooks => {
             provider: this.registrationProvider,
         }, 'asAdmin');
         await visit('/registries/sbmit/moderation/submitted');
-        await vizzlyScreenshot('moderation-submitted-page:-many-registrations');
+        await vizzlyScreenshot('registries-moderation-submitted-with-items', {
+            feature: 'registries',
+            page: 'moderation-submitted',
+            scenario: 'many-registrations-paginated',
+        });
         assert.equal(currentRouteName(), 'registries.branded.moderation.submitted',
             'On the submitted page of registries reviews');
 

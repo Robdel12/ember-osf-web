@@ -46,7 +46,11 @@ module('Acceptance | dashboard', hooks => {
         assert.dom('nav.navbar .secondary-nav-dropdown .nav-profile-name')
             .hasText(currentUser.fullName, 'User\'s name is in navbar');
 
-        await vizzlyScreenshot('dashboard-full-load');
+        await vizzlyScreenshot('dashboard-full-load-with-projects', {
+            feature: 'dashboard',
+            page: 'home',
+            scenario: 'full-load',
+        });
     });
 
     test('popular projects and new/noteworthy titles', async function(assert) {
@@ -85,7 +89,11 @@ module('Acceptance | dashboard', hooks => {
         await visit('/dashboard');
         assert.dom('div[class*="quick-project"]')
             .includesText('You have no projects yet. Create a project with the button on the top right.');
-        await vizzlyScreenshot('dashboard-no-projects');
+        await vizzlyScreenshot('dashboard-empty-state-no-projects', {
+            feature: 'dashboard',
+            page: 'home',
+            scenario: 'empty-state',
+        });
     });
 
     test('user has a project', async function(assert) {
@@ -132,7 +140,11 @@ module('Acceptance | dashboard', hooks => {
 
         assert.dom('[data-analytics-name="load_nodes"]')
             .doesNotExist('The control to load more projects is gone after all projects are loaded');
-        await vizzlyScreenshot('dashboard-many-projects');
+        await vizzlyScreenshot('dashboard-paginated-all-projects-loaded', {
+            feature: 'dashboard',
+            page: 'home',
+            scenario: 'pagination-complete',
+        });
     });
 
     test('sorting projects', async function(assert) {
@@ -282,7 +294,11 @@ module('Acceptance | dashboard', hooks => {
         assert.dom('div[class*="quick-project"]')
             .includesText('You have no projects yet. Create a project with the button on the top right.');
         assert.dom('div[class*="quick-project"]').doesNotIncludeText(title);
-        await vizzlyScreenshot('dashboard-before-create-project');
+        await vizzlyScreenshot('dashboard-before-create-project-modal', {
+            feature: 'dashboard',
+            page: 'home',
+            scenario: 'pre-create-project',
+        });
 
         await click('[data-analytics-name="create_new_project"]');
         assert.dom('img[alt*="Missing translation"]').doesNotExist();
@@ -314,7 +330,11 @@ module('Acceptance | dashboard', hooks => {
             .exists({ count: 2 }, 'Clicked first item so 4 selected');
         assert.dom('[data-test-institution-selected="not-selected"]')
             .exists({ count: 1 }, 'Clicked first item so one notselected');
-        await vizzlyScreenshot('dashboard-institution-selection');
+        await vizzlyScreenshot('dashboard-create-modal-institution-toggle', {
+            feature: 'dashboard',
+            page: 'create-project-modal',
+            scenario: 'institution-selection',
+        });
         assert.dom('[data-analytics-name="Remove all institutions"]').exists();
         await click('[data-analytics-name="Remove all institutions"]');
         assert.dom('[data-test-institution-selected="selected"]')
@@ -428,9 +448,17 @@ module('Acceptance | dashboard', hooks => {
         await fillIn('[data-test-project-description-input]', description);
         await untrackedClick('[data-test-select-template] div[class~="ember-power-select-trigger"]');
         await selectSearch('[data-test-select-template]', templatedFrom);
-        await vizzlyScreenshot('dashboard-create-modal-template-search');
+        await vizzlyScreenshot('dashboard-create-modal-template-search-open', {
+            feature: 'dashboard',
+            page: 'create-project-modal',
+            scenario: 'template-search',
+        });
         await selectChoose('[data-test-select-template]', templatedFrom);
-        await vizzlyScreenshot('dashboard-create-modal-template-selected');
+        await vizzlyScreenshot('dashboard-create-modal-template-chosen', {
+            feature: 'dashboard',
+            page: 'create-project-modal',
+            scenario: 'template-selected',
+        });
         assert.dom('[data-test-select-template] span[class~="ember-power-select-selected-item"]')
             .hasText(templatedFrom);
 

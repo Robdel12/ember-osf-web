@@ -211,7 +211,11 @@ module('Acceptance | guid-node/metadata', hooks => {
         assert.dom('[data-test-user-search-input]').exists('User search input exists');
         await click('[data-test-finish-node-contributor-editing-button]');
         assert.dom('[data-test-edit-node-contributors-button]').exists('Edit button is shown after saving');
-        await vizzlyScreenshot('metadata-1');
+        await vizzlyScreenshot('metadata-editable-view-complete', {
+            feature: 'projects',
+            page: 'metadata',
+            scenario: 'edit-mode-complete',
+        });
     });
 
     skip('Error handling: metadata', async function(this: TestContext, assert) {

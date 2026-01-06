@@ -70,7 +70,9 @@ module('Registries | Acceptance | overview.moderator-mode', hooks => {
             t('osf-components.makeDecisionDropdown.rejectSubmission'),
             'Reject submission option has correct text',
         );
-        await vizzlyScreenshot('moderator-mode-1');
+        await vizzlyScreenshot('registries-moderator-pending-options', {
+            properties: { feature: 'registries', page: 'moderator-mode', scenario: 'pending-accept-reject' },
+        });
         await click('[data-test-moderation-dropdown-decision-checkbox="accept_submission"]');
         await click('[data-test-moderation-dropdown-submit]');
         await click('[data-test-state-button]');
@@ -144,7 +146,9 @@ module('Registries | Acceptance | overview.moderator-mode', hooks => {
             t('osf-components.makeDecisionDropdown.forceWithdraw'),
             'Force withdraw option has correct text',
         );
-        await vizzlyScreenshot('moderator-mode-2');
+        await vizzlyScreenshot('registries-moderator-withdraw-request-options', {
+            properties: { feature: 'registries', page: 'moderator-mode', scenario: 'pending-withdraw-request' },
+        });
         await click('[data-test-moderation-dropdown-decision-checkbox="force_withdraw"]');
         assert.dom('[data-test-validation-errors="comment"]').exists('Comment is required');
         await fillIn('[data-test-moderation-dropdown-comment]', 'This is a comment');
@@ -191,7 +195,9 @@ module('Registries | Acceptance | overview.moderator-mode', hooks => {
             t('osf-components.makeDecisionDropdown.rejectWithdrawal'),
             'Reject withdrawal option has correct text',
         );
-        await vizzlyScreenshot('moderator-mode-3');
+        await vizzlyScreenshot('registries-moderator-pending-withdraw-options', {
+            properties: { feature: 'registries', page: 'moderator-mode', scenario: 'pending-withdraw' },
+        });
         await click('[data-test-moderation-dropdown-decision-checkbox="accept_withdrawal"]');
         await click('[data-test-moderation-dropdown-submit]');
         await timeout(2000);
@@ -208,7 +214,9 @@ module('Registries | Acceptance | overview.moderator-mode', hooks => {
         }, 'isPendingWithdraw', 'withReviewActions');
         await visit(`/${registration.id}?mode=moderator`);
         await click('[data-test-moderation-dropdown-button]');
-        await vizzlyScreenshot('moderator-mode-4');
+        await vizzlyScreenshot('registries-moderator-reject-withdrawal', {
+            properties: { feature: 'registries', page: 'moderator-mode', scenario: 'reject-withdrawal-flow' },
+        });
         await click('[data-test-moderation-dropdown-decision-checkbox="reject_withdrawal"]');
         assert.dom('[data-test-validation-errors="comment"]').exists('Comment is required');
         await fillIn('[data-test-moderation-dropdown-comment]', 'This is a comment');
@@ -261,7 +269,9 @@ module('Registries | Acceptance | overview.moderator-mode', hooks => {
             t('osf-components.makeDecisionDropdown.forceWithdraw'),
             'Force withdraw option has correct text',
         );
-        await vizzlyScreenshot('moderator-mode-5');
+        await vizzlyScreenshot('registries-moderator-accepted-force-withdraw', {
+            properties: { feature: 'registries', page: 'moderator-mode', scenario: 'accepted-force-withdraw' },
+        });
         await click('[data-test-moderation-dropdown-decision-checkbox="force_withdraw"]');
         assert.dom('[data-test-validation-errors="comment"]').exists('Comment is required');
         await fillIn('[data-test-moderation-dropdown-comment]', 'This is a comment');
@@ -309,7 +319,9 @@ module('Registries | Acceptance | overview.moderator-mode', hooks => {
             t('osf-components.makeDecisionDropdown.forceWithdraw'),
             'Force withdraw option has correct text',
         );
-        await vizzlyScreenshot('moderator-mode-6');
+        await vizzlyScreenshot('registries-moderator-embargo-force-withdraw', {
+            properties: { feature: 'registries', page: 'moderator-mode', scenario: 'embargo-force-withdraw' },
+        });
         await click('[data-test-moderation-dropdown-decision-checkbox="force_withdraw"]');
         assert.dom('[data-test-validation-errors="comment"]').exists('Comment is required');
         await fillIn('[data-test-moderation-dropdown-comment]', 'This is a comment');
@@ -356,7 +368,9 @@ module('Registries | Acceptance | overview.moderator-mode', hooks => {
             t('osf-components.makeDecisionDropdown.forceWithdraw'),
             'Force withdraw option has correct text',
         );
-        await vizzlyScreenshot('moderator-mode-7');
+        await vizzlyScreenshot('registries-moderator-embargo-term-withdraw', {
+            properties: { feature: 'registries', page: 'moderator-mode', scenario: 'embargo-termination-withdraw' },
+        });
         await click('[data-test-moderation-dropdown-decision-checkbox="force_withdraw"]');
         assert.dom('[data-test-validation-errors="comment"]').exists('Comment is required');
         await fillIn('[data-test-moderation-dropdown-comment]', 'This is a comment');
@@ -406,7 +420,9 @@ module('Registries | Acceptance | overview.moderator-mode', hooks => {
             t('osf-components.makeDecisionDropdown.rejectRevision'),
             'Reject update option has correct text',
         );
-        await vizzlyScreenshot('moderator-mode-8');
+        await vizzlyScreenshot('registries-moderator-revision-accept-reject', {
+            properties: { feature: 'registries', page: 'moderator-mode', scenario: 'revision-moderation' },
+        });
         await click('[data-test-moderation-dropdown-decision-checkbox="accept"]');
         await click('[data-test-moderation-dropdown-submit]');
         assert.dom(`[data-test-read-only-response=${deserializeResponseKey('page-one_short-text')}]`).hasText(

@@ -45,7 +45,11 @@ module('Collections | Acceptance | discover', hooks => {
             .hasText(currentUser.familyName, 'contributor listed in search result for node added');
         assert.dom('[data-test-provider-description]').containsText('Find out more', 'Provider description exists');
         assert.dom('[data-test-provider-description] a').exists('There is a link in the provider description');
-        await vizzlyScreenshot('discover-1');
+        await vizzlyScreenshot('collections-discover-search-results-displayed', {
+            feature: 'collections',
+            page: 'discover',
+            scenario: 'search-results-with-node-and-contributor',
+        });
     });
 
     test('sorting', async function(assert) {

@@ -127,7 +127,9 @@ module('Registries | Acceptance | overview.topbar', hooks => {
         }, 'anonymized');
 
         await visit(`/${anonymousReg.id}/`);
-        await vizzlyScreenshot('topbar-1');
+        await vizzlyScreenshot('registries-topbar-anonymous-view', {
+            properties: { feature: 'registries', page: 'overview', scenario: 'anonymous-registration-state' },
+        });
 
         assert.dom('[data-test-topbar-share-bookmark-fork]').exists();
         assert.dom('[data-test-topbar-states]').exists();
@@ -345,7 +347,9 @@ module('Registries | Acceptance | overview.topbar', hooks => {
                 .doesNotExist('bookmark and fork buttons are hidden in moderator mode');
 
             await click('[data-test-moderation-dropdown-button]');
-            await vizzlyScreenshot('topbar-2');
+            await vizzlyScreenshot('registries-topbar-moderator-dropdown-open', {
+                properties: { feature: 'registries', page: 'overview', scenario: 'moderator-decision-options' },
+            });
             assert.dom('[data-test-registration-list-card-latest-action]')
                 .exists('latest action is shown');
             assert.dom('[data-test-registration-card-toggle-actions]')

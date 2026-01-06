@@ -64,7 +64,9 @@ module('Registries | Acceptance | draft form', hooks => {
             branchedFrom: this.branchedFrom,
         });
         await visit(`registries/drafts/${draftRegistration.id}/`);
-        await vizzlyScreenshot('branded-draft-page');
+        await vizzlyScreenshot('registries-draft-branded', {
+            properties: { feature: 'registries', page: 'draft', scenario: 'branded-provider' },
+        });
     });
 
     test('it redirects page-not-found for non-contributors', async function(
@@ -122,7 +124,9 @@ module('Registries | Acceptance | draft form', hooks => {
         // check metadata and form renderer
         assert.dom('[data-test-edit-button]').doesNotExist('MetadataRenderer: Edit button not shown');
 
-        await vizzlyScreenshot('read-only-review-page:-desktop');
+        await vizzlyScreenshot('registries-draft-review-readonly-desktop', {
+            properties: { feature: 'registries', page: 'draft', scenario: 'read-only-desktop' },
+        });
 
         // check mobile view
         setBreakpoint('mobile');
@@ -135,7 +139,9 @@ module('Registries | Acceptance | draft form', hooks => {
         assert.dom('[data-test-nonadmin-warning-text]').exists('Mobile view: Warning non-admins cannot register shown');
         assert.dom('[data-test-goto-register]').doesNotExist('Mobile view: Register button does not exist');
 
-        await vizzlyScreenshot('read-only-review-page:-mobile');
+        await vizzlyScreenshot('registries-draft-review-readonly-mobile', {
+            properties: { feature: 'registries', page: 'draft', scenario: 'read-only-mobile' },
+        });
     });
 
     test('it redirects to metadata page of the draft form', async function(this: DraftFormTestContext, assert) {
@@ -206,7 +212,9 @@ module('Registries | Acceptance | draft form', hooks => {
         );
 
         await visit(`/registries/drafts/${draftRegistration.id}/`);
-        await vizzlyScreenshot('registries-acceptance-draft-form-left-nav-controls-metadata-page');
+        await vizzlyScreenshot('registries-draft-nav-metadata', {
+            properties: { feature: 'registries', page: 'draft', scenario: 'nav-metadata' },
+        });
 
         // Metadata page
         assert.equal(currentRouteName(), 'registries.drafts.draft.metadata', 'Starts at metadata route');
@@ -226,7 +234,9 @@ module('Registries | Acceptance | draft form', hooks => {
 
         // Navigate to second page
         await click('[data-test-link="2-this-is-the-second-page"]');
-        await vizzlyScreenshot('registries-acceptance-draft-form-left-nav-controls-second-page');
+        await vizzlyScreenshot('registries-draft-nav-page-two', {
+            properties: { feature: 'registries', page: 'draft', scenario: 'nav-page-two' },
+        });
         assert.equal(currentRouteName(), 'registries.drafts.draft.page', 'Goes to page route');
         assert.dom('[data-test-link="metadata"] > [data-test-icon]')
             .hasClass('fa-exclamation-circle', 'metadata is marked visited, invalid');
@@ -274,7 +284,9 @@ module('Registries | Acceptance | draft form', hooks => {
 
         // Navigate to review
         await click('[data-test-link="review"]');
-        await vizzlyScreenshot('registries-acceptance-draft-form-left-nav-controls-review-page');
+        await vizzlyScreenshot('registries-draft-nav-review', {
+            properties: { feature: 'registries', page: 'draft', scenario: 'nav-review' },
+        });
         assert.equal(currentRouteName(), 'registries.drafts.draft.review', 'Goes to review route');
         assert.dom('[data-test-link="metadata"] > [data-test-icon]')
             .hasClass('fa-exclamation-circle', 'metadata is marked visited, invalid');
@@ -377,7 +389,9 @@ module('Registries | Acceptance | draft form', hooks => {
         setBreakpoint('mobile');
 
         assert.ok(currentURL().includes(`/registries/drafts/${registration.id}/metadata`), 'At metadata page');
-        await vizzlyScreenshot('registries-acceptance-draft-form-mobile-navigation-metadata-page');
+        await vizzlyScreenshot('registries-draft-mobile-nav-metadata', {
+            properties: { feature: 'registries', page: 'draft', scenario: 'mobile-metadata' },
+        });
 
         // Check header
         assert.dom('[data-test-page-label]').containsText('Metadata');
@@ -396,7 +410,9 @@ module('Registries | Acceptance | draft form', hooks => {
         // Next page
         await click('[data-test-goto-next-page]');
 
-        await vizzlyScreenshot('registries-acceptance-draft-form-mobile-navigation-second-page');
+        await vizzlyScreenshot('registries-draft-mobile-nav-page-two', {
+            properties: { feature: 'registries', page: 'draft', scenario: 'mobile-page-two' },
+        });
 
         // Check that the header is expected
         assert.dom('[data-test-page-label]').containsText('This is the second page');
@@ -408,7 +424,9 @@ module('Registries | Acceptance | draft form', hooks => {
         // Check navigation to review page
         await click('[data-test-goto-review]');
 
-        await vizzlyScreenshot('registries-acceptance-draft-form-mobile-navigation-review-page');
+        await vizzlyScreenshot('registries-draft-mobile-nav-review', {
+            properties: { feature: 'registries', page: 'draft', scenario: 'mobile-review' },
+        });
         assert.dom('[data-test-page-label]').containsText('Review');
         assert.dom('[data-test-goto-next-page]').isNotVisible();
         assert.dom('[data-test-nonadmin-warning-text]').doesNotExist('Warning for non-admins not shown to admins');
@@ -577,7 +595,9 @@ module('Registries | Acceptance | draft form', hooks => {
 
         assert.dom('[data-test-delete-modal-body]').isVisible('removeMe hard-confirm modal is visible');
         assert.dom('[data-test-confirm-delete]').isVisible('removeMe hard-confirm modal has confirm button');
-        await vizzlyScreenshot('draft-1');
+        await vizzlyScreenshot('registries-draft-remove-contributor-modal', {
+            properties: { feature: 'registries', page: 'draft', scenario: 'remove-self-modal' },
+        });
 
         await click('[data-test-confirm-delete]');
         assert.dom('#toast-container', document as unknown as Element).hasTextContaining(
@@ -613,7 +633,9 @@ module('Registries | Acceptance | draft form', hooks => {
 
         assert.dom('[data-test-delete-modal-body]').isVisible('removeMe hard-confirm modal is visible');
         assert.dom('[data-test-confirm-delete]').isVisible('removeMe hard-confirm modal has confirm button');
-        await vizzlyScreenshot('draft-2');
+        await vizzlyScreenshot('registries-draft-metadata-remove-self-modal', {
+            properties: { feature: 'registries', page: 'draft', scenario: 'metadata-remove-self' },
+        });
 
         await click('[data-test-confirm-delete]');
         assert.equal(currentURL(), '/dashboard', 'user is redirected to /dashboard');
@@ -975,7 +997,9 @@ module('Registries | Acceptance | draft form', hooks => {
 
         // Choose a license
         await click('[data-test-select-license] > .ember-basic-dropdown-trigger');
-        await vizzlyScreenshot('registries-acceptance-draft-form-metadata-editing-metadata:-licenses-opened');
+        await vizzlyScreenshot('registries-draft-metadata-license-picker', {
+            properties: { feature: 'registries', page: 'draft', scenario: 'license-picker-open' },
+        });
         assert.dom('[data-option-index="2"]').containsText('MIT License');
         await click('[data-option-index="2"]'); // This should be MIT License which requires Year and Copyright Holder
         assert.dom('[data-test-required-field="year"]')
@@ -995,12 +1019,16 @@ module('Registries | Acceptance | draft form', hooks => {
         validationErrorMsg = t('validationErrors.node_license_missing_fields',
             { missingFields, numOfFields: 2 }).toString();
 
-        await vizzlyScreenshot('registries-acceptance-draft-form-metadata-editing-metadata:-invalid-nodelicense');
+        await vizzlyScreenshot('registries-draft-metadata-invalid-license', {
+            properties: { feature: 'registries', page: 'draft', scenario: 'invalid-license-fields' },
+        });
 
         // validation errors for nodelicense should show on review page
         await click('[data-test-link="review"]');
 
-        await vizzlyScreenshot('registries-acceptance-draft-form-metadata-editing-review:-invalid-nodelicense');
+        await vizzlyScreenshot('registries-draft-review-invalid-license', {
+            properties: { feature: 'registries', page: 'draft', scenario: 'review-invalid-license' },
+        });
 
         // Return to metadata page to address empty fields
         await click('[data-test-link="metadata"]');

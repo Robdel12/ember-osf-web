@@ -29,7 +29,11 @@ module('Registries | Acceptance | branded.discover', hooks => {
 
     test('branded discover page renders', async function(this: ThisTestContext, assert) {
         await visit(`/registries/${this.brandedProvider.id}/discover`);
-        await vizzlyScreenshot('branded-discover-page');
+        await vizzlyScreenshot('registries-discover-branded-page', {
+            feature: 'registries',
+            page: 'discover',
+            scenario: 'branded-provider-with-registrations',
+        });
         assert.equal(currentRouteName(), 'registries.branded.discover', 'On the branded discover page');
     });
 

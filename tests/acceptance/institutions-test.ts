@@ -15,7 +15,11 @@ module('Acceptance | institutions', hooks => {
         await visit('/institutions');
         assert.equal(currentURL(), '/institutions');
         assert.dom('[data-test-visit-institution]').exists({ count: 10 });
-        await vizzlyScreenshot('institutions-1');
+        await vizzlyScreenshot('institutions-list-initial-load', {
+            feature: 'institutions',
+            page: 'list',
+            scenario: 'initial-page-load-10-items',
+        });
 
         assert.dom('[data-test-more-institutions]').exists();
         await click('[data-test-more-institutions]');

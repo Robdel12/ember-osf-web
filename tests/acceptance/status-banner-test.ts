@@ -30,6 +30,10 @@ module('Acceptance | Status Banner', hooks => {
         assert.dom('[data-test-status-message="status.welcome_message"]')
             .hasText(stripHtmlTags(t('status.welcome_message').toString()));
 
-        await vizzlyScreenshot('status-banner-1');
+        await vizzlyScreenshot('ui-status-banner-welcome-message', {
+            feature: 'ui',
+            page: 'status-banner',
+            scenario: 'welcome-message',
+        });
     });
 });

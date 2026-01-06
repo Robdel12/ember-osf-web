@@ -43,7 +43,11 @@ module('Registries | Acceptance | branded.moderation | pending', hooks => {
             provider: this.registrationProvider,
         });
         await visit('/registries/sbmit/moderation/pending');
-        await vizzlyScreenshot('moderation-pending-page:-updates-not-allowed');
+        await vizzlyScreenshot('registries-moderation-pending-no-updates', {
+            feature: 'registries',
+            page: 'moderation-pending',
+            scenario: 'updates-not-allowed',
+        });
         assert.equal(currentRouteName(), 'registries.branded.moderation.pending',
             'On the pending page of registries reviews');
 
@@ -62,7 +66,11 @@ module('Registries | Acceptance | branded.moderation | pending', hooks => {
             provider: this.registrationProvider,
         });
         await visit('/registries/sbmit/moderation/pending');
-        await vizzlyScreenshot('moderation-pending-page:-no-registrations');
+        await vizzlyScreenshot('registries-moderation-pending-empty', {
+            feature: 'registries',
+            page: 'moderation-pending',
+            scenario: 'no-registrations',
+        });
         assert.equal(currentRouteName(), 'registries.branded.moderation.pending',
             'On the pending page of registries reviews');
 
@@ -127,7 +135,11 @@ module('Registries | Acceptance | branded.moderation | pending', hooks => {
             provider: this.registrationProvider,
         }, 'asAdmin');
         await visit('/registries/sbmit/moderation/pending');
-        await vizzlyScreenshot('moderation-pending-page:-many-registrations');
+        await vizzlyScreenshot('registries-moderation-pending-with-items', {
+            feature: 'registries',
+            page: 'moderation-pending',
+            scenario: 'many-registrations-paginated',
+        });
         assert.equal(currentRouteName(), 'registries.branded.moderation.pending',
             'On the pending page of registries reviews');
 

@@ -37,7 +37,11 @@ module('Integration | Component | registries | registries-services-list', hooks 
                 'The contact link text is correct.');
 
 
-        await vizzlyScreenshot('component-1');
+        await vizzlyScreenshot('registries-services-list-full-layout', {
+            feature: 'registries',
+            page: 'component',
+            scenario: 'shows header, description, and all registry providers',
+        });
     });
 
 
