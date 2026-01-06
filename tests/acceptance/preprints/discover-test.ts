@@ -2,7 +2,7 @@ import { click, currentRouteName } from '@ember/test-helpers';
 import { ModelInstance } from 'ember-cli-mirage';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import { TestContext } from 'ember-test-helpers';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { setBreakpoint } from 'ember-responsive/test-support';
 import { module, skip } from 'qunit';
 
@@ -38,7 +38,7 @@ module('Acceptance | preprints | discover', hooks => {
         assert.dom('[data-test-search-header]').doesNotExist('Desktop: Non-branded search header is not shown');
         assert.dom('[data-test-topbar-object-type-nav]').doesNotExist('Desktop: Object type nav is not shown');
         assert.dom('[data-test-middle-search-count]').exists('Desktop: Result count is shown in middle panel');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('discover-1');
     });
 
     skip('mobile', async function(this: PreprintDiscoverTestContext, assert) {
@@ -55,6 +55,6 @@ module('Acceptance | preprints | discover', hooks => {
         assert.dom('[data-test-left-search-count]').exists('Mobile: Result count is shown in side panel');
         assert.dom('[data-test-left-panel-object-type-dropdown]')
             .doesNotExist('Mobile: Object type dropdown is not shown');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('discover-2');
     });
 });

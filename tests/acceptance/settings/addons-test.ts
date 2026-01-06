@@ -1,6 +1,6 @@
 import { currentURL, fillIn, triggerKeyEvent, visit } from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { module, test } from 'qunit';
 
 import { click, setupOSFApplicationTest } from 'ember-osf-web/tests/helpers';
@@ -57,7 +57,7 @@ module('Acceptance | settings | addons', hooks => {
         await visit('/settings/addons');
 
         assert.equal(currentURL(), '/settings/addons', 'Went to the addons settings route.');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('addons-1');
     });
 
     test('Filter addons works',  async function(assert) {

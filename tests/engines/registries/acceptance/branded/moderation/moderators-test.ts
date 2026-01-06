@@ -1,6 +1,6 @@
 import { click, currentRouteName, fillIn } from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { module, test, skip } from 'qunit';
 
 import { timeout } from 'ember-concurrency';
@@ -37,7 +37,7 @@ module('Registries | Acceptance | branded.moderation | moderators', hooks => {
         server.create('moderator', { id: currentUser.id, user: currentUser, provider: regProvider });
         regProvider.update({ permissions: ['view_submissions'] });
         await visit('/registries/mdr8n/moderation/moderators');
-        await percySnapshot('moderation moderators page: moderator view');
+        await vizzlyScreenshot('moderation-moderators-page:-moderator-view');
         assert.equal(currentRouteName(), 'registries.branded.moderation.moderators',
             'On the moderators page of registries reviews');
         assert.dom('[data-test-moderator-row]').exists({ count: 4 }, 'There are 4 moderators shown');
@@ -56,7 +56,7 @@ module('Registries | Acceptance | branded.moderation | moderators', hooks => {
         server.create('moderator', { id: currentUser.id, user: currentUser, provider: regProvider }, 'asAdmin');
         regProvider.update({ permissions: ['view_submissions'] });
         await visit('/registries/mdr8n/moderation/moderators');
-        await percySnapshot('moderation moderators page: admin view');
+        await vizzlyScreenshot('moderation-moderators-page:-admin-view');
         assert.equal(currentRouteName(), 'registries.branded.moderation.moderators',
             'On the moderators page of registries reviews');
 

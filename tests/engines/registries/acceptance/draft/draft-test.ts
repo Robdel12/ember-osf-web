@@ -15,7 +15,7 @@ import { ModelInstance } from 'ember-cli-mirage';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import config from 'ember-osf-web/config/environment';
 import { t } from 'ember-intl/test-support';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { setBreakpoint } from 'ember-responsive/test-support';
 import { TestContext } from 'ember-test-helpers';
 import { module, test } from 'qunit';
@@ -64,7 +64,7 @@ module('Registries | Acceptance | draft form', hooks => {
             branchedFrom: this.branchedFrom,
         });
         await visit(`registries/drafts/${draftRegistration.id}/`);
-        await percySnapshot('Branded draft page');
+        await vizzlyScreenshot('branded-draft-page');
     });
 
     test('it redirects page-not-found for non-contributors', async function(
@@ -122,7 +122,7 @@ module('Registries | Acceptance | draft form', hooks => {
         // check metadata and form renderer
         assert.dom('[data-test-edit-button]').doesNotExist('MetadataRenderer: Edit button not shown');
 
-        await percySnapshot('Read-only Review page: Desktop');
+        await vizzlyScreenshot('read-only-review-page:-desktop');
 
         // check mobile view
         setBreakpoint('mobile');
@@ -135,7 +135,7 @@ module('Registries | Acceptance | draft form', hooks => {
         assert.dom('[data-test-nonadmin-warning-text]').exists('Mobile view: Warning non-admins cannot register shown');
         assert.dom('[data-test-goto-register]').doesNotExist('Mobile view: Register button does not exist');
 
-        await percySnapshot('Read-only Review page: Mobile');
+        await vizzlyScreenshot('read-only-review-page:-mobile');
     });
 
     test('it redirects to metadata page of the draft form', async function(this: DraftFormTestContext, assert) {
@@ -206,7 +206,7 @@ module('Registries | Acceptance | draft form', hooks => {
         );
 
         await visit(`/registries/drafts/${draftRegistration.id}/`);
-        await percySnapshot('Registries | Acceptance | draft form | left nav controls | metadata page');
+        await vizzlyScreenshot('registries-acceptance-draft-form-left-nav-controls-metadata-page');
 
         // Metadata page
         assert.equal(currentRouteName(), 'registries.drafts.draft.metadata', 'Starts at metadata route');
@@ -226,7 +226,7 @@ module('Registries | Acceptance | draft form', hooks => {
 
         // Navigate to second page
         await click('[data-test-link="2-this-is-the-second-page"]');
-        await percySnapshot('Registries | Acceptance | draft form | left nav controls | second page');
+        await vizzlyScreenshot('registries-acceptance-draft-form-left-nav-controls-second-page');
         assert.equal(currentRouteName(), 'registries.drafts.draft.page', 'Goes to page route');
         assert.dom('[data-test-link="metadata"] > [data-test-icon]')
             .hasClass('fa-exclamation-circle', 'metadata is marked visited, invalid');
@@ -274,7 +274,7 @@ module('Registries | Acceptance | draft form', hooks => {
 
         // Navigate to review
         await click('[data-test-link="review"]');
-        await percySnapshot('Registries | Acceptance | draft form | left nav controls | review page');
+        await vizzlyScreenshot('registries-acceptance-draft-form-left-nav-controls-review-page');
         assert.equal(currentRouteName(), 'registries.drafts.draft.review', 'Goes to review route');
         assert.dom('[data-test-link="metadata"] > [data-test-icon]')
             .hasClass('fa-exclamation-circle', 'metadata is marked visited, invalid');
@@ -377,7 +377,7 @@ module('Registries | Acceptance | draft form', hooks => {
         setBreakpoint('mobile');
 
         assert.ok(currentURL().includes(`/registries/drafts/${registration.id}/metadata`), 'At metadata page');
-        await percySnapshot('Registries | Acceptance | draft form | mobile navigation | metadata page');
+        await vizzlyScreenshot('registries-acceptance-draft-form-mobile-navigation-metadata-page');
 
         // Check header
         assert.dom('[data-test-page-label]').containsText('Metadata');
@@ -396,7 +396,7 @@ module('Registries | Acceptance | draft form', hooks => {
         // Next page
         await click('[data-test-goto-next-page]');
 
-        await percySnapshot('Registries | Acceptance | draft form | mobile navigation | second page');
+        await vizzlyScreenshot('registries-acceptance-draft-form-mobile-navigation-second-page');
 
         // Check that the header is expected
         assert.dom('[data-test-page-label]').containsText('This is the second page');
@@ -408,7 +408,7 @@ module('Registries | Acceptance | draft form', hooks => {
         // Check navigation to review page
         await click('[data-test-goto-review]');
 
-        await percySnapshot('Registries | Acceptance | draft form | mobile navigation | review page');
+        await vizzlyScreenshot('registries-acceptance-draft-form-mobile-navigation-review-page');
         assert.dom('[data-test-page-label]').containsText('Review');
         assert.dom('[data-test-goto-next-page]').isNotVisible();
         assert.dom('[data-test-nonadmin-warning-text]').doesNotExist('Warning for non-admins not shown to admins');
@@ -577,7 +577,7 @@ module('Registries | Acceptance | draft form', hooks => {
 
         assert.dom('[data-test-delete-modal-body]').isVisible('removeMe hard-confirm modal is visible');
         assert.dom('[data-test-confirm-delete]').isVisible('removeMe hard-confirm modal has confirm button');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('draft-1');
 
         await click('[data-test-confirm-delete]');
         assert.dom('#toast-container', document as unknown as Element).hasTextContaining(
@@ -613,7 +613,7 @@ module('Registries | Acceptance | draft form', hooks => {
 
         assert.dom('[data-test-delete-modal-body]').isVisible('removeMe hard-confirm modal is visible');
         assert.dom('[data-test-confirm-delete]').isVisible('removeMe hard-confirm modal has confirm button');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('draft-2');
 
         await click('[data-test-confirm-delete]');
         assert.equal(currentURL(), '/dashboard', 'user is redirected to /dashboard');
@@ -975,7 +975,7 @@ module('Registries | Acceptance | draft form', hooks => {
 
         // Choose a license
         await click('[data-test-select-license] > .ember-basic-dropdown-trigger');
-        await percySnapshot('Registries | Acceptance | draft form | metadata editing | metadata: licenses opened');
+        await vizzlyScreenshot('registries-acceptance-draft-form-metadata-editing-metadata:-licenses-opened');
         assert.dom('[data-option-index="2"]').containsText('MIT License');
         await click('[data-option-index="2"]'); // This should be MIT License which requires Year and Copyright Holder
         assert.dom('[data-test-required-field="year"]')
@@ -995,14 +995,12 @@ module('Registries | Acceptance | draft form', hooks => {
         validationErrorMsg = t('validationErrors.node_license_missing_fields',
             { missingFields, numOfFields: 2 }).toString();
 
-        await percySnapshot(
-            'Registries | Acceptance | draft form | metadata editing | metadata: invalid nodelicense',
-        );
+        await vizzlyScreenshot('registries-acceptance-draft-form-metadata-editing-metadata:-invalid-nodelicense');
 
         // validation errors for nodelicense should show on review page
         await click('[data-test-link="review"]');
 
-        await percySnapshot('Registries | Acceptance | draft form | metadata editing | review: invalid nodelicense');
+        await vizzlyScreenshot('registries-acceptance-draft-form-metadata-editing-review:-invalid-nodelicense');
 
         // Return to metadata page to address empty fields
         await click('[data-test-link="metadata"]');

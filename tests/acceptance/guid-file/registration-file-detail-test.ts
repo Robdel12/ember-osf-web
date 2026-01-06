@@ -4,7 +4,7 @@ import a11yAudit from 'ember-a11y-testing/test-support/audit';
 import { ModelInstance } from 'ember-cli-mirage';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import { t } from 'ember-intl/test-support';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { selectChoose } from 'ember-power-select/test-support';
 import { setBreakpoint } from 'ember-responsive/test-support';
 import { TestContext } from 'ember-test-helpers';
@@ -50,7 +50,7 @@ module('Acceptance | guid file | registration files', hooks => {
         assert.dom('[data-test-file-renderer-button]').doesNotExist('File renderer button does not exist for desktop');
         assert.dom('[data-test-versions-button]').exists('Versions button exists');
         assert.dom('[data-test-tags-button]').exists('Tags button exists');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('registration-file-detail-1');
     });
 
     test('Mobile view', async function(this: ThisTestContext, assert) {
@@ -66,7 +66,7 @@ module('Acceptance | guid file | registration files', hooks => {
         assert.dom('[data-test-file-renderer-button]').exists('File renderer button exists for mobile');
         assert.dom('[data-test-versions-button]').exists('Versions button exists');
         assert.dom('[data-test-tags-button]').exists('Tags button exists');
-        await percySnapshot('Acceptance | guid file | registration files | mobile view | file renderer');
+        await vizzlyScreenshot('acceptance-guid-file-registration-files-mobile-view-file-renderer');
 
         assert.dom('[data-test-file-renderer]').exists();
         assert.dom('[data-test-metadata-tab]').doesNotExist();
@@ -77,7 +77,7 @@ module('Acceptance | guid file | registration files', hooks => {
         await click('[data-test-versions-button]');
         assert.dom('[data-test-revisions-tab]').exists('Revisions shown');
         assert.dom('[data-test-file-renderer]').doesNotExist('File renderer is hidden');
-        await percySnapshot('Acceptance | guid file | registration files | mobile view | revisions');
+        await vizzlyScreenshot('acceptance-guid-file-registration-files-mobile-view-revisions');
 
         await click('[data-test-file-renderer-button]');
         assert.dom('[data-test-file-renderer]').exists('File renderer is shown again');
@@ -110,7 +110,7 @@ module('Acceptance | guid file | registration files', hooks => {
         await click('[data-test-file-version-date]');
         assert.dom('[data-test-filename]')
             .containsText(t('general.version'), 'Viewed version specified after selecting version');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('registration-file-detail-2');
 
         await click('[data-test-versions-button]');
         assert.dom('[data-test-revisions-tab]').doesNotExist('Revisions tab closes when clicking button again');
@@ -256,7 +256,7 @@ module('Acceptance | guid file | registration files', hooks => {
         await click('[data-test-cancel-editing-metadata-button]');
         assert.dom('[data-test-edit-metadata-form]').doesNotExist();
         // Screenshot before changes
-        await percySnapshot(assert);
+        await vizzlyScreenshot('registration-file-detail-3');
         await click('[data-test-edit-metadata-button]');
         // Update title
         await fillIn('[data-test-title-field] > div > textarea', 'A New Title');
@@ -267,7 +267,7 @@ module('Acceptance | guid file | registration files', hooks => {
         // Update resource language
         await selectChoose('[data-test-select-resource-language]', 'English');
         // Screenshot after changes
-        await percySnapshot(assert);
+        await vizzlyScreenshot('registration-file-detail-4');
         // Save changes
         await click('[data-test-save-metadata-button]');
         // Verify form closes

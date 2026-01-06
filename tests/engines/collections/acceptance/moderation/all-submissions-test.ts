@@ -1,5 +1,5 @@
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { module, test } from 'qunit';
 
 import { visit } from 'ember-osf-web/tests/helpers';
@@ -66,7 +66,7 @@ module('Collections | Acceptance | moderation | all', hooks => {
         assert.dom('[data-test-submissions-type="removed"][data-test-is-selected="true"]')
             .exists('removed is selected');
         assert.dom('[data-test-moderation-submissions-empty]').exists('no removed submssions are shown');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('all-submissions-1');
     });
 
     test('it moderates pending submissions', async function(assert) {

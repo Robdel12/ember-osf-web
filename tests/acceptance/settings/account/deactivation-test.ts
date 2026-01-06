@@ -1,6 +1,6 @@
 import { visit } from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { module, test } from 'qunit';
 
 import { click, setupOSFApplicationTest } from 'ember-osf-web/tests/helpers';
@@ -37,7 +37,7 @@ module('Acceptance | settings/account | deactivation', hooks => {
         assertDeactivationNotRequested(assert, 'Initial state');
         await click('[data-analytics-name="Deactivation request"]');
         assert.dom('[data-test-confirm-deactivation-submit]').exists('First attempt');
-        percySnapshot('Acceptance | settings/account | deactivation | Deactivation dialog');
+        await vizzlyScreenshot('settings-account-deactivation-dialog');
         assert.dom('[data-test-deactivation-cancel]')
             .exists('Cancelling deactivation confirmation');
         await click('[data-test-deactivation-cancel]');
@@ -48,7 +48,7 @@ module('Acceptance | settings/account | deactivation', hooks => {
         assertDeactivationRequested(assert, 'Deactivation confirmed');
         await click('[data-analytics-name="Undo deactivation request"]');
         assert.dom('[data-test-undo-warning-cancel]').exists('Undo deactivation cancellation');
-        percySnapshot('Acceptance | settings/account | deactivation | Undo deactivation dialog');
+        await vizzlyScreenshot('settings-account-undo-deactivation-dialog');
         await click('[data-test-undo-warning-cancel]');
         assertDeactivationRequested(assert, 'Undo deactivation cancelled');
         assert.dom('[data-analytics-name="Undo deactivation request"]').exists();

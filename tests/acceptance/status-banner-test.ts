@@ -2,7 +2,7 @@ import { visit } from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import config from 'ember-osf-web/config/environment';
 import { t } from 'ember-intl/test-support';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { module, test } from 'qunit';
 
 import { setupOSFApplicationTest } from 'ember-osf-web/tests/helpers';
@@ -30,6 +30,6 @@ module('Acceptance | Status Banner', hooks => {
         assert.dom('[data-test-status-message="status.welcome_message"]')
             .hasText(stripHtmlTags(t('status.welcome_message').toString()));
 
-        await percySnapshot(assert);
+        await vizzlyScreenshot('status-banner-1');
     });
 });

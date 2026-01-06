@@ -1,5 +1,5 @@
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { module, test } from 'qunit';
 
 import { click, visit } from 'ember-osf-web/tests/helpers';
@@ -59,6 +59,6 @@ module('Collections | Acceptance | moderation | settings', hooks => {
         assert.dom('[data-test-subscription-option="instant"]').hasText('Instant');
 
         // And take a percy snapshot
-        await percySnapshot(assert);
+        await vizzlyScreenshot('settings-1');
     });
 });

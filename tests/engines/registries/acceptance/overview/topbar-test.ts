@@ -3,7 +3,7 @@ import { triggerEvent } from '@ember/test-helpers';
 import { ModelInstance } from 'ember-cli-mirage';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import { t } from 'ember-intl/test-support';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { assertTooltipRendered, assertTooltipVisible } from 'ember-tooltips/test-support';
 import moment from 'moment-timezone';
 import { module, test } from 'qunit';
@@ -127,7 +127,7 @@ module('Registries | Acceptance | overview.topbar', hooks => {
         }, 'anonymized');
 
         await visit(`/${anonymousReg.id}/`);
-        await percySnapshot(assert);
+        await vizzlyScreenshot('topbar-1');
 
         assert.dom('[data-test-topbar-share-bookmark-fork]').exists();
         assert.dom('[data-test-topbar-states]').exists();
@@ -345,7 +345,7 @@ module('Registries | Acceptance | overview.topbar', hooks => {
                 .doesNotExist('bookmark and fork buttons are hidden in moderator mode');
 
             await click('[data-test-moderation-dropdown-button]');
-            await percySnapshot(assert);
+            await vizzlyScreenshot('topbar-2');
             assert.dom('[data-test-registration-list-card-latest-action]')
                 .exists('latest action is shown');
             assert.dom('[data-test-registration-card-toggle-actions]')

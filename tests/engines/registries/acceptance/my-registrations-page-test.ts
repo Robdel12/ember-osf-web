@@ -1,6 +1,6 @@
 import { click, currentURL } from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { module, test } from 'qunit';
 
 import { visit } from 'ember-osf-web/tests/helpers';
@@ -33,7 +33,7 @@ module('Registries | Acceptance | my-registrations page', hooks => {
         assert.dom('[data-test-my-registrations-pane="submitted"]').isVisible('Submitted pane is shown');
         assert.dom('[data-test-my-registrations-pane="drafts"]').isNotVisible('Drafts pane is not shown');
         assert.dom('[data-test-node-card]').exists({ count: 3 }, 'All submitted registrations shown');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('my-registrations-page-1');
 
         await click('[data-test-my-registrations-nav="drafts"]');
         assert.ok(currentURL().includes('tab=drafts'), 'Tab query param visible on drafts');
@@ -44,8 +44,6 @@ module('Registries | Acceptance | my-registrations page', hooks => {
         assert.dom('[data-test-my-registrations-pane="drafts"]').isVisible('Drafts pane is shown');
         assert.dom('[data-test-my-registrations-pane="submitted"]').isNotVisible('Submitted pane is not shown');
         assert.dom('[data-test-draft-registration-card]').exists({ count: 2 }, 'All drafts shown');
-        await percySnapshot(
-            'Registries | Acceptance | my registrations page | navigation with drafts and registrations | drafts',
-        );
+        await vizzlyScreenshot('registries-my-registrations-page-drafts-and-registrations');
     });
 });

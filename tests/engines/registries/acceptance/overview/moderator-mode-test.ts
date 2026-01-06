@@ -10,7 +10,7 @@ import { click, currentURL, visit } from 'ember-osf-web/tests/helpers';
 import { setupEngineApplicationTest } from 'ember-osf-web/tests/helpers/engines';
 import stripHtmlTags from 'ember-osf-web/utils/strip-html-tags';
 import { deserializeResponseKey } from 'ember-osf-web/transforms/registration-response-key';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import moment from 'moment-timezone';
 import { module, test } from 'qunit';
 import fillIn from '@ember/test-helpers/dom/fill-in';
@@ -70,7 +70,7 @@ module('Registries | Acceptance | overview.moderator-mode', hooks => {
             t('osf-components.makeDecisionDropdown.rejectSubmission'),
             'Reject submission option has correct text',
         );
-        await percySnapshot(assert);
+        await vizzlyScreenshot('moderator-mode-1');
         await click('[data-test-moderation-dropdown-decision-checkbox="accept_submission"]');
         await click('[data-test-moderation-dropdown-submit]');
         await click('[data-test-state-button]');
@@ -144,7 +144,7 @@ module('Registries | Acceptance | overview.moderator-mode', hooks => {
             t('osf-components.makeDecisionDropdown.forceWithdraw'),
             'Force withdraw option has correct text',
         );
-        await percySnapshot(assert);
+        await vizzlyScreenshot('moderator-mode-2');
         await click('[data-test-moderation-dropdown-decision-checkbox="force_withdraw"]');
         assert.dom('[data-test-validation-errors="comment"]').exists('Comment is required');
         await fillIn('[data-test-moderation-dropdown-comment]', 'This is a comment');
@@ -191,7 +191,7 @@ module('Registries | Acceptance | overview.moderator-mode', hooks => {
             t('osf-components.makeDecisionDropdown.rejectWithdrawal'),
             'Reject withdrawal option has correct text',
         );
-        await percySnapshot(assert);
+        await vizzlyScreenshot('moderator-mode-3');
         await click('[data-test-moderation-dropdown-decision-checkbox="accept_withdrawal"]');
         await click('[data-test-moderation-dropdown-submit]');
         await timeout(2000);
@@ -208,7 +208,7 @@ module('Registries | Acceptance | overview.moderator-mode', hooks => {
         }, 'isPendingWithdraw', 'withReviewActions');
         await visit(`/${registration.id}?mode=moderator`);
         await click('[data-test-moderation-dropdown-button]');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('moderator-mode-4');
         await click('[data-test-moderation-dropdown-decision-checkbox="reject_withdrawal"]');
         assert.dom('[data-test-validation-errors="comment"]').exists('Comment is required');
         await fillIn('[data-test-moderation-dropdown-comment]', 'This is a comment');
@@ -261,7 +261,7 @@ module('Registries | Acceptance | overview.moderator-mode', hooks => {
             t('osf-components.makeDecisionDropdown.forceWithdraw'),
             'Force withdraw option has correct text',
         );
-        await percySnapshot(assert);
+        await vizzlyScreenshot('moderator-mode-5');
         await click('[data-test-moderation-dropdown-decision-checkbox="force_withdraw"]');
         assert.dom('[data-test-validation-errors="comment"]').exists('Comment is required');
         await fillIn('[data-test-moderation-dropdown-comment]', 'This is a comment');
@@ -309,7 +309,7 @@ module('Registries | Acceptance | overview.moderator-mode', hooks => {
             t('osf-components.makeDecisionDropdown.forceWithdraw'),
             'Force withdraw option has correct text',
         );
-        await percySnapshot(assert);
+        await vizzlyScreenshot('moderator-mode-6');
         await click('[data-test-moderation-dropdown-decision-checkbox="force_withdraw"]');
         assert.dom('[data-test-validation-errors="comment"]').exists('Comment is required');
         await fillIn('[data-test-moderation-dropdown-comment]', 'This is a comment');
@@ -356,7 +356,7 @@ module('Registries | Acceptance | overview.moderator-mode', hooks => {
             t('osf-components.makeDecisionDropdown.forceWithdraw'),
             'Force withdraw option has correct text',
         );
-        await percySnapshot(assert);
+        await vizzlyScreenshot('moderator-mode-7');
         await click('[data-test-moderation-dropdown-decision-checkbox="force_withdraw"]');
         assert.dom('[data-test-validation-errors="comment"]').exists('Comment is required');
         await fillIn('[data-test-moderation-dropdown-comment]', 'This is a comment');
@@ -406,7 +406,7 @@ module('Registries | Acceptance | overview.moderator-mode', hooks => {
             t('osf-components.makeDecisionDropdown.rejectRevision'),
             'Reject update option has correct text',
         );
-        await percySnapshot(assert);
+        await vizzlyScreenshot('moderator-mode-8');
         await click('[data-test-moderation-dropdown-decision-checkbox="accept"]');
         await click('[data-test-moderation-dropdown-submit]');
         assert.dom(`[data-test-read-only-response=${deserializeResponseKey('page-one_short-text')}]`).hasText(

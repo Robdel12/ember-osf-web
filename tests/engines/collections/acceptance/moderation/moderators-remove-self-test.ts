@@ -1,5 +1,5 @@
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { module, test } from 'qunit';
 
 import { click, visit } from 'ember-osf-web/tests/helpers';
@@ -60,6 +60,6 @@ module('Collections | Acceptance | moderation | moderators | remove self', hooks
         // Then I verify I am on the page not found since I do not have access
         assert.equal(currentRouteName(), 'collections.page-not-found', 'The route should be page-not-found.');
 
-        await percySnapshot(assert);
+        await vizzlyScreenshot('moderators-remove-self-1');
     });
 });

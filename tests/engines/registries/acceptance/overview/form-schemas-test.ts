@@ -1,5 +1,5 @@
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { module, test } from 'qunit';
 
 import { visit } from 'ember-osf-web/tests/helpers';
@@ -22,7 +22,7 @@ module('Registries | Acceptance | overview form schemas', hooks => {
 
             const msg = `Registration form renders for schema ${registrationSchema.id}`;
 
-            await percySnapshot(msg);
+            await vizzlyScreenshot(msg);
             assert.dom('[data-test-page-heading]').exists({
                 count: registrationSchema.schemaBlocks!.filter(item => item.blockType === 'page-heading').length,
             }, msg);

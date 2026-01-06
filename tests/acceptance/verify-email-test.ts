@@ -2,7 +2,7 @@ import { visit } from '@ember/test-helpers';
 
 import { ModelInstance } from 'ember-cli-mirage';
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { module, test } from 'qunit';
 
 import User from 'ember-osf-web/models/user';
@@ -32,7 +32,7 @@ module('Acceptance | verify email', hooks => {
 
         await visit('/dashboard');
         assert.dom('[data-test-verify-email-prompt]').exists();
-        await percySnapshot(assert);
+        await vizzlyScreenshot('verify-email-1');
 
         await click('[data-test-verify-email]');
         user.reload();

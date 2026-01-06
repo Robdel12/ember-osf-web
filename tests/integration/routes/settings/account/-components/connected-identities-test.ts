@@ -2,7 +2,7 @@ import { render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import { setupIntl, t } from 'ember-intl/test-support';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { setupRenderingTest } from 'ember-qunit';
 import { module, test } from 'qunit';
 
@@ -37,7 +37,7 @@ module('Integration | routes | settings | account | -components | connected-iden
                 t('settings.account.connected_identities.no_identities').toString(),
                 'list displays text for no identities',
             );
-        await percySnapshot(assert);
+        await vizzlyScreenshot('connected-identities-1');
     });
 
     test('identity statuses', async function(assert) {
@@ -78,7 +78,7 @@ module('Integration | routes | settings | account | -components | connected-iden
                 'list displays expected text for identity with status: LINK',
             );
 
-        await percySnapshot(assert);
+        await vizzlyScreenshot('connected-identities-2');
     });
 
     test('pagination', async function(assert) {
@@ -90,18 +90,14 @@ module('Integration | routes | settings | account | -components | connected-iden
             { count: 10 },
             'ten identities on the first page',
         );
-        await percySnapshot(
-            'Integration | routes | settings | account | -components | connected-identities | pagination | first page',
-        );
+        await vizzlyScreenshot('connected-identities-pagination-first-page');
 
         await click('[data-test-next-page-button]');
         assert.dom('[data-test-connected-identities-item]').exists(
             { count: 2 },
             'two identites on the second page',
         );
-        await percySnapshot(
-            'Integration | routes | settings | account | -components | connected-identities | pagination | second page',
-        );
+        await vizzlyScreenshot('connected-identities-pagination-second-page');
     });
 
     test('remove identity', async function(assert) {
@@ -115,7 +111,7 @@ module('Integration | routes | settings | account | -components | connected-iden
             'expected identity is in the list',
         );
         await click(`[data-test-connected-identities-item=${identity.id}] [data-test-delete-button]`);
-        await percySnapshot(assert);
+        await vizzlyScreenshot('connected-identities-3');
         await click('[data-test-cancel-delete]');
         assert.dom(`[data-test-connected-identities-item=${identity.id}]`).exists(
             { count: 1 },

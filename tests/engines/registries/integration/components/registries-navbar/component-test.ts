@@ -4,7 +4,7 @@ import { hbs } from 'ember-cli-htmlbars';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import config from 'ember-osf-web/config/environment';
 import { setupIntl, t } from 'ember-intl/test-support';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { setBreakpoint } from 'ember-responsive/test-support';
 import $ from 'jquery';
 import { module, test } from 'qunit';
@@ -102,7 +102,7 @@ module('Registries | Integration | Component | registries-navbar', hooks => {
         setBreakpoint('desktop');
 
         await render(hbs`<RegistriesNavbar />`, { owner: this.engine });
-        await percySnapshot(assert);
+        await vizzlyScreenshot('component-1');
 
         // Don't show provider name unless provider is branded
         assert.dom('[data-test-brand-link]').doesNotExist('Branded provider name does not exists');
@@ -122,7 +122,7 @@ module('Registries | Integration | Component | registries-navbar', hooks => {
         this.engine.lookup('service:session').set('isAuthenticated', false);
 
         await render(hbs`<RegistriesNavbar @campaign='osf-registries' />`, { owner: this.engine });
-        await percySnapshot(assert);
+        await vizzlyScreenshot('component-2');
 
         assert.dom('a[data-test-join]').hasText(`${t('navbar.join')}`);
         assert.dom('a[data-test-join]').hasAttribute(
@@ -142,7 +142,7 @@ module('Registries | Integration | Component | registries-navbar', hooks => {
         this.engine.lookup('service:session').set('isAuthenticated', true);
 
         await render(hbs`<RegistriesNavbar />`, { owner: this.engine });
-        await percySnapshot(assert);
+        await vizzlyScreenshot('component-3');
 
         // Not visible due to not having a test image
         assert.dom('img[data-test-gravatar]').exists('User Gravatar is rendered');
@@ -157,7 +157,7 @@ module('Registries | Integration | Component | registries-navbar', hooks => {
         setBreakpoint('tablet');
 
         await render(hbs`<RegistriesNavbar />`, { owner: this.engine });
-        await percySnapshot(assert);
+        await vizzlyScreenshot('component-4');
 
         assert.dom('[data-test-service]').doesNotContainText(
             `${t('general.OSF')}${t('general.services.registries')}`, 'Navbar text hidden on tablet view',
@@ -176,7 +176,7 @@ module('Registries | Integration | Component | registries-navbar', hooks => {
         this.engine.lookup('service:session').set('isAuthenticated', false);
 
         await render(hbs`<RegistriesNavbar />`, { owner: this.engine });
-        await percySnapshot(assert);
+        await vizzlyScreenshot('component-5');
 
         assert.dom('a[data-test-join]').hasText(`${t('navbar.join')}`);
         assert.dom('a[data-test-join]').isVisible('Join button is visible');
@@ -192,7 +192,7 @@ module('Registries | Integration | Component | registries-navbar', hooks => {
         this.engine.lookup('service:session').set('isAuthenticated', true);
 
         await render(hbs`<RegistriesNavbar />`, { owner: this.engine });
-        await percySnapshot(assert);
+        await vizzlyScreenshot('component-6');
 
         // Not visible due to not having a test image
         assert.dom('img[data-test-gravatar]').exists('User Gravatar is rendered');
@@ -208,7 +208,7 @@ module('Registries | Integration | Component | registries-navbar', hooks => {
         await render(hbs`<RegistriesNavbar />`, { owner: this.engine });
 
         await click('[data-test-gravatar]');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('component-7');
 
         assert.dom('a[data-test-help-mobile]').isVisible();
         assert.dom('a[data-test-donate-mobile]').isVisible();
@@ -221,7 +221,7 @@ module('Registries | Integration | Component | registries-navbar', hooks => {
         await render(hbs`<RegistriesNavbar />`, { owner: this.engine });
 
         await click('[data-test-toggle-navbar]');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('component-8');
 
         assert.dom('a[data-test-join-mobile]').hasText(`${t('navbar.join')}`);
         assert.dom('a[data-test-join-mobile]').isVisible('Join button is visible');
@@ -238,7 +238,7 @@ module('Registries | Integration | Component | registries-navbar', hooks => {
         this.engine.lookup('service:session').set('isAuthenticated', true);
 
         await render(hbs`<RegistriesNavbar />`, { owner: this.engine });
-        await percySnapshot(assert);
+        await vizzlyScreenshot('component-9');
 
         // Not visible due to not having a test image
         assert.dom('img[data-test-gravatar]').exists('User Gravatar is rendered');
@@ -253,7 +253,7 @@ module('Registries | Integration | Component | registries-navbar', hooks => {
         assert.dom('[data-test-service-list] ul').isNotVisible();
 
         await click('[data-test-service]');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('component-10');
 
         assert.dom('[data-test-service-list] ul').isVisible();
     });
@@ -266,7 +266,7 @@ module('Registries | Integration | Component | registries-navbar', hooks => {
         assert.dom('[data-test-auth-dropdown] ul').isNotVisible();
 
         await click('[data-test-gravatar]');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('component-11');
 
         assert.dom('[data-test-auth-dropdown] ul').isVisible();
     });
@@ -279,7 +279,7 @@ module('Registries | Integration | Component | registries-navbar', hooks => {
         setBreakpoint('desktop');
 
         await render(hbs`<RegistriesNavbar @provider={{this.provider}} />`, { owner: this.engine });
-        await percySnapshot(assert);
+        await vizzlyScreenshot('component-12');
 
         assert.dom('[data-test-brand-link]').exists('Branded provider name exists');
         assert.dom('[data-test-brand-link]').hasText(brandedProvider.name, 'Branded provider name is correct');
@@ -293,7 +293,7 @@ module('Registries | Integration | Component | registries-navbar', hooks => {
         setBreakpoint('mobile');
 
         await render(hbs`<RegistriesNavbar @provider={{this.provider}} />`, { owner: this.engine });
-        await percySnapshot(assert);
+        await vizzlyScreenshot('component-13');
 
         assert.dom('[data-test-brand-link]').doesNotExist('Branded provider name does not exists');
     });

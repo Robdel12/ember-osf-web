@@ -1,7 +1,7 @@
 import { click as untrackedClick, currentRouteName, currentURL, fillIn, visit, waitFor } from '@ember/test-helpers';
 
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { module, test } from 'qunit';
 
 import { click, setupOSFApplicationTest } from 'ember-osf-web/tests/helpers';
@@ -42,7 +42,7 @@ module('Acceptance | settings | personal access tokens', hooks => {
         await visit('/settings/tokens');
 
         assert.dom('[data-test-token-card]').exists({ count: 10 });
-        await percySnapshot(assert);
+        await vizzlyScreenshot('tokens-page-1');
     });
 
     test('create token', async function(assert) {
@@ -58,7 +58,7 @@ module('Acceptance | settings | personal access tokens', hooks => {
 
         await fillIn('[data-test-token-name] input', tokenName);
         await untrackedClick('[data-test-scope] input[type=checkbox]');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('tokens-page-2');
         await click('[data-analytics-name="Submit button"]');
         await timeout(50);
         assert.dom('[data-test-new-token-value]').exists();
@@ -91,7 +91,7 @@ module('Acceptance | settings | personal access tokens', hooks => {
 
         assert.dom(input).hasValue(oldName);
         await fillIn(input, newName);
-        await percySnapshot(assert);
+        await vizzlyScreenshot('tokens-page-3');
         await click('[data-analytics-name="Save"]');
         await timeout(50);
         assert.equal(currentRouteName(), 'settings.tokens.index', 'current route is settings.tokens.index');
@@ -113,7 +113,7 @@ module('Acceptance | settings | personal access tokens', hooks => {
         assert.dom(card).exists({ count: 1 });
 
         await click(`${card} [data-test-delete-button]`);
-        await percySnapshot(assert);
+        await vizzlyScreenshot('tokens-page-4');
         await click('[data-test-confirm-delete]');
 
         assert.dom('[data-test-token-card]').exists({ count: 1 });

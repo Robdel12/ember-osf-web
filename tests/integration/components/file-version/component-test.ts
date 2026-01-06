@@ -2,7 +2,7 @@ import { render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import { setupIntl, t } from 'ember-intl/test-support';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { setupRenderingTest } from 'ember-qunit';
 import moment from 'moment-timezone';
 import { module, test } from 'qunit';
@@ -65,6 +65,6 @@ module('Integration | Component | file-version', hooks => {
             .containsText(t('general.download'));
         assert.dom('[data-test-file-version-section="download"]')
             .containsText('22', 'shows download count');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('component-1');
     });
 });

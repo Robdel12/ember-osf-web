@@ -2,7 +2,7 @@ import { render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 import { setupIntl, t } from 'ember-intl/test-support';
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { setupRenderingTest } from 'ember-qunit';
 import { module, test } from 'qunit';
 import sinon from 'sinon';
@@ -98,7 +98,7 @@ module('Integration | Component | move-file-modal', hooks => {
         assert.dom('[data-test-moving-file-item]').doesNotExist('No moving file items');
         assert.dom('[data-test-move-done-button]').doesNotExist('done button does not exists');
 
-        await percySnapshot('Integration | Component | move-file-modal | move start');
+        await vizzlyScreenshot('integration-component-move-file-modal-move-start');
         await click('[data-test-ancestor-button="1"]'); // click parent node (releases)
         assert.dom('[data-test-ancestor-button]').exists({count: 1}, 'one ancestors');
         assert.dom('[data-test-breadcrumb').doesNotExist('no breadcrumbs');
@@ -127,7 +127,7 @@ module('Integration | Component | move-file-modal', hooks => {
         assert.dom('[data-test-move-files-button]').doesNotExist('move files button is no longer visible');
         assert.dom('[data-test-move-done-button]').exists('done button now exists');
 
-        await percySnapshot('Integration | Component | move-file-modal | move finished');
+        await vizzlyScreenshot('integration-component-move-file-modal-move-finished');
     });
 
     test('copy file modal', async function(this: MoveTestContext, assert) {
@@ -176,7 +176,7 @@ module('Integration | Component | move-file-modal', hooks => {
         );
         assert.dom('[data-test-move-files-button]').hasText(t('general.copy'), 'copy button text');
 
-        await percySnapshot(assert);
+        await vizzlyScreenshot('component-1');
     });
 
     test('failed or queued move messages', async function(this: MoveTestContext, assert) {
@@ -259,6 +259,6 @@ module('Integration | Component | move-file-modal', hooks => {
             t('osf-components.move_file_modal.move_done_header', { itemCount: 1}), 'modal header updated',
         );
 
-        await percySnapshot(assert);
+        await vizzlyScreenshot('component-2');
     });
 });

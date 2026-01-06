@@ -1,7 +1,7 @@
 import { currentRouteName } from '@ember/test-helpers';
 import { ModelInstance } from 'ember-cli-mirage';
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { TestContext } from 'ember-test-helpers';
 import { module, test } from 'qunit';
 
@@ -29,7 +29,7 @@ module('Registries | Acceptance | branded.discover', hooks => {
 
     test('branded discover page renders', async function(this: ThisTestContext, assert) {
         await visit(`/registries/${this.brandedProvider.id}/discover`);
-        await percySnapshot('branded discover page');
+        await vizzlyScreenshot('branded-discover-page');
         assert.equal(currentRouteName(), 'registries.branded.discover', 'On the branded discover page');
     });
 

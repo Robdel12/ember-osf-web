@@ -2,7 +2,7 @@ import { TestContext } from 'ember-test-helpers';
 import Service from '@ember/service';
 import { render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { setupRenderingTest } from 'ember-qunit';
 import { module, test } from 'qunit';
 import { setupIntl } from 'ember-intl/test-support';
@@ -39,6 +39,6 @@ module('Integration | routes | settings | account | -components | opt-out', hook
         assert.dom('[data-test-update-indexing-preference-button]').containsText(
             'Update', 'update button is correct',
         );
-        await percySnapshot(assert);
+        await vizzlyScreenshot('opt-out-1');
     });
 });

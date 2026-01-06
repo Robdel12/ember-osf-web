@@ -1,7 +1,7 @@
 import { currentRouteName } from '@ember/test-helpers';
 import { ModelInstance } from 'ember-cli-mirage';
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { TestContext } from 'ember-test-helpers';
 import { module, test } from 'qunit';
 
@@ -47,6 +47,6 @@ module('Acceptance | preprints | new version', hooks => {
         assert.dom('[data-test-preprint-submission-step="Author Assertions"]')
             .doesNotExist('Author Assertions step not present');
         assert.dom('[data-test-preprint-submission-step="Review"]').exists('Review step present');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('new-version-1');
     });
 });

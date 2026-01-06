@@ -1,6 +1,6 @@
 import { currentURL, fillIn, visit } from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { module, test } from 'qunit';
 
 import { click, setupOSFApplicationTest } from 'ember-osf-web/tests/helpers';
@@ -15,7 +15,7 @@ module('Acceptance | institutions', hooks => {
         await visit('/institutions');
         assert.equal(currentURL(), '/institutions');
         assert.dom('[data-test-visit-institution]').exists({ count: 10 });
-        await percySnapshot(assert);
+        await vizzlyScreenshot('institutions-1');
 
         assert.dom('[data-test-more-institutions]').exists();
         await click('[data-test-more-institutions]');

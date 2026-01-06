@@ -1,7 +1,7 @@
 import { currentRouteName, settled } from '@ember/test-helpers';
 import { ModelInstance } from 'ember-cli-mirage';
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { TestContext } from 'ember-test-helpers';
 import { module, test } from 'qunit';
 
@@ -70,7 +70,7 @@ module('Acceptance | preprints | detail', hooks => {
         // Check preprint status banner
         assert.dom('[data-test-status]').exists('Status banner is displayed');
         assert.dom('[data-test-status]').containsText('accepted', 'Status is correct');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('detail-1');
     });
 
     test('Accepted preprint, prior version detail page', async function(this: PreprintDetailTestContext, assert) {
@@ -89,7 +89,7 @@ module('Acceptance | preprints | detail', hooks => {
         // Check preprint status banner
         assert.dom('[data-test-status]').exists('Status banner is displayed');
         assert.dom('[data-test-status]').containsText('accepted', 'Status is correct');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('detail-2');
     });
 
     test('Pre-mod: Rejected preprint detail page', async function(this: PreprintDetailTestContext, assert) {
@@ -124,7 +124,7 @@ module('Acceptance | preprints | detail', hooks => {
         // Check preprint status banner
         assert.dom('[data-test-status]').exists('Status banner is displayed');
         assert.dom('[data-test-status]').containsText('rejected', 'Status is correct');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('detail-3');
     });
 
 
@@ -147,7 +147,7 @@ module('Acceptance | preprints | detail', hooks => {
         await click('[data-test-previous-versions-button]');
         assert.dom('[data-test-no-other-versions]').exists({ count: 1 }, 'No other versions message is displayed');
         assert.dom('[data-test-version-link]').doesNotExist('No links to previous versions are displayed');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('detail-4');
     });
 
     test('Withdrawn preprint, prior version detail page', async function(this: PreprintDetailTestContext, assert) {
@@ -175,7 +175,7 @@ module('Acceptance | preprints | detail', hooks => {
         await click('[data-test-previous-versions-button]');
         assert.dom('[data-test-version-link]').exists({ count: 3 }, 'Link to previous version is displayed');
         assert.dom('[data-test-no-other-versions]').doesNotExist('No other versions message is not displayed');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('detail-5');
     });
 
     test('Edit button visibility', async function(this: PreprintDetailTestContext, assert) {

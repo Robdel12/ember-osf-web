@@ -1,7 +1,7 @@
 import { render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 import { module, test } from 'qunit';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 
 import { setupEngineRenderingTest } from 'ember-osf-web/tests/helpers/engines';
 import { EnginesIntlTestContext } from 'ember-engines/test-support';
@@ -37,7 +37,7 @@ module('Integration | Component | registries | registries-services-list', hooks 
                 'The contact link text is correct.');
 
 
-        await percySnapshot(assert);
+        await vizzlyScreenshot('component-1');
     });
 
 

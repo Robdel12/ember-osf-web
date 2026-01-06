@@ -1,6 +1,6 @@
 import { click, currentRouteName } from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { module, test } from 'qunit';
 
 import { visit } from 'ember-osf-web/tests/helpers';
@@ -21,7 +21,7 @@ module('Registries | Acceptance | branded.new', hooks => {
             },
         }, 'withBrand');
         await visit(`/registries/${brandedProvider.id}/new`);
-        await percySnapshot(assert);
+        await vizzlyScreenshot('new-1');
         assert.ok(document.querySelector('link[rel="icon"][href="fakelink"]'));
         assert.equal(currentRouteName(), 'registries.branded.new', 'At the correct route: branded.new');
     });
@@ -34,7 +34,7 @@ module('Registries | Acceptance | branded.new', hooks => {
                 },
             }, 'withBrand', 'submissionsNotAllowed', 'currentUserIsModerator');
             await visit(`/registries/${brandedProvider.id}/new`);
-            await percySnapshot(assert);
+            await vizzlyScreenshot('new-2');
             assert.ok(document.querySelector('link[rel="icon"][href="fakelink"]'));
             assert.equal(currentRouteName(), 'registries.branded.new', 'At the correct route: branded.new');
         });

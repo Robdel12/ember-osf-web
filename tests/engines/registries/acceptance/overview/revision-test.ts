@@ -4,7 +4,7 @@ import { setupIntl, TestContext } from 'ember-intl/test-support';
 import RegistrationProviderModel from 'ember-osf-web/models/registration-provider';
 import { visit } from 'ember-osf-web/tests/helpers';
 import { setupEngineApplicationTest } from 'ember-osf-web/tests/helpers/engines';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { module, test } from 'qunit';
 
 interface ModeratorModeTestContext extends TestContext {
@@ -41,7 +41,7 @@ module('Registries | Acceptance | overview.revision', hooks => {
         await visit(`/${registration.id}?revisionId=${revision.id}`);
         assert.dom('[data-test-version-metadata-title]')
             .exists('version metadata is shown when viewing a specific revision');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('revision-1');
     });
 
     // TODO: Add tests to create a new revision

@@ -1,6 +1,6 @@
 import { currentURL, visit } from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { module, test } from 'qunit';
 
 import { setupOSFApplicationTest } from 'ember-osf-web/tests/helpers';
@@ -17,7 +17,7 @@ module('Acceptance | register (sign up page)', hooks => {
         assert.dom('[data-analytics-name="ORCID"]').exists();
         assert.dom('[data-analytics-name="Institution"]').exists();
         assert.dom('[data-test-sign-up-full-name]').exists();
-        await percySnapshot(assert);
+        await vizzlyScreenshot('register-1');
     });
 
     test('visiting /register?next=foo', async function(assert) {
@@ -44,7 +44,7 @@ module('Acceptance | register (sign up page)', hooks => {
             assert.dom('[data-test-register-osf-registries-logo]').exists();
             assert.dom('[data-test-register-provider-logo]').doesNotExist();
             assert.dom('[data-test-register-provider-name]').doesNotExist();
-            await percySnapshot(assert);
+            await vizzlyScreenshot('register-2');
         });
 
         test('visiting /register?campaign=osf-preprints', async function(assert) {
@@ -59,7 +59,7 @@ module('Acceptance | register (sign up page)', hooks => {
             assert.dom('[data-test-register-osf-preprints-logo]').exists();
             assert.dom('[data-test-register-provider-logo]').doesNotExist();
             assert.dom('[data-test-register-provider-name]').doesNotExist();
-            await percySnapshot(assert);
+            await vizzlyScreenshot('register-3');
         });
 
         test('visiting /register?campaign=thesiscommons-preprints', async function(assert) {
@@ -73,7 +73,7 @@ module('Acceptance | register (sign up page)', hooks => {
 
             assert.dom('[data-test-register-provider-logo=thesiscommons]').exists();
             assert.dom('[data-test-register-provider-name]').hasText('Thesis Commons');
-            await percySnapshot(assert);
+            await vizzlyScreenshot('register-4');
         });
 
         test('visiting /register?campaign=preprintrxiv-preprints', async function(assert) {
@@ -87,7 +87,7 @@ module('Acceptance | register (sign up page)', hooks => {
 
             assert.dom('[data-test-register-provider-logo=preprintrxiv]').exists();
             assert.dom('[data-test-register-provider-name]').hasText('PreprintrXiv Preprints');
-            await percySnapshot(assert);
+            await vizzlyScreenshot('register-5');
         });
 
         test('visiting /register?campaign=paperxiv-preprints', async function(assert) {
@@ -101,7 +101,7 @@ module('Acceptance | register (sign up page)', hooks => {
 
             assert.dom('[data-test-register-provider-logo=paperxiv]').exists();
             assert.dom('[data-test-register-provider-name]').hasText('PaperXiv Papers');
-            await percySnapshot(assert);
+            await vizzlyScreenshot('register-6');
         });
 
         test('visiting /register?campaign=thesisrxiv-preprints', async function(assert) {
@@ -115,7 +115,7 @@ module('Acceptance | register (sign up page)', hooks => {
 
             assert.dom('[data-test-register-provider-logo=thesisrxiv]').exists();
             assert.dom('[data-test-register-provider-name]').hasText('ThesisrXiv Theses');
-            await percySnapshot(assert);
+            await vizzlyScreenshot('register-7');
         });
 
         test('visiting /register?campaign=workrxiv-preprints', async function(assert) {
@@ -129,7 +129,7 @@ module('Acceptance | register (sign up page)', hooks => {
 
             assert.dom('[data-test-register-provider-logo=workrxiv]').exists();
             assert.dom('[data-test-register-provider-name]').hasText('WorkrXiv Works');
-            await percySnapshot(assert);
+            await vizzlyScreenshot('register-8');
         });
 
         test('visiting /register?campaign=docrxiv-preprints', async function(assert) {
@@ -143,7 +143,7 @@ module('Acceptance | register (sign up page)', hooks => {
 
             assert.dom('[data-test-register-provider-logo=docrxiv]').exists();
             assert.dom('[data-test-register-provider-name]').hasText('DocrXiv Documents');
-            await percySnapshot(assert);
+            await vizzlyScreenshot('register-9');
         });
     });
 });

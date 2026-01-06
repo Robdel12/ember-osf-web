@@ -1,6 +1,6 @@
 import { currentURL, fillIn, visit } from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { module, test } from 'qunit';
 
 import { click, setupOSFApplicationTest } from 'ember-osf-web/tests/helpers';
@@ -106,7 +106,7 @@ module('Acceptance | settings/account | security', hooks => {
         );
         await visit('/settings/account');
         assertionsNotEnabledNotConfirmed(assert, 'InitialState');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('security-1');
     });
 
     test('two factor enabled unconfirmed shows and disables properly', async function(assert) {
@@ -122,7 +122,7 @@ module('Acceptance | settings/account | security', hooks => {
         );
         await visit('/settings/account');
         assertionsEnabledNotConfirmed(assert, 'Initital state');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('security-2');
         await click('[data-test-two-factor-verify-cancel-button]');
         assertionsNotEnabledNotConfirmed(assert, 'After disabling two-factor');
     });
@@ -166,7 +166,7 @@ module('Acceptance | settings/account | security', hooks => {
         await fillIn('[data-test-verification-code-field] input', '123456');
         await click('[data-test-verify-button]');
         assertionsEnabledConfirmed(assert, 'After successful verification');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('security-3');
     });
 
     test('two factor disabled->confirmed round trip works', async function(assert) {
@@ -185,14 +185,14 @@ module('Acceptance | settings/account | security', hooks => {
         assert.equal(currentURL(), '/settings/account');
         assertionsNotEnabledNotConfirmed(assert, 'Initial state');
         await click('[data-test-two-factor-enable-button]');
-        await percySnapshot('Acceptance | settings/account | security | Enable warning dialog');
+        await vizzlyScreenshot('acceptance-settings-account-security-enable-warning-dialog');
         await click('[data-test-enable-warning-confirm]');
         assertionsEnabledNotConfirmed(assert, 'After enabling before verifying');
         await fillIn('[data-test-verification-code-field] input', '123456');
         await click('[data-test-verify-button]');
         assertionsEnabledConfirmed(assert, 'After successfully verifying');
         await click('[data-test-two-factor-disable-button]');
-        await percySnapshot('Acceptance | settings/account | security | Disable warning dialog');
+        await vizzlyScreenshot('acceptance-settings-account-security-disable-warning-dialog');
         await click('[data-test-disable-warning-confirm]');
         assertionsNotEnabledNotConfirmed(assert, 'After disabling');
     });

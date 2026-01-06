@@ -1,6 +1,6 @@
 import { click as untrackedClick, currentURL, visit } from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import faker from 'faker';
 import { module, test } from 'qunit';
 
@@ -17,10 +17,10 @@ module(moduleName, hooks => {
         server.create('meeting', { name: faker.lorem.paragraph() });
         await visit('/meetings');
         assert.equal(currentURL(), '/meetings', "Still at '/meetings'.");
-        await percySnapshot(`${moduleName} - default`);
+        await vizzlyScreenshot('meetings-index-default');
         await untrackedClick('[data-test-register-button]');
         await untrackedClick('[data-test-upload-button]');
         await click('[data-test-next-page-button]');
-        await percySnapshot(`${moduleName} - panels open & next page`);
+        await vizzlyScreenshot('meetings-index-panels-open-next-page');
     });
 });

@@ -1,5 +1,5 @@
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { module, test } from 'qunit';
 
 import { visit } from 'ember-osf-web/tests/helpers';
@@ -18,6 +18,6 @@ module('Analytics Page | Acceptance | node-analytics-page', hooks => {
         assert.dom('[data-test-analytics-chart="time_of_day"]').exists();
         assert.dom('[data-test-analytics-chart="referer_domain"]').exists();
         assert.dom('[data-test-analytics-chart="popular_pages"]').exists();
-        await percySnapshot(assert);
+        await vizzlyScreenshot('node-analytics-page-1');
     });
 });

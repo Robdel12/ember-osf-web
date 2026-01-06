@@ -1,6 +1,6 @@
 import { currentURL, visit } from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { setBreakpoint } from 'ember-responsive/test-support';
 import { module, skip } from 'qunit';
 import { click, setupOSFApplicationTest} from 'ember-osf-web/tests/helpers';
@@ -23,7 +23,7 @@ module('Acceptance | institutions | discover', hooks => {
         // verify topbar and sort dropdown
         assert.dom('[data-test-topbar-wrapper]').exists('Topbar not shown on mobile');
         assert.dom('[data-test-topbar-sort-dropdown]').exists('Sort dropdown shown on desktop');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('discover-1');
     });
 
     skip('Mobile: Default colors', async assert => {
@@ -44,6 +44,6 @@ module('Acceptance | institutions | discover', hooks => {
         // verify resource type and sort by dropdown
         assert.dom('[data-test-left-panel-object-type-dropdown]').exists('Mobile resource type dropdown is shown');
         assert.dom('[data-test-left-panel-sort-dropdown]').exists('Mobile sort by dropdown is shown');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('discover-2');
     });
 });

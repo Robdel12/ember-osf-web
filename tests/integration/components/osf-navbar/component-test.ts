@@ -2,7 +2,7 @@ import Service from '@ember/service';
 import { click, render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 import { setupIntl } from 'ember-intl/test-support';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { setupRenderingTest } from 'ember-qunit';
 import { TestContext } from 'ember-test-helpers';
 import { module, test } from 'qunit';
@@ -58,7 +58,7 @@ module('Integration | Component | osf-navbar', hooks => {
         assert.dom('[data-test-service-dropdown]').exists();
 
         await click('[data-test-service-dropdown]');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('component-1');
     });
 
     test('auth-dropdown: logged in', async function(assert) {
@@ -68,7 +68,7 @@ module('Integration | Component | osf-navbar', hooks => {
 
         assert.dom('[data-test-auth-dropdown-toggle]').exists();
         await click('[data-test-auth-dropdown-toggle]');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('component-2');
     });
 
     test('osf-navbar: logged out', async function(assert) {
@@ -82,7 +82,7 @@ module('Integration | Component | osf-navbar', hooks => {
         assert.dom('[data-test-sign-in-button]').exists();
 
         await click('[data-test-service-dropdown]');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('component-3');
     });
 
     test('osf-navbar: preprints, no moderation, allow submissions', async function(assert) {
@@ -137,6 +137,6 @@ module('Integration | Component | osf-navbar', hooks => {
         assert.dom('[data-test-nav-reviews-link]').exists();
 
         assert.dom('[data-test-nav-my-projects-link]').doesNotExist();
-        await percySnapshot(assert);
+        await vizzlyScreenshot('component-4');
     });
 });

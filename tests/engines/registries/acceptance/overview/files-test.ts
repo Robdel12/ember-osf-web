@@ -1,7 +1,7 @@
 import { currentRouteName } from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import Features from 'ember-feature-flags';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { module, test } from 'qunit';
 import { t } from 'ember-intl/test-support';
 
@@ -39,7 +39,7 @@ module('Registries | Acceptance | overview.files', hooks => {
         );
 
         await visit(`/${registration.id}/files`);
-        await percySnapshot(assert);
+        await vizzlyScreenshot('files-1');
         assert.equal(currentURL(), `/${registration.id}/files`, 'At registration files list URL');
         assert.equal(currentRouteName(), 'registries.overview.files.provider', 'At the expected route');
 
@@ -80,7 +80,7 @@ module('Registries | Acceptance | overview.files', hooks => {
         const registration = server.create('registration');
 
         await visit(`/${registration.id}/files`);
-        await percySnapshot(assert);
+        await vizzlyScreenshot('files-2');
         assert.equal(currentURL(), `/${registration.id}/files`, 'At registration files list URL');
 
         assert.dom('[data-test-file-list-item]').doesNotExist('No files displayed');

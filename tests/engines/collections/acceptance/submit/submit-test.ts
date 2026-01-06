@@ -1,6 +1,6 @@
 import { click as untrackedClick, fillIn } from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import faker from 'faker';
 import { module, test } from 'qunit';
 
@@ -44,7 +44,7 @@ module('Collections | Acceptance | submit', hooks => {
 
         /* Select a project */
 
-        await percySnapshot('Collections | Acceptance | submit | select project');
+        await vizzlyScreenshot('collections-acceptance-submit-select-project');
 
         // open item picker
         await untrackedClick('[data-test-collections-item-picker] .ember-power-select-trigger');
@@ -58,7 +58,7 @@ module('Collections | Acceptance | submit', hooks => {
 
         /* Project metadata */
 
-        await percySnapshot('Collections | Acceptance | submit | project metadata');
+        await vizzlyScreenshot('collections-acceptance-submit-project-metadata');
 
         await untrackedClick('[data-test-project-metadata-save-button]');
 
@@ -93,7 +93,7 @@ module('Collections | Acceptance | submit', hooks => {
 
         /* Project contributors */
 
-        await percySnapshot('Collections | Acceptance | submit | project contributors');
+        await vizzlyScreenshot('collections-acceptance-submit-project-contributors');
 
         // add contributor
         const userToAdd = server.create('user');
@@ -123,7 +123,7 @@ module('Collections | Acceptance | submit', hooks => {
 
         /* Collection metadata */
 
-        await percySnapshot('Collections | Acceptance | submit | collection metadata');
+        await vizzlyScreenshot('collections-acceptance-submit-collection-metadata');
 
         assert.dom('[data-test-collection-metadata] [data-test-submit-section-continue]')
             .isDisabled('metadata continue is disabled');
@@ -234,7 +234,7 @@ module('Collections | Acceptance | submit', hooks => {
         assert.dom('[data-test-collection-submission-confirmation-modal-body]').exists();
         assert.dom('[data-test-collection-submission-confirmation-modal-moderated-body]')
             .doesNotExist('No moderation message is displayed for non-moderated collections');
-        await percySnapshot('Collections | Acceptance | submit | confirm public modal');
+        await vizzlyScreenshot('collections-acceptance-submit-confirm-public-modal');
 
         await click('[data-test-collection-submission-confirmation-modal-cancel-button]');
         assert.dom('[data-test-collection-submission-confirmation-modal-header]')

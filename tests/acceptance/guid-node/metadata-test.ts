@@ -1,6 +1,6 @@
 import { currentRouteName, resetOnerror, setupOnerror } from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { selectChoose } from 'ember-power-select/test-support';
 import { module, skip, test } from 'qunit';
 
@@ -211,7 +211,7 @@ module('Acceptance | guid-node/metadata', hooks => {
         assert.dom('[data-test-user-search-input]').exists('User search input exists');
         await click('[data-test-finish-node-contributor-editing-button]');
         assert.dom('[data-test-edit-node-contributors-button]').exists('Edit button is shown after saving');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('metadata-1');
     });
 
     skip('Error handling: metadata', async function(this: TestContext, assert) {

@@ -1,6 +1,6 @@
 import { currentURL, visit } from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { module, test } from 'qunit';
 
 import { click, setupOSFApplicationTest } from 'ember-osf-web/tests/helpers';
@@ -29,13 +29,13 @@ module(moduleName, hooks => {
         assert.dom('[data-test-page-tab="preprints"]').exists('Preprints tab exists');
 
         // Summary tab
-        await percySnapshot(`${moduleName} - summary`);
+        await vizzlyScreenshot('institutions-dashboard-summary');
         assert.dom('[data-test-page-tab="summary"]').hasClass('active', 'Summary tab is active by default');
         assert.dom('[data-test-summary-report-year-month]').exists('Report year month exists');
 
         // Users tab
         await click('[data-test-page-tab="users"]');
-        await percySnapshot(`${moduleName} - users`);
+        await vizzlyScreenshot('institutions-dashboard-users');
         assert.dom('[data-test-page-tab="users"]').hasClass('active', 'Users tab is active');
         assert.dom('[data-test-link-to-reports-archive]').exists('Link to download prior reports exists');
         assert.dom('[data-test-download-dropdown]').exists('Link to download file formats');
@@ -43,21 +43,21 @@ module(moduleName, hooks => {
 
         // Projects tab
         await click('[data-test-page-tab="projects"]');
-        await percySnapshot(`${moduleName} - projects`);
+        await vizzlyScreenshot('institutions-dashboard-projects');
         assert.dom('[data-test-page-tab="projects"]').hasClass('active', 'Projects tab is active');
         assert.dom('[data-test-link-to-reports-archive]').exists('Link to download prior reports exists');
         assert.dom('[data-test-download-dropdown]').exists('Link to download file formats');
 
         // Registrations tab
         await click('[data-test-page-tab="registrations"]');
-        await percySnapshot(`${moduleName} - registrations`);
+        await vizzlyScreenshot('institutions-dashboard-registrations');
         assert.dom('[data-test-page-tab="registrations"]').hasClass('active', 'Registrations tab is active');
         assert.dom('[data-test-link-to-reports-archive]').exists('Link to download prior reports exists');
         assert.dom('[data-test-download-dropdown]').exists('Link to download file formats');
 
         // Preprints tab
         await click('[data-test-page-tab="preprints"]');
-        await percySnapshot(`${moduleName} - preprints`);
+        await vizzlyScreenshot('institutions-dashboard-preprints');
         assert.dom('[data-test-page-tab="preprints"]').hasClass('active', 'Preprints tab is active');
         assert.dom('[data-test-link-to-reports-archive]').exists('Link to download prior reports exists');
         assert.dom('[data-test-download-dropdown]').exists('Link to download file formats');

@@ -1,6 +1,6 @@
 import { fillIn } from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { module, test } from 'qunit';
 
 import { click, currentURL, setupOSFApplicationTest, visit } from 'ember-osf-web/tests/helpers';
@@ -36,7 +36,7 @@ module('Acceptance | guid-node/addons', hooks => {
         await visit(url);
         assert.equal(currentURL(), url, `We are on ${url}`);
         // eslint-disable-next-line max-len
-        await percySnapshot('Acceptance | guid-node/addons | Filtering all providers; no configured addons | all addons tab');
+        await vizzlyScreenshot('acceptance-guid-node-addons-filtering-all-providers;-no-configured-addons-all-addons-tab');
 
         // Check all addons tab
         assert.dom('[data-test-addons-tab-all-addons]').exists('All addons tab is present');
@@ -74,7 +74,7 @@ module('Acceptance | guid-node/addons', hooks => {
         // check connected accounts tab
         await click('[data-test-addons-tab-connected-accounts]');
         // eslint-disable-next-line max-len
-        await percySnapshot('Acceptance | guid-node/addons | Filtering all providers; no configured addons | connected accounts tab');
+        await vizzlyScreenshot('acceptance-guid-node-addons-filtering-all-providers;-no-configured-addons-connected-accounts-tab');
         assert.dom('[data-test-addons-tab-connected-accounts]')
             .hasAttribute('aria-selected', 'true', 'Connected accounts tab is selected');
         assert.dom('[data-test-configured-provider-list]')
@@ -155,7 +155,7 @@ module('Acceptance | guid-node/addons', hooks => {
         const url = `/${node.id}/addons`;
         await visit(url);
         assert.equal(currentURL(), url, `We are on ${url}`);
-        await percySnapshot('Acceptance | guid-node/addons | Editing configured addons | all addons tab');
+        await vizzlyScreenshot('acceptance-guid-node-addons-editing-configured-addons-all-addons-tab');
 
         // check additonal storage providers
         assert.dom('[data-test-addon-card-configure]')
@@ -165,13 +165,13 @@ module('Acceptance | guid-node/addons', hooks => {
 
         // check connected accounts tab
         await click('[data-test-addons-tab-connected-accounts]');
-        await percySnapshot('Acceptance | guid-node/addons | Editing configured addons | connected accounts tab');
+        await vizzlyScreenshot('acceptance-guid-node-addons-editing-configured-addons-connected-accounts-tab');
         assert.dom('[data-test-addon-card]').exists({ count: 2 }, '2 providers with accounts are present');
 
         // Select S3 and edit associated accounts
         await click('[data-test-addon-card="Amazon S3"] [data-test-addon-card-configure]');
         // eslint-disable-next-line max-len
-        await percySnapshot('Acceptance | guid-node/addons | Editing configured addons | list configured accounts for a provider');
+        await vizzlyScreenshot('acceptance-guid-node-addons-editing-configured-addons-list-configured-accounts-for-a-provider');
         assert.dom('[data-test-addon-card]')
             .doesNotExist('Addon cards are not present after selecting a provider to edit');
         assert.dom('[data-test-addons-tab-all-addons]')
@@ -189,7 +189,7 @@ module('Acceptance | guid-node/addons', hooks => {
 
         // Edit first account
         await click('[data-test-edit-connected-location]:first-child');
-        await percySnapshot('Acceptance | guid-node/addons | Editing configured addons | edit configured account');
+        await vizzlyScreenshot('acceptance-guid-node-addons-editing-configured-addons-edit-configured-account');
         assert.dom('[data-test-edit-connected-location]')
             .doesNotExist('Edit buttons are not present after selecting an account to edit');
         assert.dom('[data-test-display-name-input]').exists('Name input is present');
@@ -284,13 +284,13 @@ module('Acceptance | guid-node/addons', hooks => {
         // Select S3 and add a new account
         await click('[data-test-addon-card="Amazon S3"] [data-test-addon-card-connect]');
         assert.dom('[data-test-addon-accept-terms-button]').exists('Terms shown first for new account');
-        await percySnapshot('Acceptance | guid-node/addons | Adding new configured addons | terms page');
+        await vizzlyScreenshot('acceptance-guid-node-addons-adding-new-configured-addons-terms-page');
         await click('[data-test-addon-accept-terms-button]');
         // New account setup page
         assert.dom('[data-test-input="access_key"]').exists('Access key input is present');
         assert.dom('[data-test-input="secret_key"]').exists('Secret key input is present');
         assert.dom('[data-test-display-name-input]').exists('Display name input is present');
-        await percySnapshot('Acceptance | guid-node/addons | Adding new configured addons | new account setup page');
+        await vizzlyScreenshot('acceptance-guid-node-addons-adding-new-configured-addons-new-account-setup-page');
         await fillIn('[data-test-input="access_key"]', 'access');
         await fillIn('[data-test-input="secret_key"]', 'secret');
         await fillIn('[data-test-display-name-input]', 'New S3 Account Display Name');
@@ -299,7 +299,7 @@ module('Acceptance | guid-node/addons', hooks => {
         assert.dom('[data-test-display-name-input]').exists('Name input is present');
         assert.dom('[data-test-display-name-input]').hasNoText('Name input is empty');
         assert.dom('[data-test-root-folder-save]').isDisabled('Save button disabled when no display name is present');
-        await percySnapshot('Acceptance | guid-node/addons | Adding new configured addons | configure page');
+        await vizzlyScreenshot('acceptance-guid-node-addons-adding-new-configured-addons-configure-page');
         await fillIn('[data-test-display-name-input]', 'New S3 Account Display Name');
         await click('[data-test-root-folder-option]:first-child');
         await click('[data-test-root-folder-save]');
@@ -328,11 +328,11 @@ module('Acceptance | guid-node/addons', hooks => {
         // await untrackedClick('[data-test-existing-authorized-accounts-input]');
         // assert.dom('[data-test-addon-authorize-button]')
         //     .exists('Authorize button is present after choosing an account');
-        // await percySnapshot('Acceptance | guid-node/addons | Adding new configured addons | existing account page');
+        // await vizzlyScreenshot('acceptance-guid-node-addons-adding-new-configured-addons-existing-account-page');
         // await click('[data-test-addon-authorize-button]');
         // // Confirm setup page
         // assert.dom('[data-test-addon-confirm-setup-button]').exists('Confirm setup button is present');
-        // await percySnapshot('Acceptance | guid-node/addons | Adding new configured addons | confirm setup page');
+        // await vizzlyScreenshot('acceptance-guid-node-addons-adding-new-configured-addons-confirm-setup-page');
         // await click('[data-test-addon-confirm-setup-button]');
         // // Configure page
         // assert.dom('[data-test-display-name-input]').exists('Name input is present');

@@ -1,6 +1,6 @@
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import { freezeDateAt, unfreezeDate } from 'ember-mockdate-shim';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { TestContext } from 'ember-test-helpers';
 import { module, test } from 'qunit';
 
@@ -26,6 +26,6 @@ module('Registries | Acceptance | landing page', hooks => {
     test('visiting /registries/', async function(assert) {
         await visit('/registries/');
         assert.dom('[data-test-search-box]').exists();
-        await percySnapshot(assert);
+        await vizzlyScreenshot('landing-page-1');
     });
 });

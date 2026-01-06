@@ -1,7 +1,7 @@
 import { fillIn, visit } from '@ember/test-helpers';
 
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { module, test } from 'qunit';
 
 import { click, setupOSFApplicationTest } from 'ember-osf-web/tests/helpers';
@@ -15,7 +15,7 @@ module('Acceptance | settings | account information page', hooks => {
         server.create('user', 'loggedIn', 'withSettings');
 
         await visit('/settings/account');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('connected-emails-1');
 
         assert.dom('[data-test-primary-email]').exists();
     });
@@ -25,7 +25,7 @@ module('Acceptance | settings | account information page', hooks => {
         server.create('user', 'loggedIn', 'withSettings');
 
         await visit('/settings/account');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('connected-emails-2');
 
         assert.dom('[data-test-alternate-email-item]').doesNotExist();
         assert.dom('[data-test-unconfirmed-email-item]').doesNotExist();
@@ -35,7 +35,7 @@ module('Acceptance | settings | account information page', hooks => {
         server.create('user', 'loggedIn', 'withSettings', 'withAlternateEmail', 'withUnconfirmedEmail');
 
         await visit('/settings/account');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('connected-emails-3');
 
         assert.dom('[data-test-alternate-email-item]').exists({ count: 1 });
         assert.dom('[data-test-unconfirmed-email-item]').exists({ count: 1 });
@@ -52,7 +52,7 @@ module('Acceptance | settings | account information page', hooks => {
 
         await fillIn('[data-test-add-email] input', emailAddress);
         await click('[data-test-add-email-button]');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('connected-emails-4');
 
         assert.dom(`[data-test-unconfirmed-email-item='${emailAddress}']`).exists();
     });
@@ -70,7 +70,7 @@ module('Acceptance | settings | account information page', hooks => {
         await click(`[data-test-alternate-email-item='${emailAddress}']
             [data-test-alternate-delete] [data-test-delete-button]`);
 
-        await percySnapshot(assert);
+        await vizzlyScreenshot('connected-emails-5');
         await click('[data-test-confirm-delete]');
 
         assert.dom(`[data-test-alternate-email-item='${emailAddress}']`).doesNotExist();
@@ -86,7 +86,7 @@ module('Acceptance | settings | account information page', hooks => {
         assert.dom(`[data-test-alternate-email-item='${emailAddress}']`).exists();
 
         await click('[data-test-make-primary]');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('connected-emails-6');
         assert.dom('[data-test-primary-email]').hasText(emailAddress);
     });
 
@@ -111,7 +111,7 @@ module('Acceptance | settings | account information page', hooks => {
         await click(`[data-test-unconfirmed-email-item='${emailAddress}']
         [data-test-resend-confirmation-button]`);
 
-        await percySnapshot(assert);
+        await vizzlyScreenshot('connected-emails-7');
         await click('[data-test-resend-confirmation]');
     });
 });

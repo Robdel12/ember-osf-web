@@ -1,6 +1,6 @@
 import { fillIn, render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { setupRenderingTest } from 'ember-qunit';
 
 import { click } from 'ember-osf-web/tests/helpers';
@@ -16,7 +16,7 @@ module('Integration | routes | settings | account | -components | change-passwor
 
         assert.dom('[data-test-change-password-panel]').exists('Password section renders');
         assert.dom('[data-test-password-form]').exists('Password form renders');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('change-password-1');
     });
 
     // Validation works
@@ -31,7 +31,7 @@ module('Integration | routes | settings | account | -components | change-passwor
         assert.dom('[data-test-password-form]').exists('Password form renders');
 
         await click('[data-test-update-password-button]');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('change-password-2');
 
         // Check that validations are for empty fields
         assert.dom('[data-test-current-password] div[class*="help-block"]')

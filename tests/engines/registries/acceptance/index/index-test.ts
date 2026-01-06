@@ -1,5 +1,5 @@
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { module, test } from 'qunit';
 import registriesConfig from 'registries/config/environment';
 
@@ -18,7 +18,7 @@ module('Registries | Acceptance | registries index (landing page)', hooks => {
         server.createList('registration', 2, 'withContributors');
 
         await visit('/registries');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('index-1');
 
         for (const reg of recentRegs) {
             assert.dom(`[data-test-recent-registration-id=${reg.id}]`)

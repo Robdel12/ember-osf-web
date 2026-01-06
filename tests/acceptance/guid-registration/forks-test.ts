@@ -1,7 +1,7 @@
 import { currentRouteName } from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import config from 'ember-osf-web/config/environment';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { module, test } from 'qunit';
 
 import { forkRegistration } from 'ember-osf-web/mirage/helpers';
@@ -25,7 +25,7 @@ module('Acceptance | guid-registration/forks', hooks => {
         await visit(url);
         assert.equal(currentURL(), url, `We are on ${url}`);
         assert.equal(currentRouteName(), 'guid-registration.forks', 'We are at guid-registration.forks');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('forks-1');
         assert.dom('[data-test-new-fork-button]').doesNotExist();
         assert.dom('[data-test-forks-info]')
             .hasText('Forks you have permission to view are shown here.');
@@ -116,7 +116,7 @@ module('Acceptance | guid-registration/forks', hooks => {
         assert.dom('[data-test-new-fork-button]').exists({ count: 1 });
         assert.dom('[data-test-node-card]').exists({ count: 10 });
         assert.dom('[data-test-node-card]').includesText(registration.title);
-        await percySnapshot(assert);
+        await vizzlyScreenshot('forks-2');
 
         await click('[data-analytics-name="Pagination next"]');
         assert.dom('[data-test-node-card]').exists({ count: 2 });
@@ -147,7 +147,7 @@ module('Acceptance | guid-registration/forks', hooks => {
         assert.equal(currentURL(), url, `We are on ${url}`);
 
         await click('[data-test-new-fork-button]');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('forks-3');
         assert.dom('[data-test-close-create-forks-modal]').exists();
         assert.dom('[data-test-new-fork-modal-body] h3').includesText('Are you sure');
 

@@ -1,7 +1,7 @@
 import { click as untrackedClick, currentURL, fillIn, visit } from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import config from 'ember-osf-web/config/environment';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { selectChoose, selectSearch } from 'ember-power-select/test-support';
 import { module, skip, test } from 'qunit';
 
@@ -46,7 +46,7 @@ module('Acceptance | dashboard', hooks => {
         assert.dom('nav.navbar .secondary-nav-dropdown .nav-profile-name')
             .hasText(currentUser.fullName, 'User\'s name is in navbar');
 
-        await percySnapshot(assert);
+        await vizzlyScreenshot('dashboard-full-load');
     });
 
     test('popular projects and new/noteworthy titles', async function(assert) {
@@ -85,7 +85,7 @@ module('Acceptance | dashboard', hooks => {
         await visit('/dashboard');
         assert.dom('div[class*="quick-project"]')
             .includesText('You have no projects yet. Create a project with the button on the top right.');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('dashboard-no-projects');
     });
 
     test('user has a project', async function(assert) {
@@ -132,7 +132,7 @@ module('Acceptance | dashboard', hooks => {
 
         assert.dom('[data-analytics-name="load_nodes"]')
             .doesNotExist('The control to load more projects is gone after all projects are loaded');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('dashboard-many-projects');
     });
 
     test('sorting projects', async function(assert) {
@@ -282,7 +282,7 @@ module('Acceptance | dashboard', hooks => {
         assert.dom('div[class*="quick-project"]')
             .includesText('You have no projects yet. Create a project with the button on the top right.');
         assert.dom('div[class*="quick-project"]').doesNotIncludeText(title);
-        await percySnapshot(assert);
+        await vizzlyScreenshot('dashboard-before-create-project');
 
         await click('[data-analytics-name="create_new_project"]');
         assert.dom('img[alt*="Missing translation"]').doesNotExist();
@@ -314,7 +314,7 @@ module('Acceptance | dashboard', hooks => {
             .exists({ count: 2 }, 'Clicked first item so 4 selected');
         assert.dom('[data-test-institution-selected="not-selected"]')
             .exists({ count: 1 }, 'Clicked first item so one notselected');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('dashboard-institution-selection');
         assert.dom('[data-analytics-name="Remove all institutions"]').exists();
         await click('[data-analytics-name="Remove all institutions"]');
         assert.dom('[data-test-institution-selected="selected"]')
@@ -428,9 +428,9 @@ module('Acceptance | dashboard', hooks => {
         await fillIn('[data-test-project-description-input]', description);
         await untrackedClick('[data-test-select-template] div[class~="ember-power-select-trigger"]');
         await selectSearch('[data-test-select-template]', templatedFrom);
-        await percySnapshot(assert);
+        await vizzlyScreenshot('dashboard-create-modal-template-search');
         await selectChoose('[data-test-select-template]', templatedFrom);
-        await percySnapshot('Acceptance | dashboard | create project modal more toggle | select template');
+        await vizzlyScreenshot('dashboard-create-modal-template-selected');
         assert.dom('[data-test-select-template] span[class~="ember-power-select-selected-item"]')
             .hasText(templatedFrom);
 

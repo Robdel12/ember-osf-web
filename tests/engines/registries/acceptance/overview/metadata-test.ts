@@ -1,6 +1,6 @@
 import { currentRouteName } from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { module, test } from 'qunit';
 
 import { currentURL, setupOSFApplicationTest, visit } from 'ember-osf-web/tests/helpers';
@@ -56,6 +56,6 @@ module('Registries | Acceptance | overview/metadata', hooks => {
         assert.dom('[data-test-edit-resource-metadata-button]').doesNotExist();
         assert.dom('[data-test-edit-funding-metadata-button]').doesNotExist();
         assert.dom('[data-test-edit-node-contributors-button]').doesNotExist();
-        await percySnapshot(assert);
+        await vizzlyScreenshot('metadata-1');
     });
 });

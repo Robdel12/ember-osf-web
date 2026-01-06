@@ -1,7 +1,7 @@
 import { click as untrackedClick, currentRouteName } from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
 import config from 'ember-osf-web/config/environment';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { module, test } from 'qunit';
 
 import {
@@ -34,7 +34,7 @@ module('Acceptance | guid-node/registrations', hooks => {
 
         assert.equal(currentURL(), url, `We are on ${url}`);
         assert.equal(currentRouteName(), 'guid-node.registrations', 'We are at guid-node.registrations');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('registrations-1');
 
         assert.dom('[data-test-new-registration-button]').doesNotExist();
 
@@ -264,7 +264,7 @@ module('Acceptance | guid-node/registrations', hooks => {
         assert.dom('[data-test-node-card]').exists({ count: 10 });
 
         assert.dom('[data-test-node-card]').includesText(node.title);
-        await percySnapshot(assert);
+        await vizzlyScreenshot('registrations-2');
 
         await click('[data-analytics-name="Pagination next"]');
 
@@ -368,7 +368,7 @@ module('Acceptance | guid-node/registrations', hooks => {
         await click('[data-analytics-name="Pagination next"]');
 
         assert.dom('[data-test-draft-registration-card]').exists({ count: 2 });
-        await percySnapshot(assert);
+        await vizzlyScreenshot('registrations-3');
     });
 
     test('logged in admin, new registration', async function(assert) {
@@ -391,7 +391,7 @@ module('Acceptance | guid-node/registrations', hooks => {
         assert.equal(currentURL(), url, `We are on ${url}`);
 
         await click('[data-test-new-registration-button]');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('registrations-4');
 
         assert.dom('[data-test-new-registration-modal-body]').isVisible();
 

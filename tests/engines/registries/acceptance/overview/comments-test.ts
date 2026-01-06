@@ -1,6 +1,6 @@
 import { currentRouteName } from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { module, test } from 'qunit';
 
 import { Permission } from 'ember-osf-web/models/osf-model';
@@ -19,7 +19,7 @@ module('Registries | Acceptance | overview.comments', hooks => {
         );
 
         await visit(`/${registration.id}/comments`);
-        await percySnapshot(assert);
+        await vizzlyScreenshot('comments-1');
 
         assert.equal(currentURL(), `/${registration.id}/comments`, 'At the guid URL');
         assert.equal(currentRouteName(), 'registries.overview.comments', 'At the expected route');

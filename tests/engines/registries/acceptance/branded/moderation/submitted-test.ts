@@ -1,7 +1,7 @@
 import { click, currentRouteName, currentURL } from '@ember/test-helpers';
 import { ModelInstance } from 'ember-cli-mirage';
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { TestContext } from 'ember-test-helpers';
 import { module, test } from 'qunit';
 
@@ -42,7 +42,7 @@ module('Registries | Acceptance | branded.moderation | submitted', hooks => {
             provider: this.registrationProvider,
         });
         await visit('/registries/sbmit/moderation/submitted');
-        await percySnapshot('moderation submitted page: no registrations');
+        await vizzlyScreenshot('moderation-submitted-page:-no-registrations');
         assert.equal(currentRouteName(), 'registries.branded.moderation.submitted',
             'On the submitted page of registries reviews');
 
@@ -117,7 +117,7 @@ module('Registries | Acceptance | branded.moderation | submitted', hooks => {
             provider: this.registrationProvider,
         }, 'asAdmin');
         await visit('/registries/sbmit/moderation/submitted');
-        await percySnapshot('moderation submitted page: many registrations');
+        await vizzlyScreenshot('moderation-submitted-page:-many-registrations');
         assert.equal(currentRouteName(), 'registries.branded.moderation.submitted',
             'On the submitted page of registries reviews');
 

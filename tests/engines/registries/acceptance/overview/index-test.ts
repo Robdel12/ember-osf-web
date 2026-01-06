@@ -2,7 +2,7 @@ import Service from '@ember/service';
 import { currentRouteName, fillIn } from '@ember/test-helpers';
 import { ModelInstance } from 'ember-cli-mirage';
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { TestContext } from 'ember-test-helpers';
 import { module, test } from 'qunit';
 
@@ -43,7 +43,7 @@ module('Registries | Acceptance | overview.index', hooks => {
 
     test('it renders', async function(this: OverviewTestContext, assert: Assert) {
         await visit(`/${this.registration.id}/`);
-        await percySnapshot(assert);
+        await vizzlyScreenshot('index-1');
 
         assert.equal(currentURL(), `/${this.registration.id}/`, 'At the guid URL');
         assert.equal(currentRouteName(), 'registries.overview.index', 'At the expected route');
@@ -84,7 +84,7 @@ module('Registries | Acceptance | overview.index', hooks => {
             await visit(`/${this.registration.id}/`);
 
             await click(`[data-analytics-name="${testCase.name}"]`);
-            await percySnapshot(`Registries sidenav - ${testCase.name}`);
+            await vizzlyScreenshot(`registries-sidenav-${testCase.name.toLowerCase().replace(/\s+/g, '-')}`);
 
             assert.equal(currentRouteName(), testCase.route, 'At the correct route');
         }
@@ -133,7 +133,7 @@ module('Registries | Acceptance | overview.index', hooks => {
         }, 'withContributors', 'currentUserAdmin', 'isWithdrawn'));
         const url = `/${this.registration.id}`;
         await visit(url);
-        await percySnapshot(assert);
+        await vizzlyScreenshot('index-2');
 
         assert.equal(currentURL(), url, 'At the correct URL');
         assert.dom('[data-test-registration-title]').hasText(this.registration.title, 'Correct title');
@@ -149,7 +149,7 @@ module('Registries | Acceptance | overview.index', hooks => {
         }, 'withContributors', 'currentUserAdmin', 'isArchiving'));
         const url = `/${this.registration.id}`;
         await visit(url);
-        await percySnapshot(assert);
+        await vizzlyScreenshot('index-3');
 
         assert.equal(currentURL(), url, 'At the correct URL');
         assert.dom('[data-test-registration-title]').hasText(this.registration.title, 'Correct title');

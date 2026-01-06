@@ -1,6 +1,6 @@
 import { click as untrackedClick, fillIn } from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { module, test } from 'qunit';
 
 import Collection from 'ember-osf-web/models/collection';
@@ -73,7 +73,7 @@ module('Collections | Acceptance | update', hooks => {
         // remove third tag
         await untrackedClick(`[data-test-project-metadata-tag="${nodeAdded.tags[2]}"] + .emberTagInput-remove`);
 
-        await percySnapshot('Collections | Acceptance | update | project metadata');
+        await vizzlyScreenshot('collections-acceptance-update-project-metadata');
         await untrackedClick('[data-test-project-metadata-save-button]');
 
         assert.dom('[data-test-project-metadata-complete-title-value]')
@@ -104,7 +104,7 @@ module('Collections | Acceptance | update', hooks => {
         assert.dom(contribListSelector)
             .exists({ count: 1 }, 'contributor added to list');
 
-        await percySnapshot('Collections | Acceptance | update | added project contributor');
+        await vizzlyScreenshot('collections-acceptance-update-added-project-contributor');
         await untrackedClick('[data-test-collection-project-contributors] [data-test-submit-section-continue]');
 
         assert.dom(`[data-test-contributor-name="${userToAdd.id}"]`)
@@ -118,7 +118,7 @@ module('Collections | Acceptance | update', hooks => {
         assert.dom(contribListSelector)
             .doesNotExist('contributor removed from list');
 
-        await percySnapshot('Collections | Acceptance | update | removed project contributor');
+        await vizzlyScreenshot('collections-acceptance-update-removed-project-contributor');
         await untrackedClick('[data-test-collection-project-contributors] [data-test-submit-section-continue]');
         assert.dom(`[data-test-contributor-name="${userToAdd.id}"]`)
             .doesNotExist('contributor removed from summary');
@@ -189,7 +189,7 @@ module('Collections | Acceptance | update', hooks => {
             throw new Error('could not find volume option');
         }
 
-        await percySnapshot('Collections | Acceptance | update | collection metadata');
+        await vizzlyScreenshot('collections-acceptance-update-collection-metadata');
         await untrackedClick('[data-test-collection-metadata] [data-test-submit-section-continue]');
 
         // Confirm modified values are second option
@@ -206,7 +206,7 @@ module('Collections | Acceptance | update', hooks => {
 
         /* Finished */
 
-        await percySnapshot('Collections | Acceptance | update | finished');
+        await vizzlyScreenshot('collections-acceptance-update-finished');
 
         assert.dom('[data-test-collections-remove-button]').exists('remove button exists');
         await untrackedClick('[data-test-delete-button]');

@@ -1,6 +1,6 @@
 import { currentRouteName } from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { module, test } from 'qunit';
 
 import { SubscriptionFrequency } from 'ember-osf-web/models/subscription';
@@ -52,7 +52,7 @@ module('Registries | Acceptance | branded.moderation | settings', hooks => {
         server.create('moderator', { id: currentUser.id, user: currentUser, provider: regProvider });
         regProvider.update({ permissions: ['view_submissions'] });
         await visit('/registries/mdr8n/moderation/settings');
-        await percySnapshot('moderation settings page for moderators');
+        await vizzlyScreenshot('moderation-settings-page-for-moderators');
         assert.equal(currentRouteName(), 'registries.branded.moderation.settings',
             'On the settings page of registries reviews');
         assert.dom('[data-test-subscription-list]').exists('Subscription list shown');
@@ -74,7 +74,7 @@ module('Registries | Acceptance | branded.moderation | settings', hooks => {
             server.create('moderator', { id: currentUser.id, user: currentUser, provider: regProvider });
             regProvider.update({ permissions: ['view_submissions', 'add_moderator'] });
             await visit('/registries/mdr8n/moderation/settings');
-            await percySnapshot('moderation settings page for admins');
+            await vizzlyScreenshot('moderation-settings-page-for-admins');
             assert.equal(currentRouteName(), 'registries.branded.moderation.settings',
                 'On the settings page of registries reviews');
             assert.dom('[data-test-subscription-list]').exists('Subscription list shown');

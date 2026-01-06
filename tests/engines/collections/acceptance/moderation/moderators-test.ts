@@ -1,5 +1,5 @@
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { module, test } from 'qunit';
 
 import { visit } from 'ember-osf-web/tests/helpers';
@@ -24,7 +24,7 @@ module('Collections | Acceptance | moderation | moderators', hooks => {
         assert.dom('[data-test-delete-button]').exists({ count: 10 }, 'Can delete all moderators, including self');
         assert.dom('[data-test-add-moderator-button]').exists('Can add a moderator');
         assert.dom('[data-test-next-page-button]').exists('Has next page of moderators');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('moderators-1');
     });
 
     test('it renders for collection moderators', async function(assert) {
@@ -40,6 +40,6 @@ module('Collections | Acceptance | moderation | moderators', hooks => {
         assert.dom('[data-test-moderator-row]').exists({ count: 6 }, '6 moderators are listed');
         assert.dom('[data-test-delete-button]').exists({ count: 1 }, 'Can only delete self');
         assert.dom('[data-test-add-moderator-button]').doesNotExist('Cannot add moderators');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('moderators-2');
     });
 });

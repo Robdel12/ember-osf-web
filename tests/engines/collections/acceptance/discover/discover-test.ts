@@ -1,6 +1,6 @@
 import { click as untrackedClick, fillIn } from '@ember/test-helpers';
 import { setupMirage } from 'ember-cli-mirage/test-support';
-import { percySnapshot } from 'ember-percy';
+import { vizzlyScreenshot } from '@vizzly-testing/ember/test-support';
 import { module, test } from 'qunit';
 
 import Collection from 'ember-osf-web/models/collection';
@@ -45,7 +45,7 @@ module('Collections | Acceptance | discover', hooks => {
             .hasText(currentUser.familyName, 'contributor listed in search result for node added');
         assert.dom('[data-test-provider-description]').containsText('Find out more', 'Provider description exists');
         assert.dom('[data-test-provider-description] a').exists('There is a link in the provider description');
-        await percySnapshot(assert);
+        await vizzlyScreenshot('discover-1');
     });
 
     test('sorting', async function(assert) {
