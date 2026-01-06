@@ -1,0 +1,44 @@
+# Visual Testing Docker Image
+# Matches CI environment (ubuntu-latest) for consistent screenshot rendering
+#
+# NOTE: Build happens on host machine due to Ember's high memory requirements.
+# This container only runs tests against pre-built dist.
+FROM ubuntu:22.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    git \
+    locales \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set up locale (important for consistent text rendering)
+RUN locale-gen en_US.UTF-8
+ENV LANG=en_US.UTF-8
+ENV LC_ALL=en_US.UTF-8
+
+# Install Node.js 22.x (for Playwright compatibility)
+RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
+    && apt-get install -y nodejs
+
+# Install Yarn 1.x
+RUN npm install -g yarn@1.21.1
+
+# Install Playwright dependencies (Chromium)
+RUN npx playwright install --with-deps chromium
+
+WORKDIR /app
+
+# Copy package files and install dependencies
+COPY package.json yarn.lock .yarnrc ./
+RUN yarn --frozen-lockfile --ignore-engines
+
+# Copy test infrastructure (dist is mounted at runtime)
+COPY testem.js ./
+COPY mirage ./mirage
+COPY tests ./tests
+
+# Default command runs tests against mounted dist
+CMD ["yarn", "test:ember", "--path", "./dist"]

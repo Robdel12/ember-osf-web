@@ -1,0 +1,28 @@
+# Docker Compose for Vizzly Visual Testing
+# Ensures screenshots match between local development and CI
+#
+# Usage:
+#   1. Build the app on host: yarn build:test
+#   2. Build the Docker image: yarn vizzly:docker:build
+#   3. Start Vizzly TDD server: yarn vizzly:tdd
+#   4. Run tests in container: yarn vizzly:docker
+#
+# For baseline from CI build:
+#   npx vizzly tdd start --baseline-build <build-id> --open
+
+services:
+  visual-tests:
+    image: ember-osf-web-vizzly
+    volumes:
+      # Mount pre-built dist from host
+      - ./dist:/app/dist:ro
+      # Persist baselines between runs
+      - ./.vizzly:/app/.vizzly
+    environment:
+      # Point to TDD server running on host machine
+      - VIZZLY_SERVER_URL=http://host.docker.internal:47392
+    extra_hosts:
+      # Required for Linux hosts
+      - "host.docker.internal:host-gateway"
+    # Shared memory for Chromium browser
+    shm_size: '2gb'

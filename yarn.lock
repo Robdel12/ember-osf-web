@@ -5715,10 +5715,10 @@
   resolved "https://registry.yarnpkg.com/@ungap/structured-clone/-/structured-clone-0.3.4.tgz#f6d804e185591373992781361e4aa5bb81ffba35"
   integrity sha512-TSVh8CpnwNAsPC5wXcIyh92Bv1gq6E9cNDeeLu7Z4h8V4/qWtXJp7y42qljRkqcpmsve1iozwv1wr+3BNdILCg==
 
-"@vizzly-testing/ember@0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@vizzly-testing/ember/-/ember-0.0.1.tgz#616a31ee6a35672c4e5d8065f18299f385471770"
-  integrity sha512-yq98gBFQIkcscCzfladu6TR9KzjapEepF4e7EurJtkjQvD9p9jSLwESRUq4zme4brXyGrLOMzzmvo3NUzQXyBA==
+"@vizzly-testing/ember@0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@vizzly-testing/ember/-/ember-0.0.2.tgz#90b0af8d8827d5bbabd68128e8fbb04d1dd969ad"
+  integrity sha512-4ssXVvS76vi9i4UuUi/+xvxJB8WdOYmJ0Zt0qlHMCKl1SaRAeYLoIzEzCvjc/vqwxsCeA+KIHjKhpFX7+fK5cg==
   dependencies:
     playwright-core "^1.49.0"
 
