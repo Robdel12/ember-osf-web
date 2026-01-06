@@ -31,14 +31,10 @@ RUN npx playwright install --with-deps chromium
 
 WORKDIR /app
 
-# Copy package files and install dependencies
-COPY package.json yarn.lock .yarnrc ./
+# Copy everything and install dependencies
+COPY . .
 RUN yarn --frozen-lockfile --ignore-engines
 
-# Copy test infrastructure (dist is mounted at runtime)
-COPY testem.js ./
-COPY mirage ./mirage
-COPY tests ./tests
-
-# Default command runs tests against mounted dist
-CMD ["yarn", "test:ember", "--path", "./dist"]
+# Use ember test --server for incremental rebuilds with Broccoli caching
+# First run is slow, subsequent rebuilds are fast
+CMD ["yarn", "ember", "test", "--server"]

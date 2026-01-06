@@ -2,20 +2,24 @@
 # Ensures screenshots match between local development and CI
 #
 # Usage:
-#   1. Build the app on host: yarn build:test
-#   2. Build the Docker image: yarn vizzly:docker:build
-#   3. Start Vizzly TDD server: yarn vizzly:tdd
-#   4. Run tests in container: yarn vizzly:docker
+#   1. Build the Docker image (once): yarn vizzly:docker:build
+#   2. Start Vizzly TDD server: yarn vizzly:tdd
+#   3. Run tests in container: yarn vizzly:docker
 #
-# For baseline from CI build:
-#   npx vizzly tdd start --baseline-build <build-id> --open
+# First run is slow (full build), subsequent runs use Broccoli cache.
+# Edit tests/app on host, re-run yarn vizzly:docker to see changes.
 
 services:
   visual-tests:
     image: ember-osf-web-vizzly
     volumes:
-      # Mount pre-built dist from host
-      - ./dist:/app/dist:ro
+      # Mount source for live editing
+      - ./app:/app/app:ro
+      - ./tests:/app/tests:ro
+      - ./mirage:/app/mirage:ro
+      - ./lib:/app/lib:ro
+      # Persist Broccoli cache for fast rebuilds
+      - vizzly-broccoli-cache:/app/tmp
       # Persist baselines between runs
       - ./.vizzly:/app/.vizzly
     environment:
@@ -26,3 +30,6 @@ services:
       - "host.docker.internal:host-gateway"
     # Shared memory for Chromium browser
     shm_size: '2gb'
+
+volumes:
+  vizzly-broccoli-cache:
