@@ -34,8 +34,8 @@
     "test:blueprints": "mocha node-tests/blueprints",
     "test:node-tests": "mocha 'node-tests/**/*-test.js'",
     "vizzly:tdd": "vizzly tdd start --open",
-    "vizzly:docker": "docker compose -f docker-compose.vizzly.yml run visual-tests",
-    "vizzly:docker:build": "docker build -f Dockerfile.vizzly -t ember-osf-web-vizzly ."
+    "vizzly:docker:build": "docker build -f Dockerfile.vizzly -t ember-osf-vizzly .",
+    "vizzly:docker:test": "docker compose -f docker-compose.vizzly.yml run --rm visual-tests npx ember test --server"
   },
   "husky": {
     "hooks": {
@@ -115,7 +115,8 @@
     "@types/zxcvbn": "^4.4.1",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
-    "@vizzly-testing/ember": "0.0.2",
+    "@vizzly-testing/cli": "^0.22.2",
+    "@vizzly-testing/ember": "^0.0.3",
     "babel-eslint": "^8.0.0",
     "broccoli-asset-rev": "^3.0.0",
     "c3": "^0.6.14",

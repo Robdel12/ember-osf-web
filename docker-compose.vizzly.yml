@@ -11,7 +11,7 @@
 
 services:
   visual-tests:
-    image: ember-osf-web-vizzly
+    image: ember-osf-vizzly
     volumes:
       # Mount source for live editing
       - ./app:/app/app:ro
